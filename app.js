@@ -13,6 +13,7 @@ var course = require('./routes/course');
 var content = require('./routes/content');
 var helmet = require('helmet');
 var compression = require('compression');
+
 var app = express();
 //var ng = require('angular')
 

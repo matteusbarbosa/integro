@@ -2,15 +2,78 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var con = require('../connection');
-var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+router.use(passport.initialize());
+router.use(passport.session());
+
 
 app.use(con);
 
-passport.use(new LocalStrategy(
-	function(username, password, done) {
+passport.use(new LocalStrategy({
+	usernameField: 'username',
+	passwordField: 'password',
+	passReqToCallback: true,
+	session: false
+},
+function(req, username, password, done) {
+    // request object is now first argument
+    // ...
 
-		console.log(con.request.app);
+    var User = req.models.user;
 
+    User.find({ username: username }, function (err, user) {
+
+    	if (err) { return done(err); }
+    	if (!user) { return done(null, false); }
+    	if (!user.password == password) { return done(null, false); }
+
+    	passport.serializeUser(function(user, done) {
+			console.log('serializeUser: ' + user.id)
+			return done(null, user);
+		});
+
+
+    });
+
+
+
+
+}
+));
+
+
+router.get('/',	function (req, res, next) {
+
+	data = {};
+
+	req.models.user.get(1, function(err, user){
+		//console.log(user);
+	});
+
+	res.render('login', data);
+});
+
+router.post('/login',
+	passport.authenticate('local', { failureRedirect: '/login/fail' }),
+	function(req, res) {
+		
+			console.log('auth success'+req.user.id);
+
+		res.redirect('/');
+	});
+
+
+/*
+router.post('/auth', function (req, res, next){
+
+	var data = {};
+
+	passport.use(new LocalStrategy(
+		function(username, password, done) {
+
+			var User = req.models.user;
 
 			User.find({ username: username }, function(err, user) {
 				if (err) { return done(err); }
@@ -20,28 +83,18 @@ passport.use(new LocalStrategy(
 				if (!user.validPassword(password)) {
 					return done(null, false, { message: 'Incorrect password.' });
 				}
+				passport.serializeUser(function(user, done) {
+					done(null, user.id);
+				});
 				return done(null, user);
 			});
-	}
-	));
 
-router.get('/',
-	function (req, res, next) {
+			console.log(User);
+		}
+		));
 
-		data = {};
-
-		req.models.user.get(1, function(err, user){
-			console.log(user);
-		});
-
-		res.render('login', data);
-	});
-
-router.post('/',  passport.authenticate('local'),
-	function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    res.redirect('/users/' + req.user.username);
+	res.redirect('/home');
 });
+*/
 
 module.exports = router;

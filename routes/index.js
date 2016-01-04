@@ -2,8 +2,9 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var con = require('../connection');
+var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 
-router.use(con);
+app.use(con);
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -15,6 +16,13 @@ router.get('/', function (req, res, next) {
     });
 
     console.log('Listagem entregue às ' + req.stamp);
+
+    res.render('index', data);
+});
+
+router.get('/home', function (req, res, next) {
+
+	var data = {};
 
     res.render('sys/index', data);
 });

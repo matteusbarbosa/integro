@@ -1,0 +1,9 @@
+preferred_syntax = :scss
+http_path = 'D:/jsprojects/integro/'
+css_dir = 'public/stylesheets/'
+sass_dir = 'public/stylesheets/sass'
+#images_dir = 'public/assets/img'
+javascripts_dir = 'public/javascripts'
+relative_assets = true
+line_comments = false
+output_style = :compressed
