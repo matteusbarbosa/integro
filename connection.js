@@ -1,9 +1,9 @@
 var express = require('express');
-var router = express.Router();
+var app = express();
 var orm = require('orm');
 
 //orm
-router.use(orm.express("mysql://root@localhost/integro", { define: function (db, models, next) {
+app.use(orm.express("mysql://root@localhost/integro", { define: function (db, models, next) {
 
 		// your main file (after connecting) 
 		db.load("./models", function (err) {
@@ -15,8 +15,6 @@ router.use(orm.express("mysql://root@localhost/integro", { define: function (db,
 
 		});
 
-
-
 }}));
 
-module.exports = router;
+module.exports = app;

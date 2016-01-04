@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var con = require('./connection');
 var login = require('./routes/login');
 var join = require('./routes/join');
 var routes = require('./routes/index');
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var expiryDate = new Date( Date.now() + 60 * 60 * 1000 );
 
+app.use(con);
 app.use(helmet());
 app.use(compression());
 app.use('/', routes);

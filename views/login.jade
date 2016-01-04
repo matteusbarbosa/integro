@@ -1,5 +1,41 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{age}
+
+ .container
+    #pwd-container.row
+        .col-md-4
+        |     
+        |     
+        .col-md-4
+          #form-login
+            form(method='post', action='/login', role='login')
+              img.img-responsive(src='http://www.soma.com.br/wp-content/themes/soma/_/img/soma.png', alt='', class='center-block')
+              h5(class='text-center text-uppercase text-muted') Íntegro
+              |           
+              input.form-control.input-lg(type='username', name='username', placeholder='Usuário', required='', value='admin')
+              |           
+              |           
+              input#password.form-control.input-lg(type='password', name='password',placeholder='Password', required='')
+              |           
+              |           
+              |           
+              .pwstrength_viewport_progress
+              |           
+              |           
+              |      
+              button.btn.btn-lg.btn-primary.btn-block(type='submit', name='go') Login
+              |                
+            |         
+            |       
+            .form-links
+             ul
+              li 
+               a(href='www.soma.com.br') www.soma.com.br
+              li
+               a(href='#') reset password
+              li
+               a(href='#') Create account
+        |       
+        |       
+        .col-md-4

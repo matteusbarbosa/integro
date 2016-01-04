@@ -5,14 +5,6 @@ var con = require('../connection');
 
 router.use(con);
 
-var logScream = function (req, res, next) {
-    req.stamp = Date.now();
-    console.log('index controller');
-    next();
-};
-
-router.use(logScream);
-
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
