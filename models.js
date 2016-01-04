@@ -6,10 +6,10 @@ module.exports = function (db, cb) {
 			return cb(err);
 		}
 
-		db.define('user', {name: String, password: String} , {
+		db.define('user', {username: String, password: String} , {
 			methods: {
-				validPassword: function (password) {
-					return this.password === password;
+				validPassword: function (pw) {
+					return this.password == pw;
 				}
 			}
 		});
