@@ -55,8 +55,7 @@ router.post('/login',
 }),
 	function(req, res, next) {
 
-		next();
-		//res.redirect('/');
+		res.redirect('/');
 	});
 
 app.get('/logout', function(req, res){
@@ -65,38 +64,5 @@ app.get('/logout', function(req, res){
 	req.logout();
 	res.redirect('/');
 });
-
-
-/*
-router.post('/auth', function (req, res, next){
-
-	var data = {};
-
-	passport.use(new LocalStrategy(
-		function(username, password, done) {
-
-			var User = req.models.user;
-
-			User.find({ username: username }, function(err, user) {
-				if (err) { return done(err); }
-				if (!user) {
-					return done(null, false, { message: 'Incorrect username.' });
-				}
-				if (!user.validPassword(password)) {
-					return done(null, false, { message: 'Incorrect password.' });
-				}
-				passport.serializeUser(function(user, done) {
-					done(null, user.id);
-				});
-				return done(null, user);
-			});
-
-			console.log(User);
-		}
-		));
-
-	res.redirect('/home');
-});
-*/
 
 module.exports = router;
