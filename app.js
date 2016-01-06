@@ -8,21 +8,13 @@ var con = require('./connection');
 var login = require('./routes/login');
 var join = require('./routes/join');
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var course = require('./routes/course');
 var content = require('./routes/content');
 var helmet = require('helmet');
 var compression = require('compression');
-
+var session = require('express-session');
 var app = express();
-//var ng = require('angular')
 
-var logScream = function (req, res, next) {
-    req.stamp = Date.now();
-    next();
-};
-
-app.use(logScream);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -35,16 +27,25 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var expiryDate = new Date( Date.now() + 60 * 60 * 1000 );
-
 app.use(con);
+app.set('trust proxy', 1)
+var expiryDate = Date.now() + 60 * 60 * 1000;
+app.use(session({
+/*    genid: function(req) {
+    return expiryDate; // use UUIDs for session IDs
+},*/
+secret: 'integro',
+resave: false,
+saveUninitialized: true,
+cookie: { maxAge: null, secure : false }
+}));
+
 app.use(helmet());
 app.use(compression());
 app.use('/', routes);
 app.use('/login', login);
 app.use('/join', join);
 app.use('/content', content);
-app.use('/users', users);
 app.use('/course', course);
 
 // catch 404 and forward to error handler

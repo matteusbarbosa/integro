@@ -18,5 +18,9 @@
   "description": "Integração de setores SOMA",
   "main": "app.js",
   "author": "Matteus Barbos",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jasmine": "^2.2.1"
+  }
 }

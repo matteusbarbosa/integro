@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
 router.get('/home', function (req, res, next) {
 	var data = {};
 
-	if(req.session.auth === true){
+	if(req.session.auth){
 		res.redirect('/login');
 	}
 
@@ -33,7 +33,7 @@ router.get('/logout', function(req, res){
 
 	req.session.destroy();
 
-	res.redirect('index', data);
+	res.render('index', data);
 });
 
 module.exports = router;

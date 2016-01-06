@@ -1,42 +1,38 @@
 var express = require('express');
-var app = express();
 var router = express.Router();
 var con = require('../connection');
-var passport = require('passport');
-app.use(con);
 
-app.use(passport.initialize());
-app.use(passport.session());
+router.use(con);
 
-passport.serializeUser(function(user, done) {
-	done(null, user);
+router.get('/', function (req, res, next) {
+	var data = {};
+
+	res.render('index', data);
 });
 
-passport.deserializeUser(function(user, done) {
-	done(null, user);
+router.get('/home', function (req, res, next) {
+	var data = {};
+
+	if(req.session.auth !== true){
+		res.redirect('login');
+	} else{
+		res.render('index', data);
+	}
 });
 
-/* GET home page. */
-router.get('/', passport.authenticate('local', { failureRedirect: '/login?fail=1&fromindex=1',
-		successRedirect: '/?success=1&fromindex=1'
-}), function (req, res, next) {
+router.get('/home/redirected/:why', function (req, res, next) {
+	var data = {};
 
-	console.log('log em index');
-	console.log(req.user);
-
-    var data = {};
-
-    req.models.content.get(1, function(err, content){
-        console.log(content);
-    });
-
-    console.log('Listagem entregue às ' + req.stamp);
-
-    res.render('index', data);
+	res.render('index', data);
 });
 
-router.get('/home', function (req, res, next){
-	console.log('sys/home');
+router.get('/logout', function(req, res){
+
+	var data = {};
+
+	req.session.destroy();
+
+	res.render('index', data);
 });
 
 module.exports = router;

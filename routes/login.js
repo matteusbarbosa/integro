@@ -1,68 +1,56 @@
 var express = require('express');
-var app = express();
 var router = express.Router();
 var con = require('../connection');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require('bcrypt-nodejs');
+var session = require('express-session');
 
-router.use(passport.initialize());
-router.use(passport.session());
+router.use(con);
+router.use(session({
+/*    genid: function(req) {
+    return expiryDate; // use UUIDs for session IDs
+},*/
+secret: 'integro',
+resave: false,
+saveUninitialized: true,
+cookie: { maxAge: null, secure : false }
+}));
 
-app.use(con);
-
-passport.use(new LocalStrategy({
-	usernameField: 'username',
-	passwordField: 'password',
-	passReqToCallback: true,
-	session: false
-},
-function(req, username, password, done) {
-    // request object is now first argument
-    // ...
-    var User = req.models.user;
-
-    User.find({ username: username}, function (err, user) {
-
-    	if (err) { return done(err); }
-
-    	if (typeof user[0] === "undefined") { return done(null, false); }
-
-    	if (user[0].validPassword(password) !== true) { return done(null, false); }
-
-    	return done(null,user[0]);
-    });
-}
-));
-
-passport.serializeUser(function(user, done) {
-	done(null, user);
+router.use(function (req, res, next){
+	if(req.session.auth === true){
+		res.redirect('/');
+	} else{
+		next();
+	}
 });
 
-passport.deserializeUser(function(user, done) {
-	done(null, user);
-});
-
-router.get('/',	function (req, res, next) {
-
+router.get('/', function (req, res, next) {
 	data = {};
 
 	res.render('login', data);
 });
 
-router.post('/login',
-	passport.authenticate('local', { failureRedirect: '/login?fail=1',
-		successRedirect: '/?success=1'
-}),
+router.get('/fail/:fail', function (req, res, next) {
+
+	res.render('login', data);
+});
+
+router.post('/authtry',
 	function(req, res, next) {
 
-		res.redirect('/');
-	});
+		req.models.user.find({username : req.body.username}, function(err,data){
+			if(err) throw err;
+			var user = data[0];
 
-app.get('/logout', function(req, res){
-	console.log('log em logout');
-	console.log(req.user);
-	req.logout();
-	res.redirect('/');
-});
+			var result = bcrypt.compareSync(req.body.password, user.password);
+
+			if(result){
+				req.session.userid = user.id;
+				req.session.auth = true;
+				res.redirect('/home');
+			} else{
+				res.redirect('/login/fail/1');
+			}
+		});
+	});
 
 module.exports = router;
