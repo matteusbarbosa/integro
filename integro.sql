@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Copiando dados para a tabela integro.user: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`) VALUES
-	(1, 'Beta', '$2a$10$IlZdwa3nQwad5H4ngW.miOoZfwtFhFJ0lDMcoahPo.Xj2yex79kc6', 'admin', NULL, NULL, NULL, NULL);
+	(1, 'Beta', '$2a$10$IlZdwa3nQwad5H4ngW.miOoZfwtFhFJ0lDMcoahPo.Xj2yex79kc6', 'admin', 'matteusbarbosa2@gmail.com', NULL, NULL, NULL);
 INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`) VALUES
 	(2, 'Alfa', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`) VALUES

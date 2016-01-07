@@ -16,7 +16,7 @@ router.get('/home', function (req, res, next) {
 	if(req.session.auth !== true){
 		res.redirect('login');
 	} else{
-		res.render('index', data);
+		res.render('sys/home', data);
 	}
 });
 

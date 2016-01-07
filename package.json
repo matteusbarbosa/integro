@@ -21,6 +21,7 @@
   "license": "ISC",
   "devDependencies": {
     "gulp": "^3.9.0",
-    "gulp-jasmine": "^2.2.1"
+    "gulp-jasmine": "^2.2.1",
+    "supertest": "^1.1.0"
   }
 }
