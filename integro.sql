@@ -29,13 +29,20 @@ CREATE TABLE IF NOT EXISTS `content` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `metatitle` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `size` tinyint(11) DEFAULT NULL,
+  `size` int(11) DEFAULT NULL,
   `url` text COLLATE utf8_unicode_ci,
+  `timecreated` bigint(15) DEFAULT NULL,
+  `timeupdated` bigint(15) DEFAULT NULL,
+  `timedisabled` bigint(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela integro.content: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela integro.content: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `content` DISABLE KEYS */;
+INSERT INTO `content` (`id`, `title`, `metatitle`, `size`, `url`, `timecreated`, `timeupdated`, `timedisabled`) VALUES
+	(1, 'Testing Content', 'testing-content', 127, 'http://www.soma.com.br/', 1451606400, 1451606400, NULL);
+INSERT INTO `content` (`id`, `title`, `metatitle`, `size`, `url`, `timecreated`, `timeupdated`, `timedisabled`) VALUES
+	(2, 'Testing Content 2', 'testing-content 2', 127, 'http://www.soma.com.br/', 1451606400, 1451606400, NULL);
 /*!40000 ALTER TABLE `content` ENABLE KEYS */;
 
 
@@ -48,10 +55,12 @@ CREATE TABLE IF NOT EXISTS `course` (
   `timestart` int(11) DEFAULT NULL,
   `timeend` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela integro.course: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela integro.course: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
+INSERT INTO `course` (`id`, `name`, `metaname`, `dailyround`, `timestart`, `timeend`) VALUES
+	(1, 'Extensivo MAX', 'extensivo-max', 'manha', 1451606400, NULL);
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 
 
@@ -62,10 +71,16 @@ CREATE TABLE IF NOT EXISTS `discipline` (
   PRIMARY KEY (`id`),
   KEY `FK_discipline_course` (`courseid`),
   CONSTRAINT `FK_discipline_course` FOREIGN KEY (`courseid`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela integro.discipline: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela integro.discipline: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `discipline` DISABLE KEYS */;
+INSERT INTO `discipline` (`id`, `courseid`) VALUES
+	(1, 1);
+INSERT INTO `discipline` (`id`, `courseid`) VALUES
+	(2, 1);
+INSERT INTO `discipline` (`id`, `courseid`) VALUES
+	(3, 1);
 /*!40000 ALTER TABLE `discipline` ENABLE KEYS */;
 
 
