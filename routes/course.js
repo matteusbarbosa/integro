@@ -1,9 +1,9 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-var con = require('../connection');
+var bookshelf = require('../bookshelf').plugin('registry');
 
-router.use(con);
+
 
 router.get('/', function (req, res, next) {
 	var data = {};

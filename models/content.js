@@ -1,13 +1,9 @@
-module.exports = function (db, cb) {
-
-	db.define('content', {username: String, password: String} , {
-		methods: {
-			validPassword: function (pw) {
-				return this.password == pw;
-			}
-		}
-	});
-
-	return cb();
-
-};
+var user = require('./user');
+var discipline = require('./discipline');
+var bookshelf = require('../bookshelf').plugin('registry');
+module.exports = Bookshelf.plugin('registry').model('content', {
+	tableName: 'content',
+	discipline: function() {
+		return this.belongsTo('discipline');
+	}
+});

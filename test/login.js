@@ -1,5 +1,5 @@
 var test = require('unit.js');
-var con = require('../connection');
+var bookshelf = require('../bookshelf').plugin('registry');
 
 var example = 'hello';
 

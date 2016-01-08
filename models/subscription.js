@@ -1,8 +1,8 @@
 var user = require('./user');
 var bookshelf = require('../bookshelf').plugin('registry');
-module.exports = bookshelf.model('role', {
-	tableName: 'role',
+module.exports = bookshelf.model('subscription', {
+	tableName: 'subscription',
 	user: function() {
-		return this.hasMany('user');
+		return this.belongsTo('user');
 	}
 });

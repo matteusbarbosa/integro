@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var con = require('../connection');
+var bookshelf = require('../bookshelf').plugin('registry');
 
-router.use(con);
+
 
 router.get('/', function (req, res, next) {
 	var data = {};
@@ -11,13 +11,14 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/home', function (req, res, next) {
-	var data = {};
-
 	if(req.session.auth !== true){
-		res.redirect('login');
+		res.redirect('/login');
 	} else{
 		res.render('sys/home', data);
 	}
+
+		var data = {};
+
 });
 
 router.get('/home/redirected/:why', function (req, res, next) {

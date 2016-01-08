@@ -1,7 +1,9 @@
 var nodemailer = require('nodemailer');
 var mail = 'contato@desenvolvedormatteus.com.br';
+var mailpw = '84090762';
+var mailhost = 'mx1.hostinger.com.br';
 var siteroot = 'http://localhost:3000';
-var transporter = nodemailer.createTransport('smtps://contato@desenvolvedormatteus.com.br:84090762@mx1.hostinger.com.br');
+var transporter = nodemailer.createTransport('smtps://'+mail+':'+mailpw+'@'+mailhost);
 
 module.exports = {
 

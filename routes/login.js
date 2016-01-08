@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var con = require('../connection');
+var bookshelf = require('bookshelf');
 var bcrypt = require('bcrypt-nodejs');
 var session = require('express-session');
 
-router.use(con);
+var user = require('../models/user');
+
 router.use(session({
 /*    genid: function(req) {
     return expiryDate; // use UUIDs for session IDs
@@ -37,11 +38,9 @@ router.get('/fail/:fail', function (req, res, next) {
 router.post('/authtry',
 	function(req, res, next) {
 
-		req.models.user.find({username : req.body.username}, function(err,data){
-			if(err) throw err;
-			var user = data[0];
-
-			var result = bcrypt.compareSync(req.body.password, user.password);
+		var User = user.where('id', 1).fetch().then(function(){
+	});
+			var result = bcrypt.compareSync(req.body.password, User.password);
 
 			if(result){
 				req.session.userid = user.id;
@@ -50,7 +49,8 @@ router.post('/authtry',
 			} else{
 				res.redirect('/login/fail/1');
 			}
-		});
+
+	
 	});
 
 module.exports = router;

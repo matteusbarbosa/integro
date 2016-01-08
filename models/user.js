@@ -1,13 +1,8 @@
-module.exports = function (db, cb) {
-
-	db.define('user', {username: String, password: String, email : String} , {
-		methods: {
-			validPassword: function (pw) {
-				return this.password == pw;
-			}
-		}
-	});
-
-	return cb();
-
-};
+var subscription = require('./subscription');
+var bookshelf = require('../bookshelf').plugin('registry');
+module.exports = bookshelf.model('user', {
+  tableName: 'user',
+  subscription: function() {
+    return this.hasMany('subscription');
+  }
+});

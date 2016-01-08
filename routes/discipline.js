@@ -1,9 +1,9 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-var con = require('../connection');
+var bookshelf = require('../bookshelf').plugin('registry');
 
-router.use(con);
+
 
 router.get('/', function (req, res, next) {
 	var data = {};
@@ -27,13 +27,24 @@ router.get('/home/redirected/:why', function (req, res, next) {
 	res.render('index', data);
 });
 
-router.get('/logout', function(req, res){
-
+router.get('/:id/contents/json', function (req, res, next) {
 	var data = {};
 
-	req.session.destroy();
+	var Discipline = req.models.discipline;
 
-	res.render('index', data);
+	Discipline.get(req.params.id, function (err, discipline){
+
+		var Content = discipline.getContents(function (err, contents) {
+			
+		});
+	});
+
+	if(req.session.auth !== true){
+		res.redirect('/login');
+	} else{
+		res.status(200).json(data);
+	}
+
 });
 
 module.exports = router;

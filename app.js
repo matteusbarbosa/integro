@@ -4,12 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var con = require('./connection');
 var login = require('./routes/login');
 var recovery = require('./routes/recovery');
 var join = require('./routes/join');
 var routes = require('./routes/index');
 var course = require('./routes/course');
+var discipline = require('./routes/discipline');
 var content = require('./routes/content');
 var helmet = require('helmet');
 var compression = require('compression');
@@ -29,7 +29,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(con);
 app.set('trust proxy', 1)
 
 app.use(session({
@@ -43,17 +42,6 @@ cookie: { maxAge: null, secure : false }
 }));
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
-app.set('cfg', { 
-    list : 15,
-    secret : 'integro',
-    mail : 'contato@desenvolvedormatteus.com.br',
-    mailpw : '84090762',
-    mailhost : 'mx1.hostinger.com.br',
-    root : 'http://localhost:3000/',
-    maildata : 'smtps://contato@desenvolvedormatteus.com.br:84090762@mx1.hostinger.com.br'
-});
-
 app.use(helmet());
 app.use(compression());
 app.use('/', routes);
@@ -62,6 +50,7 @@ app.use('/login', login);
 app.use('/join', join);
 app.use('/content', content);
 app.use('/course', course);
+app.use('/discipline', discipline);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

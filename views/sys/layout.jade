@@ -1,10 +1,15 @@
 doctype html
-html(lang='pt-BR' ng-app)
+html(lang='pt-BR')
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
-  body(ng-app)
+    script(src="/javascripts/jquery-2.1.4.min.js")
+    script(src="/javascripts/bootstrap.min.js")
+    script(src="/javascripts/angular.min.js")
+    script(src="/ng/ngapp.js")
+  body(ng-app="integro")
     include partials/header
-    .container-fluid
+    .container-fluid#page-content
         block content
+    include partials/footer

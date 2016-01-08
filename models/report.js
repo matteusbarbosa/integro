@@ -1,13 +1,4 @@
-module.exports = function (db, cb) {
-
-	db.define('report', {username: String, password: String} , {
-		methods: {
-			validPassword: function (pw) {
-				return this.password == pw;
-			}
-		}
-	});
-
-	return cb();
-
-};
+var bookshelf = require('../bookshelf').plugin('registry');
+module.exports = bookshelf.model('report', {
+	tableName: 'report'
+});

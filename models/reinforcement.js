@@ -1,13 +1,8 @@
-module.exports = function (db, cb) {
-
-	db.define('reinforcement', {username: String, password: String} , {
-		methods: {
-			validPassword: function (pw) {
-				return this.password == pw;
-			}
-		}
-	});
-
-	return cb();
-
-};
+var discipline = require('./discipline');
+var bookshelf = require('../bookshelf').plugin('registry');
+module.exports = bookshelf.model('reinforcement', {
+  tableName: 'reinforcement',
+  discipline: function() {
+    return this.belongsTo('discipline');
+  }
+});

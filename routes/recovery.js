@@ -1,13 +1,13 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-var con = require('../connection');
+var bookshelf = require('../bookshelf').plugin('registry');
 var session = require('express-session');
 var nodemailer = require('nodemailer');
 var bcrypt = require('bcrypt-nodejs');
 var mail = require('../mail');
 
-router.use(con);
+
 
 router.use(session({
 /*    genid: function(req) {
