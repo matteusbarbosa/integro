@@ -1,0 +1,23 @@
+extends ../layout
+block content
+ .container
+    .row
+        .col-sm-4
+        |     
+        |     
+        .col-sm-4
+          #form-login
+            form(method='post', action='/recovery/sendmail', role='login')
+              img.img-responsive(src='http://www.soma.com.br/wp-content/themes/soma/_/img/soma.png', alt='', class='center-block')
+              h5(class='text-center text-uppercase text-muted') Íntegro
+              label Recuperar Senha           
+              input.form-control.input-lg(type='username', name='username', placeholder='Usuário', required='', value='admin')
+              |           
+              |           
+              |           
+              .pwstrength_viewport_progress
+              |           
+              |           
+              |      
+              button.btn.btn-lg.btn-primary.btn-block(type='submit', data-toggle='modal', data-target='#loading') Enviar email
+ include ../partials/_loading

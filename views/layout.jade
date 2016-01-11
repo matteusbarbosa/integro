@@ -1,9 +1,17 @@
 doctype html
 html(lang='pt-BR' ng-app)
   head
-    title= title
+    title=title
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="/javascripts/jquery-2.1.4.min.js")
+    script(src="/javascripts/bootstrap.min.js")
+    script(src="/javascripts/angular.min.js")
+    script(src="/ng/ngapp.js")
   body(ng-app ng-controller="MyController")
     .container-fluid
-        block content
+     .row
+      .col-sm-12
+       include partials/_notify
+     block content
+  include partials/_footer

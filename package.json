@@ -25,5 +25,9 @@
     "gulp": "^3.9.0",
     "gulp-jasmine": "^2.2.1",
     "supertest": "^1.1.0"
+  },
+  "scripts" : {
+      "test" : "mocha test",
+      "start" : "node ./bin/www"
   }
 }

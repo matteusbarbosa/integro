@@ -4,6 +4,7 @@ var bookshelf = require('bookshelf');
 var bcrypt = require('bcrypt-nodejs');
 var session = require('express-session');
 
+//models
 var user = require('../models/user');
 
 router.use(session({
@@ -27,18 +28,18 @@ router.use(function (req, res, next){
 router.get('/', function (req, res, next) {
 	data = {};
 
-	res.render('login', data);
+	res.render('auth/login', data);
 });
 
 router.get('/fail/:fail', function (req, res, next) {
 
-	res.render('login', data);
+	res.render('auth/login', data);
 });
 
 router.post('/authtry',
 	function(req, res, next) {
 
-		var User = user.where('id', 1).fetch().then(function(){
+		var User = user.where('username', req.body.username).fetch().then(function(){
 	});
 			var result = bcrypt.compareSync(req.body.password, User.password);
 

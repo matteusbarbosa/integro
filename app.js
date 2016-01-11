@@ -13,7 +13,6 @@ var discipline = require('./routes/discipline');
 var content = require('./routes/content');
 var helmet = require('helmet');
 var compression = require('compression');
-var session = require('express-session');
 var app = express();
 var expiryDate = Date.now() + 60 * 60 * 1000;
 
@@ -29,19 +28,18 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.set('trust proxy', 1)
-
-app.use(session({
-/*    genid: function(req) {
-    return expiryDate; // use UUIDs for session IDs
-},*/
-secret: 'integro',
-resave: false,
-saveUninitialized: true,
-cookie: { maxAge: null, secure : false }
-}));
-
+app.set('trust proxy', 1);
+app.set('cfg', { 
+    list : 15,
+    secret : 'integro',
+    mail : 'contato@desenvolvedormatteus.com.br',
+    mailpw : '84090762',
+    mailhost : 'mx1.hostinger.com.br',
+    root : 'http://localhost:3000/',
+    maildata : 'smtps://contato@desenvolvedormatteus.com.br:84090762@mx1.hostinger.com.br'
+});
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 app.use(helmet());
 app.use(compression());
 app.use('/', routes);
