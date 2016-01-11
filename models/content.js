@@ -1,6 +1,6 @@
 var user = require('./user');
 var discipline = require('./discipline');
-var bookshelf = require('../bookshelf').plugin('registry');
+var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 module.exports = Bookshelf.plugin('registry').model('content', {
 	tableName: 'content',
 	discipline: function() {

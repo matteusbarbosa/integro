@@ -1,10 +1,13 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-var bookshelf = require('../bookshelf').plugin('registry');
+var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 var session = require('express-session');
 var bcrypt = require('bcrypt-nodejs');
-var mail = require('../mail');
+var mail = require('../custom_modules/mail');
+var crc32 = require('js-crc').crc32;
+var date = require('../custom_modules/date');
+var strftime = date.timezone(-180);
 //models
 var user = require('../models/user');
 router.use(session({
@@ -25,6 +28,7 @@ router.use(function test(req, res, next) {
 });
 router.get('/', function (req, res, next) {
     data = {};
+
     res.render('auth/recovery', data);
 });
 router.get('/fail/:fail', function (req, res, next) {
@@ -39,13 +43,16 @@ router.post('/sendmail', function (req, res, next) {
             throw 'not-found';
         }
 
-        var mailsent = mail.recovery(user);
+        //defina o número para recuperação
+        var recoveryhash = crc32(user.attributes.username + ':' + user.attributes.email);
+
+        var mailsent = mail.recovery(user, recoveryhash);
 
         mailsent.then(function (val) {
             if (val.accepted) {
                 var data = {
                     messages: {
-                        success: 'Email enviado'
+                        success: 'Email enviado às ' + date('%H\h:%M\m', new Date(Date.now()))
                     }
                 };
                 res.render('index', data);
@@ -61,19 +68,72 @@ router.post('/sendmail', function (req, res, next) {
     });
 });
 
-router.get('/validate', function (req, res, next) {
+router.get('/validate/:username/:recoveryhash', function (req, res, next) {
 
-    var data = {
-        messages: {
-            success: 'Redefina sua senha.'
+    user.where('username', req.params.username).fetch().then(function (user) {
+
+        if (typeof user === "undefined") {
+            throw 'not-found';
         }
-    };
-    res.render('auth/recoveryvalidate', data);
+
+        var validhash = crc32(user.attributes.username + ':' + user.attributes.email);
+
+        if (validhash !== req.params.recoveryhash) {
+            var data = {
+                messages: {
+                    error: 'Hash inválida.'
+                }
+            };
+            res.render('auth/login', data);
+        }
+
+        var data = {
+            messages: {
+                success: 'Hash válida. Defina sua nova senha.'
+            },
+            user: user,
+            hash : req.params.recoveryhash
+        };
+
+        res.render('auth/passwordchange', data);
+
+    });
 });
+
 router.post('/confirm', function (req, res, next) {
 
-    data = {};
-    data.message.success = 'Recuperação efetivada.';
-    res.render('auth/login', data);
+    user.where('username', req.body.username).fetch().then(function (user) {
+        if (typeof user === "undefined") {
+            throw 'not-found';
+        }
+        
+        user.password = bcrypt.hashSync(req.body.password);
+        
+        user.save().then(function (usersaved) {
+
+            var mailsent = mail.passwordchanged(user);
+            mailsent.then(function (val) {
+                var validhash = crc32(user.attributes.username + ':' + user.attributes.email);
+                if (validhash !== req.body.recoveryhash) {
+                    var data = {
+                        messages: {
+                            error: 'Solicitação inválida.'
+                        }
+                    };
+                    res.render('auth/login', data);
+                }
+                
+                var data = {
+                    messages: {
+                        success: 'Senha alterada às ' + date('%H\h:%M\m', new Date(Date.now()))
+                    },
+                    user: user
+                };
+                res.render('auth/passwordchange', data);
+
+            });
+        });
+    });
 });
+
 module.exports = router;

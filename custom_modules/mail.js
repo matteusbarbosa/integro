@@ -6,13 +6,26 @@ var siteroot = 'http://localhost:3000';
 var transporter = nodemailer.createTransport('smtps://' + mail + ':' + mailpw + '@' + mailhost);
 
 module.exports = {
-    recovery: function (userto) {
+    recovery: function (userto, recoverynumber) {
+        
         var maildata = {
             to: userto.attributes.email,
             from: mail,
             subject: '✔ Recuperação de senha', // Subject line 
-            text: 'Registramos uma solicitação apra recuperação de senha.', // plaintext body 
-            html: '<b><a href="' + siteroot + '/recovery/validate">✔ Clique aqui</a> para prosseguir e redefinir sua senha.</b>'
+            text: 'Registramos uma solicitação para recuperação de senha.', // plaintext body
+            html: '<b><a href="' + siteroot + '/recovery/validate/'+userto.attributes.username+'/'+recoverynumber+'">✔ Clique aqui</a> para prosseguir e redefinir sua senha.</b>'
+        }; // html body 
+
+        return transporter.sendMail(maildata);
+    },
+    passwordchanged: function (userto) {
+        
+        var maildata = {
+            to: userto.attributes.email,
+            from: mail,
+            subject: '✔ Mudança de senha', // Subject line 
+            text: 'Sua senha foi atualizada, como solicitado.', // plaintext body
+            html: '<b><a href="' + siteroot + '/login">✔ Clique aqui</a> para fazer login no sistema.</b>'
         }; // html body 
 
         return transporter.sendMail(maildata);
