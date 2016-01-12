@@ -23,7 +23,7 @@ module.exports = {
         var maildata = {
             to: userto.attributes.email,
             from: mail,
-            subject: '✔ Mudança de senha', // Subject line 
+            subject: '✔ Senha modificada', // Subject line 
             text: 'Sua senha foi atualizada, como solicitado.', // plaintext body
             html: '<b><a href="' + siteroot + '/login">✔ Clique aqui</a> para fazer login no sistema.</b>'
         }; // html body 

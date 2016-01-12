@@ -2,9 +2,8 @@
   "name": "integro",
   "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "start": "node ./bin/www"
-  },
+  "description" : "Sistema Íntegro de Informações do SOMA",
+  "repository" : "https://matteusbarbosa@bitbucket.org/matteusbarbosa/ntegro.git",
   "dependencies": {
     "body-parser": "~1.13.2",
     "bookshelf": "^0.9.1",
@@ -15,19 +14,30 @@
     "jade": "~1.11.0",
     "knex": "^0.9.0",
     "morgan": "~1.6.1",
-    "serve-favicon": "~2.3.0"
-  },
-  "description": "Integração de setores SOMA",
-  "main": "app.js",
-  "author": "Matteus Barbos",
-  "license": "ISC",
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-jasmine": "^2.2.1",
-    "supertest": "^1.1.0"
-  },
-  "scripts" : {
-      "test" : "mocha test",
-      "start" : "node ./bin/www"
-  }
-}
+    "serve-favicon": "~2.3.0",
+    "angular2": "2.0.0-beta.0",
+    "systemjs": "0.19.6",
+    "es6-promise": "^3.0.2",
+    "es6-shim": "^0.33.3",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.0",
+    "zone.js": "0.5.10"
+    },
+    "devDependencies" : {
+      "lite-server": "^1.3.1"
+      },
+      "description": "Integração de setores SOMA",
+      "main": "app.js",
+      "author": "Matteus Barbos",
+      "license": "ISC",
+      "devDependencies": {
+        "gulp": "^3.9.0",
+        "gulp-jasmine": "^2.2.1",
+        "supertest": "^1.1.0"
+        },
+        "scripts" : {
+          "test" : "mocha test",
+          "lite": "lite-server",
+          "start": "\"node ./bin/www concurrent \"npm run lite\" "
+        }
+      }

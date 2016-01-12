@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var login = require('./routes/login');
 var recovery = require('./routes/recovery');
 var join = require('./routes/join');
-var routes = require('./routes/index');
+var index = require('./routes/index');
 var course = require('./routes/course');
 var discipline = require('./routes/discipline');
 var content = require('./routes/content');
@@ -27,6 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/es6-shim', express.static(__dirname + '/node_modules/es6-shim/'));
 
 app.set('trust proxy', 1);
 app.set('cfg', { 
@@ -42,7 +43,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 app.use(helmet());
 app.use(compression());
-app.use('/', routes);
+app.use('/', index);
 app.use('/recovery', recovery);
 app.use('/login', login);
 app.use('/join', join);

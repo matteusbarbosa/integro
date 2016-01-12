@@ -1,14 +1,18 @@
 doctype html
-html(lang='pt-BR' ng-app)
+html(lang='pt-BR' ng-app="integro")
   head
-    title=title
+    title SOMA
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src="/javascripts/jquery-2.1.4.min.js")
     script(src="/javascripts/bootstrap.min.js")
-    script(src="/javascripts/angular.min.js")
-    script(src="/ng/ngapp.js")
-  body(ng-app ng-controller="MyController")
+    script(src="/es6-shim/es6-shim.js")
+    script(src="https://code.angularjs.org/2.0.0-beta.0/angular2-polyfills.js")
+    script(src="https://code.angularjs.org/2.0.0-beta.0/Rx.umd.js")
+    script(src="https://code.angularjs.org/2.0.0-beta.0/angular2-all.umd.dev.js")
+    script(src="/ng/app.component.js")
+    script(src="/ng/boot.js")
+  body(ng-controller="IntegroController")
     .container-fluid
      .row
       .col-sm-12
