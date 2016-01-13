@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var reflectmetadata = require('reflect-metadata');
+var nghttp = require('angular2/http');
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 var session = require('express-session');
+
 router.use(session({
     /*    genid: function(req) {
      return expiryDate; // use UUIDs for session IDs
@@ -26,6 +29,8 @@ router.use(function (req, res, next) {
 
 router.get('/', function (req, res, next) {
 	var data = {};
+
+	console.log(nghttp);
 
 	res.render('index', data);
 });

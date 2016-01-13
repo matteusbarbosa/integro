@@ -28,9 +28,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/es6-shim', express.static(__dirname + '/node_modules/es6-shim/'));
+app.use('/angular2', express.static(__dirname + '/node_modules/angular2/bundles/'));
 
 app.set('trust proxy', 1);
-app.set('cfg', { 
+app.set('cfg', {
     list : 15,
     secret : 'integro',
     mail : 'contato@desenvolvedormatteus.com.br',

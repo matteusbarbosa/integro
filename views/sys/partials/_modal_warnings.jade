@@ -1,33 +1,13 @@
-if warnings
- #warningss.modal.show(tabindex='-1', role='dialog', aria-labelledby='warningsLabel')
-  .modal-dialog(role='document')
-    .modal-content
-      .modal-header
-       button.close(type='button', data-dismiss='modal', aria-label='Close')
-        span(aria-hidden='true') ×
-       h4#warningsLabel.modal-title
-        Notícias & Avisos
-      .modal-body
-       .table-responsive
-        table(ng-controller='table-warnings')
-         thead
-          tr
-           th
-           th
-           th
-           th
-           th
-         tbody
-          tr(ng-repeat="content in contents")
-           td {{ content.name }}
-           td {{ content.discipline.name }}
-           td {{ content.date }}
-         tfoot
-          tr
-           td
-           td
-           td
-           td
-           td
-      .modal-footer
-       button.btn.btn-default(type='button', data-dismiss='modal') Fechar
+#warnings.modal.show(tabindex='-1', role='dialog', aria-labelledby='warningsLabel')
+ .modal-dialog(role='document')
+  .modal-content
+   .modal-header
+    button.close(type='button', data-dismiss='modal', aria-label='Close')
+     span(aria-hidden='true') ×
+    h4#warningsLabel.modal-title Notícias & Avisos
+   .modal-body
+    warnings
+     ul
+      li(*ng-for="#warning of listings") {{ warning }}
+   .modal-footer
+    button.btn.btn-default(type='button', data-dismiss='modal') Fechar

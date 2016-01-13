@@ -3,5 +3,6 @@ extends layout
 block content
  h1= title
   p Welcome to #{title}
-  integro
-   p Carregando...
+  frontpage
+   input(type="text", #varname)
+   {{ varname.value }}
