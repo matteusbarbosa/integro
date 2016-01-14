@@ -28,7 +28,7 @@
       },
       "description": "Integração de setores SOMA",
       "main": "app.js",
-      "author": "Matteus Barbos",
+      "author": "Matteus Barbosa",
       "license": "ISC",
       "devDependencies": {
         "gulp": "^3.9.0",
@@ -38,6 +38,6 @@
         "scripts" : {
           "test" : "mocha test",
           "lite": "lite-server",
-          "start": "\"node ./bin/www concurrent \"npm run lite\" "
+          "start": "\"node ./bin/www --harmony concurrent \"npm run lite\" "
         }
       }

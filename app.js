@@ -8,9 +8,11 @@ var login = require('./routes/login');
 var recovery = require('./routes/recovery');
 var join = require('./routes/join');
 var index = require('./routes/index');
+var frontpage = require('./routes/frontpage');
 var course = require('./routes/course');
 var discipline = require('./routes/discipline');
 var content = require('./routes/content');
+var warning = require('./routes/warning');
 var helmet = require('helmet');
 var compression = require('compression');
 var app = express();
@@ -27,8 +29,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/es6-shim', express.static(__dirname + '/node_modules/es6-shim/'));
 app.use('/angular2', express.static(__dirname + '/node_modules/angular2/bundles/'));
+app.use('/bw', express.static(__dirname + '/bower_components/'));
 
 app.set('trust proxy', 1);
 app.set('cfg', {
@@ -45,10 +47,12 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 app.use(helmet());
 app.use(compression());
 app.use('/', index);
+app.use('/frontpage', frontpage);
 app.use('/recovery', recovery);
 app.use('/login', login);
 app.use('/join', join);
 app.use('/content', content);
+app.use('/warning', warning);
 app.use('/course', course);
 app.use('/discipline', discipline);
 

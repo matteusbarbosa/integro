@@ -1,0 +1,6 @@
+ul
+ each val in modules
+  li=val
+ p(*ngIf="listings.length > 1") Existem itens na lista
+ ul
+  li(*ngFor="#item of listings") {{ item }}

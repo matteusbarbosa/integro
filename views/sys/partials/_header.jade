@@ -1,61 +1,45 @@
-nav.navbar.navbar-default
-    .container-fluid
-        .navbar-header
-          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
-            span.sr-only Toggle navigation
-            |               
-            span.icon-bar
-            |               
-            span.icon-bar
-            |               
-            span.icon-bar
-          |             
-          a.navbar-brand(href='/') Íntegro
-        |           
-        #navbar.navbar-collapse.collapse
-          ul.nav.navbar-nav
-            li.active
-              a(href='#') Materiais
-            |               
-            li
-              a(href='#') Simulados
-            |               
-            li
-              a(href='#') Monitorias
-            |               
-            li.dropdown
-              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                | Dropdown 
-                span.caret
-              |                 
-              ul.dropdown-menu
-                li
-                  a(href='#') Action
-                |                   
-                li
-                  a(href='#') Another action
-                |                   
-                li
-                  a(href='#') Something else here
-                |                   
-                li.divider(role='separator')
-                |                   
-                li.dropdown-header Nav header
-                |                   
-                li
-                  a(href='#') Separated link
-                |                   
-                li
-                  a(href='#') One more separated link
-          |             
-          ul.nav.navbar-nav.navbar-right
-            li.dropdown
-              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                | Sessão
-                span.caret
-              |                 
-              ul.dropdown-menu
-                li
-                  a(href='/profile') Ficha
-                li
-                  a(href='/logout') Logout             
+.container-fluid
+ .navbar-header
+    button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar")
+     i.fa.fa-list.text-primary
+    a.navbar-brand(href="/") Íntegro
+ #navbar.navbar-collapse.collapse
+   ul.nav.navbar-nav
+    li
+     a(href="/contents") Conteúdos
+    li
+     a(href="/warnings") Avisos
+    li
+     a(href="/examinations") Simulados
+    li
+     a(href="/reinforcements") Monitorias
+    li
+     a(href="/classoptional") Aulas Opcionais
+   ul.nav.navbar-nav.navbar-right
+    li.dropdown
+     a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false")
+        | Ajuda
+        span.caret
+      ul.dropdown-menu
+        li
+         a(href="#") Action
+        li
+         a(href="#") Another action
+        li
+         a(href="#") Something else here
+        li.divider(role="separator")
+        li.dropdown-header Nav header
+        li
+         a(href="#") Separated link
+        li
+         a(href="#") One more separated link
+    li.active
+     a(href="http://www.soma.com.br", target="_blank", title="Acesso ao website")
+      strong.text-success
+       u
+        | SOMA
+     span.sr-only (current)
+    li
+     a(href="../logout", title="Sair")
+      i.fa.fa-sign-out.text-danger
+      Logout

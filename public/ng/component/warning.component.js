@@ -2,6 +2,7 @@
 
 	app.WarningsListComponent = ng.core.Component({
 		selector : 'warnings',
+                templateUrl : '/warning/list'
 	})
 	.Class({
 		/* Comportamento vinculado à view */
@@ -9,18 +10,5 @@
 			this.listings = ["Um", "Dois"];
 		}
 	});
-
-	app.WarningsListComponent.annotations = [
-
-	new ng.core.ComponentAnnotation({
-		selector: "warnings"
-	}),
-
-	new ng.core.ViewAnnotation({
-		directives : [ng.ngFor],
-		template : '<h1>Componente warnings</h1>'
-	})
-
-	];
-
+        
 })(window.app || (window.app = {}));
