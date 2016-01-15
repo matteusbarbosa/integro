@@ -1,4 +1,4 @@
-#warnings.modal.show(tabindex='-1', role='dialog', aria-labelledby='warningsLabel')
+#warnings.modal.fade(tabindex='-1', role='dialog', aria-labelledby='warningsLabel')
  .modal-dialog(role='document')
   .modal-content
    .modal-header
@@ -6,8 +6,7 @@
      span(aria-hidden='true') ×
     h4#warningsLabel.modal-title Notícias & Avisos
    .modal-body
+    //ng render warningslist
     warnings
-     ul
-      li(*ngFor="#warning of listings") {{ warning }}
    .modal-footer
     button.btn.btn-default(type='button', data-dismiss='modal') Fechar

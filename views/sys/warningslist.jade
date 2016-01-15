@@ -1,4 +1,13 @@
-block content
-  ul
-   each item in warnings
-    li= item
+form
+    input.form-control(type="search", placeholder="Pesquisa", name="searchwarnings", [value]="", title="", (keyup)="search()", [(ngModel)]="search.query")
+    i.text-muted X Resultados para {{ search.query }}
+dl
+ - console.log(searchlist)
+ .search-result(*ngFor="#item of searchlist") 
+  dt {{ item.title }}
+  dl {{ item.details }}
+
+dl
+for item, key in warnings
+ dt= item.title
+ dl= item.details
