@@ -22,7 +22,7 @@ router.get('/list', function (req, res, next) {
         var data = {
             warnings: warningdata.toJSON()
         };
-
+        
         res.render('sys/warningslist', data);
     });
     // data.warnings	

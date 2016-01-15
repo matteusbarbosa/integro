@@ -14,6 +14,7 @@ var discipline = require('./routes/discipline');
 var content = require('./routes/content');
 var warning = require('./routes/warning');
 var helmet = require('helmet');
+var typescript = require('typescript');
 var compression = require('compression');
 var app = express();
 var expiryDate = Date.now() + 60 * 60 * 1000;
@@ -29,8 +30,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/angular2', express.static(__dirname + '/node_modules/angular2/bundles/'));
-app.use('/bw', express.static(__dirname + '/bower_components/'));
+app.use('/angular2', express.static(__dirname + '/node_modules/angular2/'));
+app.use('/angular2bundles', express.static(__dirname + '/node_modules/angular2/bundles/'));
+app.use('/bw', express.static(__dirname + '/node_modules/es6-shim/'));
+app.use('/sysjs', express.static(__dirname + '/node_modules/systemjs/dist/'));
+app.use('/traceur', express.static(__dirname + '/node_modules/traceur/bin/'));
 
 app.set('trust proxy', 1);
 app.set('cfg', {
