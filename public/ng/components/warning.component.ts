@@ -1,29 +1,38 @@
-import {Component, Injectable, Inject} from 'angular2/core';
-import {NgFor} from 'angular2/common';
-import {HTTP_PROVIDERS, Http} from 'angular2/http';
+import {Component, Inject} from 'angular2/core';
+import {NgFor, NgIf, FORM_DIRECTIVES} from 'angular2/common';
+import {Http, HTTP_PROVIDERS} from 'angular2/http';
 
 @Component({
-	selector: 'warnings',
-	providers: [HTTP_PROVIDERS],
-	viewProviders: [HTTP_PROVIDERS],
-	templateUrl: '/warning/list',
-	directives: [NgFor]    
+    selector: 'warnings',
+    templateUrl: '/warning/list',
+    viewProviders: [HTTP_PROVIDERS, FORM_DIRECTIVES],
+    directives: [NgFor, NgIf]
 })
 
-export class WarningsComponent { 
+export class WarningsComponent {
+    
+    searchresults = {}
+    searchquery
+    http
+    
 
-	constructor(@Inject(Http) http: Http){
-		this.http = http;
-	},
+    constructor(@Inject(Http) http: Http) {
+        
+        this.http = http;
+    }
 
-	search(){
+    search() {
+            
+            this.http.get('warning/search/'+this.searchquery).subscribe(res => {
+               this.searchresults = res.json();
+            });
+            
+            console.log(this.searchquery);
+            console.log(this.searchresults);
+            
+            return this.searchresults;
 
-		if(this.searchquery.length > 0){
-			this.http.get('/warning/search/'+this.searchquery)
-			.subscribe(searchresults => this.searchresults = searchresults);
-			console.log(this);
-		}
-	},
-	add(){},
-	remove(){}
+    }
+    add() { }
+    remove() { }
 }

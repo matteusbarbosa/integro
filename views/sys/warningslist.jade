@@ -1,12 +1,9 @@
 form
     input.form-control(type="search", placeholder="Pesquisa", name="searchwarnings", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="searchquery")
-    i.text-muted X Resultados para {{ searchquery }}
-dl
- - console.log(searchresults)
- .search-result( *ngFor="#item of searchresults") 
-  dt {{ item.title }}
-  dl {{ item.details }}
-
+    i.text-muted {{ searchresults.length }} Resultados para {{ searchquery }}
+ul(*ngIf="searchresults.length > 0")
+ li(*ngFor="#item of searchresults")
+  a.text-primary(href="{{ item.url }}", target="_blank") {{ item.title }}
 dl
 for item, key in warnings
  dt= item.title

@@ -31,20 +31,22 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/angular2', express.static(__dirname + '/node_modules/angular2/'));
-app.use('/bw', express.static(__dirname + '/node_modules/es6-shim/'));
-app.use('/sysjs', express.static(__dirname + '/node_modules/systemjs/dist/'));
-app.use('/ts', express.static(__dirname + '/node_modules/typescript/'));
+app.use('/angular2js', express.static(__dirname + '/node_modules/angular2/bundles/'));
+app.use('/es6-shim', express.static(__dirname + '/node_modules/es6-shim/'));
+app.use('/systemjs', express.static(__dirname + '/node_modules/systemjs/dist/'));
+app.use('/typescript', express.static(__dirname + '/node_modules/typescript/'));
 
 app.set('trust proxy', 1);
 app.set('cfg', {
-    list : 15,
-    secret : 'integro',
-    mail : 'contato@desenvolvedormatteus.com.br',
-    mailpw : '84090762',
-    mailhost : 'mx1.hostinger.com.br',
-    root : 'http://localhost:3000/',
-    maildata : 'smtps://contato@desenvolvedormatteus.com.br:84090762@mx1.hostinger.com.br'
+    list: 15,
+    secret: 'integro',
+    mail: 'contato@desenvolvedormatteus.com.br',
+    mailpw: '84090762',
+    mailhost: 'mx1.hostinger.com.br',
+    root: 'http://localhost:3000/',
+    maildata: 'smtps://contato@desenvolvedormatteus.com.br:84090762@mx1.hostinger.com.br'
 });
+
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 app.use(helmet());
