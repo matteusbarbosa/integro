@@ -15,7 +15,7 @@
     "knex": "^0.9.0",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0",
-    "angular2": "2.0.0-beta.0",
+    "angular2": "2.0.0-beta.1",
     "systemjs": "0.19.6",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.3",
@@ -36,9 +36,9 @@
   "license": "ISC",
   "scripts": {
     "test": "mocha test",
-    "tsc": "tsc",
+    "tsc": "tsc ",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
-    "start": "\"node ./bin/www --harmony concurrent \"npm run lite\" \"npm run tsc:w\"  "
+    "start": "node ./bin/www --harmony concurrent \"npm run lite\" \"npm run tsc:w \" "
   }
 }

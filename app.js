@@ -31,10 +31,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/angular2', express.static(__dirname + '/node_modules/angular2/'));
-app.use('/angular2bundles', express.static(__dirname + '/node_modules/angular2/bundles/'));
 app.use('/bw', express.static(__dirname + '/node_modules/es6-shim/'));
 app.use('/sysjs', express.static(__dirname + '/node_modules/systemjs/dist/'));
-app.use('/traceur', express.static(__dirname + '/node_modules/traceur/bin/'));
+app.use('/ts', express.static(__dirname + '/node_modules/typescript/'));
 
 app.set('trust proxy', 1);
 app.set('cfg', {

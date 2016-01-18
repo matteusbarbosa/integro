@@ -1,10 +1,17 @@
-System.config({
+ System.config({
+ 	transpiler : 'typescript',
+ 	map : {
+ 		typescript : '/ts/lib/typescript.js'
+ 		},
+ 		packages: {
 
-	transpiler: 'traceur',
-
-	map: {
-		traceur: '/traceur/traceur'
-	}
-});
-
-System.import('/ng/boot.ts').then(null, console.error.bind(console));
+ 			angular2 : {
+ 				defaultExtension : 'js'
+ 				},
+ 				ng : {
+ 					defaultExtension : 'ts'
+ 				}
+ 			}
+ 			});
+ System.import('/ng/boot')
+ .then(null, console.error.bind(console));

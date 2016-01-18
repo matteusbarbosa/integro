@@ -1,31 +1,53 @@
--- --------------------------------------------------------
--- Servidor:                     127.0.0.1
--- Versão do servidor:           5.6.25 - MySQL Community Server (GPL)
--- OS do Servidor:               Win32
--- HeidiSQL Versão:              9.2.0.4967
--- --------------------------------------------------------
+-- MySQL dump 10.13  Distrib 5.6.27, for Linux (x86_64)
+--
+-- Host: localhost    Database: integro
+-- ------------------------------------------------------
+-- Server version	5.6.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Copiando estrutura para tabela integro.class_optional
-CREATE TABLE IF NOT EXISTS `class_optional` (
+--
+-- Table structure for table `class_optional`
+--
+
+DROP TABLE IF EXISTS `class_optional`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `class_optional` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `number` int(11) NOT NULL DEFAULT '0',
   `title` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `details` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Copiando dados para a tabela integro.class_optional: ~0 rows (aproximadamente)
+--
+-- Dumping data for table `class_optional`
+--
+
+LOCK TABLES `class_optional` WRITE;
 /*!40000 ALTER TABLE `class_optional` DISABLE KEYS */;
 /*!40000 ALTER TABLE `class_optional` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `content`
+--
 
--- Copiando estrutura para tabela integro.content
-CREATE TABLE IF NOT EXISTS `content` (
+DROP TABLE IF EXISTS `content`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `content` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `metatitle` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -36,18 +58,26 @@ CREATE TABLE IF NOT EXISTS `content` (
   `timedisabled` bigint(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Copiando dados para a tabela integro.content: ~2 rows (aproximadamente)
+--
+-- Dumping data for table `content`
+--
+
+LOCK TABLES `content` WRITE;
 /*!40000 ALTER TABLE `content` DISABLE KEYS */;
-INSERT INTO `content` (`id`, `title`, `metatitle`, `size`, `url`, `timecreated`, `timeupdated`, `timedisabled`) VALUES
-	(1, 'Testing Content', 'testing-content', 127, 'http://www.soma.com.br/', 1451606400, 1451606400, NULL);
-INSERT INTO `content` (`id`, `title`, `metatitle`, `size`, `url`, `timecreated`, `timeupdated`, `timedisabled`) VALUES
-	(2, 'Testing Content 2', 'testing-content 2', 127, 'http://www.soma.com.br/', 1451606400, 1451606400, NULL);
+INSERT INTO `content` VALUES (1,'Testing Content','testing-content',127,'http://www.soma.com.br/',1451606400,1451606400,NULL),(2,'Testing Content 2','testing-content 2',127,'http://www.soma.com.br/',1451606400,1451606400,NULL);
 /*!40000 ALTER TABLE `content` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `course`
+--
 
--- Copiando estrutura para tabela integro.course
-CREATE TABLE IF NOT EXISTS `course` (
+DROP TABLE IF EXISTS `course`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `course` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `metaname` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -56,60 +86,98 @@ CREATE TABLE IF NOT EXISTS `course` (
   `timeend` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Copiando dados para a tabela integro.course: ~1 rows (aproximadamente)
+--
+-- Dumping data for table `course`
+--
+
+LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` (`id`, `name`, `metaname`, `dailyround`, `timestart`, `timeend`) VALUES
-	(1, 'Extensivo MAX', 'extensivo-max', 'manha', 1451606400, NULL);
+INSERT INTO `course` VALUES (1,'Extensivo MAX','extensivo-max','manha',1451606400,NULL);
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `discipline`
+--
 
--- Copiando estrutura para tabela integro.discipline
-CREATE TABLE IF NOT EXISTS `discipline` (
+DROP TABLE IF EXISTS `discipline`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `discipline` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `courseid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_discipline_course` (`courseid`),
   CONSTRAINT `FK_discipline_course` FOREIGN KEY (`courseid`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Copiando dados para a tabela integro.discipline: ~3 rows (aproximadamente)
+--
+-- Dumping data for table `discipline`
+--
+
+LOCK TABLES `discipline` WRITE;
 /*!40000 ALTER TABLE `discipline` DISABLE KEYS */;
-INSERT INTO `discipline` (`id`, `courseid`) VALUES
-	(1, 1);
-INSERT INTO `discipline` (`id`, `courseid`) VALUES
-	(2, 1);
-INSERT INTO `discipline` (`id`, `courseid`) VALUES
-	(3, 1);
+INSERT INTO `discipline` VALUES (1,1),(2,1),(3,1);
 /*!40000 ALTER TABLE `discipline` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `examination`
+--
 
--- Copiando estrutura para tabela integro.examination
-CREATE TABLE IF NOT EXISTS `examination` (
+DROP TABLE IF EXISTS `examination`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `examination` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `details` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Copiando dados para a tabela integro.examination: ~0 rows (aproximadamente)
+--
+-- Dumping data for table `examination`
+--
+
+LOCK TABLES `examination` WRITE;
 /*!40000 ALTER TABLE `examination` DISABLE KEYS */;
 /*!40000 ALTER TABLE `examination` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `reinforcement`
+--
 
--- Copiando estrutura para tabela integro.reinforcement
-CREATE TABLE IF NOT EXISTS `reinforcement` (
+DROP TABLE IF EXISTS `reinforcement`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reinforcement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `details` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Copiando dados para a tabela integro.reinforcement: ~0 rows (aproximadamente)
+--
+-- Dumping data for table `reinforcement`
+--
+
+LOCK TABLES `reinforcement` WRITE;
 /*!40000 ALTER TABLE `reinforcement` DISABLE KEYS */;
 /*!40000 ALTER TABLE `reinforcement` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `rule`
+--
 
--- Copiando estrutura para tabela integro.rule
-CREATE TABLE IF NOT EXISTS `rule` (
+DROP TABLE IF EXISTS `rule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL DEFAULT '0',
   `courseid` int(11) NOT NULL DEFAULT '0',
@@ -122,14 +190,25 @@ CREATE TABLE IF NOT EXISTS `rule` (
   CONSTRAINT `FK_rule_course` FOREIGN KEY (`courseid`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `FK_rule_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Copiando dados para a tabela integro.rule: ~0 rows (aproximadamente)
+--
+-- Dumping data for table `rule`
+--
+
+LOCK TABLES `rule` WRITE;
 /*!40000 ALTER TABLE `rule` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rule` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `schedule`
+--
 
--- Copiando estrutura para tabela integro.schedule
-CREATE TABLE IF NOT EXISTS `schedule` (
+DROP TABLE IF EXISTS `schedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `metakind` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `instanceid` int(11) NOT NULL,
@@ -147,14 +226,25 @@ CREATE TABLE IF NOT EXISTS `schedule` (
   KEY `FK_schedule_discipline` (`disciplineid`),
   CONSTRAINT `FK_schedule_discipline` FOREIGN KEY (`disciplineid`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Copiando dados para a tabela integro.schedule: ~0 rows (aproximadamente)
+--
+-- Dumping data for table `schedule`
+--
+
+LOCK TABLES `schedule` WRITE;
 /*!40000 ALTER TABLE `schedule` DISABLE KEYS */;
 /*!40000 ALTER TABLE `schedule` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `subscription`
+--
 
--- Copiando estrutura para tabela integro.subscription
-CREATE TABLE IF NOT EXISTS `subscription` (
+DROP TABLE IF EXISTS `subscription`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `subscription` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL DEFAULT '0',
   `instanceid` int(11) NOT NULL DEFAULT '0',
@@ -166,14 +256,25 @@ CREATE TABLE IF NOT EXISTS `subscription` (
   KEY `FK_subscription_user` (`userid`),
   CONSTRAINT `FK_subscription_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Copiando dados para a tabela integro.subscription: ~0 rows (aproximadamente)
+--
+-- Dumping data for table `subscription`
+--
+
+LOCK TABLES `subscription` WRITE;
 /*!40000 ALTER TABLE `subscription` DISABLE KEYS */;
 /*!40000 ALTER TABLE `subscription` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `user`
+--
 
--- Copiando estrutura para tabela integro.user
-CREATE TABLE IF NOT EXISTS `user` (
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -185,24 +286,26 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Copiando dados para a tabela integro.user: ~5 rows (aproximadamente)
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`) VALUES
-	(1, 'Beta', '$2a$10$IlZdwa3nQwad5H4ngW.miOoZfwtFhFJ0lDMcoahPo.Xj2yex79kc6', 'admin', 'matteusbarbosa2@gmail.com', NULL, NULL, NULL);
-INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`) VALUES
-	(2, 'Alfa', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`) VALUES
-	(3, 'Bravo', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`) VALUES
-	(4, 'Rambo', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`) VALUES
-	(5, 'Delta', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` VALUES (1,'Beta','$2a$10$IlZdwa3nQwad5H4ngW.miOoZfwtFhFJ0lDMcoahPo.Xj2yex79kc6','admin','matteusbarbosa2@gmail.com',NULL,NULL,NULL),(2,'Alfa',NULL,NULL,NULL,NULL,NULL,NULL),(3,'Bravo',NULL,NULL,NULL,NULL,NULL,NULL),(4,'Rambo',NULL,NULL,NULL,NULL,NULL,NULL),(5,'Delta',NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `user_responsible`
+--
 
--- Copiando estrutura para tabela integro.user_responsible
-CREATE TABLE IF NOT EXISTS `user_responsible` (
+DROP TABLE IF EXISTS `user_responsible`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_responsible` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) DEFAULT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -213,10 +316,57 @@ CREATE TABLE IF NOT EXISTS `user_responsible` (
   KEY `FK_user_responsible_user` (`userid`),
   CONSTRAINT `FK_user_responsible_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Copiando dados para a tabela integro.user_responsible: ~0 rows (aproximadamente)
+--
+-- Dumping data for table `user_responsible`
+--
+
+LOCK TABLES `user_responsible` WRITE;
 /*!40000 ALTER TABLE `user_responsible` DISABLE KEYS */;
 /*!40000 ALTER TABLE `user_responsible` ENABLE KEYS */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `warning`
+--
+
+DROP TABLE IF EXISTS `warning`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `warning` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(45) DEFAULT NULL,
+  `details` text,
+  `timecreated` bigint(20) DEFAULT NULL,
+  `timevalid` bigint(20) DEFAULT NULL,
+  `timeupdated` bigint(20) DEFAULT NULL,
+  `url` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `warning`
+--
+
+LOCK TABLES `warning` WRITE;
+/*!40000 ALTER TABLE `warning` DISABLE KEYS */;
+INSERT INTO `warning` VALUES (1,'Lorem Ipsum',NULL,1452897820,NULL,1452897820,'http://www.soma.com.br'),(2,'Lorem Ipsum',NULL,1452897820,NULL,1452897820,'http://www.soma.com.br'),(3,'Lorem Ipsum',NULL,1452897820,NULL,1452897820,'http://www.soma.com.br');
+/*!40000 ALTER TABLE `warning` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'integro'
+--
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-01-17 23:06:29

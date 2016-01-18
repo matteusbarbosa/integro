@@ -3,19 +3,20 @@ html(lang='pt-BR' ng-app="integro")
  head
   title SOMA
   script(src="/javascripts/jquery-2.1.4.min.js")
-  script(src="/javascripts/bootstrap.min.js")
   link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+  script(src="/javascripts/bootstrap.min.js")
   link(rel='stylesheet', href='/stylesheets/style.css')
   link(rel='stylesheet', href='/stylesheets/font-awesome-4.5.0/css/font-awesome.min.css')
 
   script(src="/bw/es6-shim.min.js")
-  script(src="/angular2/angular2-polyfills.js")
-  script(src="/sysjs/systemjs.src.js")
-  script(src="https://code.angularjs.org/2.0.0-beta.1/Rx.umd.js")
-  script(src="/angular2/angular2-all.umd.min.js")
-  script(src="/ng/component/frontpage.component.js")
-  script(src="/ng/boot.js")
-  script(src="/javascripts/public.js")
+  script(src="/sysjs/system.src.js")
+  script(src="/javascripts/rx.js")
+  
+  script(src="/angular2/bundles/angular2-polyfills.js")
+  
+  script(src="/angular2/bundles/angular2.dev.js")
+  script(src="/javascripts/private.js")
+  script(src="/ng/tsbootconfig.ts")
   
  body(id="page-public")
   include partials/_notify

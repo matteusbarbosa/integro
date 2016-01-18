@@ -4,6 +4,18 @@ html{
 body{
 	height:100%;
 }
+#page-frontpage{
+	
+	div#section-header{
+		background-image: url('../images/student-1.jpg');
+		padding: 48px 0px;
+		min-height: 256px;
+	}
+	div#section-links{}
+	div#section-images{}
+	div#section-news{}
+	div#section-footer{}
+}
 #page-content{
 	height:80%;
 }

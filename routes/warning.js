@@ -40,13 +40,7 @@ router.get('/search/:search', function (req, res, next) {
           .orWhere('url', 'LIKE', '%' + req.params.search + '%');
     }).fetchAll().then(function (warningdata) {
 
-        var data = {};
-
-        var data = {
-            warnings: warningdata.toJSON()
-        };
-
-        res.json(data);
+        res.json(warningdata.toJSON());
     });
 });
 
