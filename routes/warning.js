@@ -3,7 +3,7 @@ var app = express();
 var router = express.Router();
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 var warning = require('../models/warning');
-//var date = require('../custom_modules/date').timezone(-180);
+var date = require('../custom_modules/date').timezone(-180);
 
 router.get('/', function (req, res, next) {
     var data = {};
@@ -22,6 +22,11 @@ router.get('/list', function (req, res, next) {
         var data = {
             warnings: warningdata.toJSON()
         };
+        
+        for(var c = 0; c< data.warnings.length; c++){
+            data.warnings[c].details = data.warnings[c].details.substr(0,255);
+            data.warnings[c].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.warnings[c].timecreated));
+        }
         
         res.render('sys/warningslist', data);
     });
@@ -48,15 +53,6 @@ router.get('/home/redirected/:why', function (req, res, next) {
     var data = {};
 
     res.render('index', data);
-});
-
-router.get('/logout', function (req, res) {
-
-    var data = {};
-
-    req.session.destroy();
-
-    res.redirect('index', data);
 });
 
 module.exports = router;

@@ -2,26 +2,29 @@ doctype html
 html(lang='pt-BR' ng-app="integro")
  head
   title SOMA
-  script(src="/javascripts/jquery-2.1.4.min.js")
-  link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
-  script(src="/javascripts/bootstrap.min.js")
+  meta(name="viewport", content="width=device-width, initial-scale=1.0")
+  
+  link(rel='stylesheet', href='/materialdesign/dist/material.red-deep_orange.min.css')
+  link(rel='stylesheet', href='/mdl-icons/css/materialdesignicons.min.css', media="all")
+  link(rek='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')  
+
   link(rel='stylesheet', href='/stylesheets/style.css')
   link(rel='stylesheet', href='/stylesheets/font-awesome-4.5.0/css/font-awesome.min.css')
-
+  
+  script(src="/materialdesign/material.min.js")
   script(src="/es6-shim/es6-shim.js")
   script(src="/angular2js/angular2-polyfills.js")
   script(src="/systemjs/system.js")
   script(src="/javascripts/rx.js")
   
-  script(src="/angular2js/bundles/angular2-polyfills.js")
-  
-  script(src="/angular2js/bundles/angular2.dev.js")
+  script(src="/angular2js/angular2.dev.js")
   script(src="/javascripts/private.js")
   script(src="/ng/tsbootconfig.ts")
   
  body(id="page-public")
   include partials/_notify
-  .container-fluid#page-content
+  main.mdl-layout__content
+  .container-fluid#page-content.page-content
    .row
     .col-sm-12
      block content

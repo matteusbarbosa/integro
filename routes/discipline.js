@@ -27,14 +27,14 @@ router.get('/home/redirected/:why', function (req, res, next) {
 	res.render('index', data);
 });
 
-router.get('/:id/contents/json', function (req, res, next) {
+router.get('/:id/medias/json', function (req, res, next) {
 	var data = {};
 
 	var Discipline = req.models.discipline;
 
 	Discipline.get(req.params.id, function (err, discipline){
 
-		var Content = discipline.getContents(function (err, contents) {
+		var Content = discipline.getContents(function (err, medias) {
 			
 		});
 	});

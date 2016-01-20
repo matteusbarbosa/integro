@@ -3,9 +3,9 @@ var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 module.exports = bookshelf.model('user', {
     tableName: 'user',
     subscription: function () {
-        return this.hasMany('subscription');
+        return this.hasMany(subscription);
     },
     role: function () {
-        return this.hasOne('role');
+        return this.hasOne(role);
     }
 });

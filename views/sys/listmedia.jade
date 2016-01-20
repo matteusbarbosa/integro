@@ -1,0 +1,32 @@
+form
+ input.form-control(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="searchquery")
+ section(*ngIf="searchresults.length > 0")
+  i.text-muted {{ searchresults.length }} Resultados para {{ searchquery }}
+  ul
+   li(*ngFor="#item of searchresults")
+    {{ item.title }}
+    a.text-primary(href="{{ item.url }}", target="_blank") (...)
+ section(*ngIf="searchresults.length == 0")
+  i.text-danger Nenhum resultado para {{ searchquery }}
+ hr
+ .section-title
+  h4 
+   i.mdi.mdi-clipboard-check
+   span Mídia
+  .mdl-grid
+   for x, y in course.discipline
+    .mdl-cell
+     .mdl-card.mdl-shadow--6dp
+      .mdl-card__title
+       h3= x.title
+      .mdl-card__supporting-text
+       small= x.details
+      .mdl-card__actions.mdl-card--border
+       ul
+       for z, w in x.media
+        li
+         a(href="z.url")
+          i.mdi.mdi-tag-text-outline 
+         span= z.title
+         br
+         small= z.timecreated

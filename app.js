@@ -11,7 +11,7 @@ var index = require('./routes/index');
 var frontpage = require('./routes/frontpage');
 var course = require('./routes/course');
 var discipline = require('./routes/discipline');
-var content = require('./routes/content');
+var media = require('./routes/media');
 var warning = require('./routes/warning');
 var helmet = require('helmet');
 var typescript = require('typescript');
@@ -35,6 +35,8 @@ app.use('/angular2js', express.static(__dirname + '/node_modules/angular2/bundle
 app.use('/es6-shim', express.static(__dirname + '/node_modules/es6-shim/'));
 app.use('/systemjs', express.static(__dirname + '/node_modules/systemjs/dist/'));
 app.use('/typescript', express.static(__dirname + '/node_modules/typescript/'));
+app.use('/materialdesign', express.static(__dirname + '/node_modules/material-design-lite/'));
+app.use('/mdl-icons', express.static(__dirname + '/node_modules/mdi/'));
 
 app.set('trust proxy', 1);
 app.set('cfg', {
@@ -56,7 +58,7 @@ app.use('/frontpage', frontpage);
 app.use('/recovery', recovery);
 app.use('/login', login);
 app.use('/join', join);
-app.use('/content', content);
+app.use('/media', media);
 app.use('/warning', warning);
 app.use('/course', course);
 app.use('/discipline', discipline);
