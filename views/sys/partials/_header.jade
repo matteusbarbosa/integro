@@ -1,27 +1,33 @@
-.container-fluid
- .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
-  header.mdl-layout__header
-      .mdl-layout__header-row
-        // Title
-        a.mdl-layout-title(href="/home")
-         i.mdi.mdi-home-variant
-        // Add spacer, to align navigation to the right
-        .mdl-layout-spacer
-        // Navigation. We hide it in small screens.
-        nav.mdl-navigation.mdl-layout--large-screen-only
-          a.mdl-navigation__link(href='/contents') Conteúdos
-          |         
-          a.mdl-navigation__link(href='/examinations') Simulados
-          |         
-          a.mdl-navigation__link(href='/reinforcements') Monitorias
-          |         
-          a.mdl-navigation__link(href='/classoptional') Aulas Opcionais
-    .mdl-layout__drawer
-      a.mdl-layout-title(href="/home")
-       i.mdi.mdi-home-variant
-      nav.mdl-navigation
-        a.mdl-navigation__link • Avisos
-        |       
-        a.mdl-navigation__link(href='') Suporte
-        |       
-        a.mdl-navigation__link(href='../logout') Sair
+header.mdl-layout__header
+ .mdl-layout__drawer-button
+  i.mdi.mdi-view-list
+ .mdl-layout__header-row
+  // Title
+  a.mdl-layout-title.c-wt(href="/home")
+     i.mdi.mdi-home-variant
+     Íntegro
+    // Add spacer, to align navigation to the right
+  .mdl-layout-spacer
+    // Navigation. We hide it in small screens.
+  nav.mdl-navigation.mdl-layout--large-screen-only
+   a.mdl-navigation__link(href='/warning') Avisos
+   a.mdl-navigation__link(href='/media') Mídia        
+   a.mdl-navigation__link(href='/examination') Simulados    
+   a.mdl-navigation__link(href='/reinforcement') Monitorias     
+   a.mdl-navigation__link(href='/classoptional') Aulas Opcionais
+   a.mdl-navigation__link(href='/support') Suporte     
+   a.mdl-navigation__link(href='/logout', title="Logout")
+    i.mdi.mdi-logout
+.mdl-layout__drawer
+ a.mdl-layout-title(href="/home")
+   i.mdi.mdi-home-variant
+ nav.mdl-navigation
+  a.mdl-navigation__link(href='/warning') Avisos
+  a.mdl-navigation__link(href='/media') Mídia        
+  a.mdl-navigation__link(href='/examination') Simulados    
+  a.mdl-navigation__link(href='/reinforcement') Monitorias     
+  a.mdl-navigation__link(href='/classoptional') Aulas Opcionais
+  a.mdl-navigation__link(href='/support') Suporte 
+  a.mdl-navigation__link(href='../logout', title="Logout")
+   i.mdi.mdi-logout
+   spanLogout

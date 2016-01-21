@@ -1,7 +1,38 @@
 extends layout
+
 block content
  div#page-frontpage
   #section-header
-   h1= title
-   p Welcome to #{title}
+   .title-image-caption
+    h1 Íntegro
+  #section-links
+   .mdl-grid
+    .mdl-cell.mdl-cell--3-col
+     .mdl-card.mdl-shadow--3dp
+      h4.mdl-card__title 
+       a(href="/join") Matrícula
+      .mdl-card__media
+      .mdl-card__supporting-text
+      .mdl-card__actions
+    .mdl-cell.mdl-cell--3-col
+     .mdl-card.mdl-shadow--3dp
+      h4.mdl-card__title
+       a(href="/login") SIA
+      .mdl-card__media 
+      .mdl-card__supporting-text
+      .mdl-card__actions
+    .mdl-cell.mdl-cell--3-col
+     .mdl-card.mdl-shadow--3dp
+      h4.mdl-card__title 
+       a(href="/finance") Financeiro
+      .mdl-card__media
+      .mdl-card__supporting-text
+      .mdl-card__actions
+    .mdl-cell.mdl-cell--3-col
+     .mdl-card.mdl-shadow--3dp
+      h4.mdl-card__title
+       a(href="/") Carômetro
+      .mdl-card__media
+      .mdl-card__supporting-text
+      .mdl-card__actions
    frontpage

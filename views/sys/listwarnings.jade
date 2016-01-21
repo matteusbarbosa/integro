@@ -1,0 +1,26 @@
+form
+ .mdl-grid
+  .mdl-cell.mdl-cell--4-col
+  .mdl-cell.mdl-cell--4-col
+   .mdl-textfield.mdl-js-textfield.center-block
+    input.mdl-textfield__input#searchinput(type="text", name="searchwarnings", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="searchquery", placeholder="Digite um termo e pressione ENTER")
+  .mdl-cell.mdl-cell--4-col
+ .mdl-grid
+  .mdl-cell.mdl-cell--12-col
+   section(*ngIf="searchresults.length > 0")
+    i.text-muted {{ searchresults.length }} Resultados para {{ searchlastquery }}
+    ul
+     li(*ngFor="#item of searchresults")
+      {{ item.title }}
+      a.text-primary(href="{{ item.url }}", target="_blank") (...)
+   section(*ngIf="searchresults.length == 0")
+    i.text-danger Nenhum resultado para {{ searchquery }}
+   .section-title
+    h4 Recentes
+    dl
+    for item, key in warnings
+     dt= item.title
+      small.pull-right= item.timecreated
+     dd= item.details
+      small
+       a(href="item.url") (...)

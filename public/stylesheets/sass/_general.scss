@@ -1,18 +1,94 @@
 html{
     height:100%;
 }
-body{
-    height:100%;
+
+#card-login{
+    margin-top:15%;
+    padding: 12px;
+
+    input{
+        height: 48px;
+    }
+
+    #btn-login{
+        margin: 12px;
+        float: right;
+    }
+
+    ul{
+        list-style: none;
+
+        a{
+            text-decoration: none;
+        }
+    }
 }
 
-dl{
+#page-frontpage{
+    #section-header{
+        background-image: url('../images/student-1.jpg');
+        background-size:100%;
+        padding: 48px 0px;
+        min-height: 256px;
+        width:100%;
+    }
+    #section-links{
+        margin: 12px 0px;
+        .mdl-cell{
+            padding: 0px 6px;
+            .mdl-card{
+                width: 100%;
+                .mdl-card__title{
+                    a{
+                     font-family: Roboto, Verdana;
+                     text-decoration: none; 
+                 }
+             }
+         }
+     }
+ }
+ #section-images{}
+ #section-news{}
+ #section-footer{}
+}
 
+dl.list-media{
+    height: 256px;
+    overflow-y: scroll;
     dt{
-        background-color: #EAEAEA;
+        border-left: 3px solid rgb(68,138,255);
+        float: left;
+        padding: 3px 6px;
     }
     dd{
-        margin: 6px 3px 18px 3px;
+        margin: 8px;
+        strong{
+            font-size: 12px;
+        }
+        small{
+            font-size: 0.7em;
+        }
     }
+}
+
+.t-c{
+    text-align:center;
+}
+
+.title-image-caption{
+    background: rgba(000,000,000, 0.3);
+    text-align:center;
+    padding: 6px 0px;
+    margin-top: 10%;
+    h1{
+        color: #fff;
+        font-family: Devroye, Verdana;
+    }
+}
+
+.center-block{
+    margin: 0px auto;
+    text-align:center;
 }
 
 .section-title{
@@ -20,30 +96,22 @@ dl{
     height: 1.2em;
     margin: 24px 6px 36px 6px;
     h4{
+        font-family: Devroye, Verdana;
         text-align: center;
-        text-transform: uppercase;
         background-color: #fff;
+        color: #A0A0A0;
         width: 48%;
         margin: 0px auto;
         border: 1px dotted gray;
         padding: 6px 0px;
         font-weight: 300;
+        font-size: 1.5em;
     }
 }
 
-#page-frontpage{
-    div#section-header{
-        background-image: url('../images/student-1.jpg');
-        padding: 48px 0px;
-        min-height: 256px;
-    }
-    div#section-links{}
-    div#section-images{}
-    div#section-news{}
-    div#section-footer{}
-}
 #page-content{
-    height:80%;
+    height:90%;
+    width:100%;
 }
 #form-login{
     margin-top: 20%;
@@ -84,4 +152,8 @@ dl{
     &.is-visible {
         height: 100vh;
     }
+}
+
+.c-wt{
+    color: #fff !important;
 }

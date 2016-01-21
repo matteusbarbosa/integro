@@ -8,7 +8,7 @@ var date = require('../custom_modules/date').timezone(-180);
 router.get('/', function (req, res, next) {
     var data = {};
 
-    res.render('index', data);
+    res.render('sys/warnings', data);
 });
 
 router.get('/list', function (req, res, next) {
@@ -28,7 +28,7 @@ router.get('/list', function (req, res, next) {
             data.warnings[c].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.warnings[c].timecreated));
         }
         
-        res.render('sys/warningslist', data);
+        res.render('sys/listwarnings', data);
     });
     // data.warnings	
 });

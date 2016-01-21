@@ -19,7 +19,8 @@ html(lang='pt-BR')
     script(src="/javascripts/private.js")
     script(src="/ng/tsbootconfig.ts")
   body(id="page-private")
-   include partials/_header
-   .container-fluid#page-content
+   .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
+    include partials/_header
+    main.mdl-layout__content#page-content.page-content
      block content
-   include partials/_footer
+    include partials/_footer

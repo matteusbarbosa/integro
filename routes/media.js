@@ -9,7 +9,7 @@ var date = require('../custom_modules/date').timezone(-180);
 router.get('/', function (req, res, next) {
     var data = {};
 
-    res.render('index', data);
+    res.render('sys/media', data);
 });
 
 router.get('/list', function (req, res, next) {

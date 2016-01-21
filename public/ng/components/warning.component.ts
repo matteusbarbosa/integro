@@ -10,27 +10,29 @@ import {Http, HTTP_PROVIDERS} from 'angular2/http';
 })
 
 export class WarningsComponent {
-    
+
     searchresults = {}
     searchquery
+    searchlastquery
     http
     
 
     constructor(@Inject(Http) http: Http) {
-        
+
         this.http = http;
     }
 
     search() {
-            
-            this.http.get('warning/search/'+this.searchquery).subscribe(res => {
-               this.searchresults = res.json();
-            });
-            
-            console.log(this.searchquery);
-            console.log(this.searchresults);
-            
-            return this.searchresults;
+
+        this.searchlastquery = this.searchquery;
+
+        this.http.get('warning/search/'+this.searchquery).subscribe(res => {
+            this.searchresults = res.json();
+
+            this.searchlastquery = this.searchresults > 0 ? this.searchquery : null;
+        });        
+
+        return this.searchresults;
 
     }
     add() { }

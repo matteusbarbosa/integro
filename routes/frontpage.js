@@ -19,12 +19,7 @@ router.use(function (req, res, next) {
 
 router.get('/', function (req, res, next) {
     
-	var data = {
-            modules : {
-                1 : 'Inscrição',
-                2 : 'SIA',
-                3 : 'Financeiro'}
-        };
+	var data = {};
 
 	res.render('frontpage', data);
 });

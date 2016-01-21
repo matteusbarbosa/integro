@@ -1,83 +1,57 @@
--- MySQL dump 10.13  Distrib 5.6.27, for Linux (x86_64)
---
--- Host: localhost    Database: integro
--- ------------------------------------------------------
--- Server version	5.6.27
+-- --------------------------------------------------------
+-- Servidor:                     127.0.0.1
+-- Versão do servidor:           5.6.25 - MySQL Community Server (GPL)
+-- OS do Servidor:               Win32
+-- HeidiSQL Versão:              9.2.0.4967
+-- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `class_optional`
---
-
-DROP TABLE IF EXISTS `class_optional`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `class_optional` (
+-- Copiando estrutura para tabela integro.classoptional
+CREATE TABLE IF NOT EXISTS `classoptional` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `number` int(11) NOT NULL DEFAULT '0',
   `title` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `details` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `class_optional`
---
+-- Copiando dados para a tabela integro.classoptional: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `classoptional` DISABLE KEYS */;
+/*!40000 ALTER TABLE `classoptional` ENABLE KEYS */;
 
-LOCK TABLES `class_optional` WRITE;
-/*!40000 ALTER TABLE `class_optional` DISABLE KEYS */;
-/*!40000 ALTER TABLE `class_optional` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `content`
---
-
-DROP TABLE IF EXISTS `content`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `content` (
+-- Copiando estrutura para tabela integro.content
+CREATE TABLE IF NOT EXISTS `content` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
   `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `metatitle` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `size` int(11) DEFAULT NULL,
   `url` text COLLATE utf8_unicode_ci,
+  `timevalid` bigint(15) DEFAULT NULL,
   `timecreated` bigint(15) DEFAULT NULL,
   `timeupdated` bigint(15) DEFAULT NULL,
   `timedisabled` bigint(15) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `FK_content_user` (`user_id`),
+  CONSTRAINT `FK_content_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `content`
---
-
-LOCK TABLES `content` WRITE;
+-- Copiando dados para a tabela integro.content: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `content` DISABLE KEYS */;
-INSERT INTO `content` VALUES (1,'Testing Content','testing-content',127,'http://www.soma.com.br/',1451606400,1451606400,NULL),(2,'Testing Content 2','testing-content 2',127,'http://www.soma.com.br/',1451606400,1451606400,NULL);
+INSERT INTO `content` (`id`, `user_id`, `title`, `metatitle`, `size`, `url`, `timevalid`, `timecreated`, `timeupdated`, `timedisabled`) VALUES
+	(1, 1, 'Testing Content', 'testing-content', 127, 'http://www.soma.com.br/', NULL, 1451606400, 1451606400, NULL);
+INSERT INTO `content` (`id`, `user_id`, `title`, `metatitle`, `size`, `url`, `timevalid`, `timecreated`, `timeupdated`, `timedisabled`) VALUES
+	(2, 2, 'Testing Content 2', 'testing-content 2', 127, 'http://www.soma.com.br/', NULL, 1451606400, 1451606400, NULL);
 /*!40000 ALTER TABLE `content` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `course`
---
 
-DROP TABLE IF EXISTS `course`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `course` (
+-- Copiando estrutura para tabela integro.course
+CREATE TABLE IF NOT EXISTS `course` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `metaname` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -86,133 +60,142 @@ CREATE TABLE `course` (
   `timeend` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `course`
---
-
-LOCK TABLES `course` WRITE;
+-- Copiando dados para a tabela integro.course: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES (1,'Extensivo MAX','extensivo-max','manha',1451606400,NULL);
+INSERT INTO `course` (`id`, `name`, `metaname`, `dailyround`, `timestart`, `timeend`) VALUES
+	(1, 'Extensivo MAX', 'extensivo-max', 'manha', 1451606400, NULL);
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `discipline`
---
 
-DROP TABLE IF EXISTS `discipline`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `discipline` (
+-- Copiando estrutura para tabela integro.discipline
+CREATE TABLE IF NOT EXISTS `discipline` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `courseid` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `details` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_discipline_course` (`courseid`),
-  CONSTRAINT `FK_discipline_course` FOREIGN KEY (`courseid`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  KEY `FK_discipline_course` (`course_id`),
+  CONSTRAINT `FK_discipline_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `discipline`
---
-
-LOCK TABLES `discipline` WRITE;
+-- Copiando dados para a tabela integro.discipline: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `discipline` DISABLE KEYS */;
-INSERT INTO `discipline` VALUES (1,1),(2,1),(3,1);
+INSERT INTO `discipline` (`id`, `course_id`, `title`, `details`) VALUES
+	(1, 1, 'Português', 'editoração eletrônica como Aldus PageMake');
+INSERT INTO `discipline` (`id`, `course_id`, `title`, `details`) VALUES
+	(2, 1, 'Matemática', 'editoração eletrônica como Aldus PageMake');
+INSERT INTO `discipline` (`id`, `course_id`, `title`, `details`) VALUES
+	(3, 1, 'Biologia', 'editoração eletrônica como Aldus PageMake');
 /*!40000 ALTER TABLE `discipline` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `examination`
---
 
-DROP TABLE IF EXISTS `examination`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `examination` (
+-- Copiando estrutura para tabela integro.disciplinemedia
+CREATE TABLE IF NOT EXISTS `disciplinemedia` (
+  `discipline_id` int(11) NOT NULL,
+  `media_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `disciplineid_contentid` (`discipline_id`,`media_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Copiando dados para a tabela integro.disciplinemedia: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `disciplinemedia` DISABLE KEYS */;
+INSERT INTO `disciplinemedia` (`discipline_id`, `media_id`, `id`) VALUES
+	(1, 1, 1);
+INSERT INTO `disciplinemedia` (`discipline_id`, `media_id`, `id`) VALUES
+	(1, 2, 2);
+/*!40000 ALTER TABLE `disciplinemedia` ENABLE KEYS */;
+
+
+-- Copiando estrutura para tabela integro.examination
+CREATE TABLE IF NOT EXISTS `examination` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `details` text COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `discipline_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_examination_discipline` (`discipline_id`),
+  CONSTRAINT `FK_examination_discipline` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `examination`
---
-
-LOCK TABLES `examination` WRITE;
+-- Copiando dados para a tabela integro.examination: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `examination` DISABLE KEYS */;
+INSERT INTO `examination` (`id`, `details`, `discipline_id`) VALUES
+	(1, 'editoração eletrônica como Aldus PageMake', 3);
+INSERT INTO `examination` (`id`, `details`, `discipline_id`) VALUES
+	(2, 'editoração eletrônica como Aldus PageMake', 1);
+INSERT INTO `examination` (`id`, `details`, `discipline_id`) VALUES
+	(3, 'editoração eletrônica como Aldus PageMake', 2);
 /*!40000 ALTER TABLE `examination` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `reinforcement`
---
 
-DROP TABLE IF EXISTS `reinforcement`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `reinforcement` (
+-- Copiando estrutura para tabela integro.media
+CREATE TABLE IF NOT EXISTS `media` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `url` text COLLATE utf8_unicode_ci,
+  `title` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `details` text COLLATE utf8_unicode_ci,
+  `metatitle` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `format` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `size` int(11) DEFAULT NULL,
+  `timecreated` bigint(15) DEFAULT NULL,
+  `timeupdated` bigint(15) DEFAULT NULL,
+  `timedisabled` bigint(15) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_media_user` (`user_id`),
+  CONSTRAINT `FK_media_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Copiando dados para a tabela integro.media: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `media` DISABLE KEYS */;
+INSERT INTO `media` (`id`, `user_id`, `url`, `title`, `details`, `metatitle`, `format`, `size`, `timecreated`, `timeupdated`, `timedisabled`) VALUES
+	(1, 2, 'http://www.soma.com.br/sia/pdfs/hor/hor_aulas-provas_recup-final_1em.pdf', 'Horários de aulas', 'Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.', 'horarios-aulas', 'pdf', 128000, 1453309585, 1453309585, NULL);
+INSERT INTO `media` (`id`, `user_id`, `url`, `title`, `details`, `metatitle`, `format`, `size`, `timecreated`, `timeupdated`, `timedisabled`) VALUES
+	(2, 5, 'http://www.soma.com.br/sia/arquivos/2015/soma/enem/aplicacao3-2014_dia_1.pdf', '3ª Aplicação Enem - 1º Dia', 'Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.', '3-aplicacao-enem-1', 'pdf', 128000, 1453309585, 1453309585, NULL);
+INSERT INTO `media` (`id`, `user_id`, `url`, `title`, `details`, `metatitle`, `format`, `size`, `timecreated`, `timeupdated`, `timedisabled`) VALUES
+	(3, 3, 'http://www.soma.com.br/sia/arquivos/2015/soma/dicas_ENEM-conteudos_mais_abordados.pdf', 'Dicas para o ENEM - Conteúdos Mais abordados', 'Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.', 'dicas-enem', 'pdf', 128000, 1453309585, 1453309585, NULL);
+/*!40000 ALTER TABLE `media` ENABLE KEYS */;
+
+
+-- Copiando estrutura para tabela integro.reinforcement
+CREATE TABLE IF NOT EXISTS `reinforcement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `details` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `reinforcement`
---
-
-LOCK TABLES `reinforcement` WRITE;
+-- Copiando dados para a tabela integro.reinforcement: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `reinforcement` DISABLE KEYS */;
 /*!40000 ALTER TABLE `reinforcement` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `rule`
---
 
-DROP TABLE IF EXISTS `rule`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rule` (
+-- Copiando estrutura para tabela integro.rule
+CREATE TABLE IF NOT EXISTS `rule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) NOT NULL DEFAULT '0',
-  `courseid` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `course_id` int(11) NOT NULL DEFAULT '0',
   `level` tinyint(1) NOT NULL DEFAULT '0',
   `timestart` int(11) NOT NULL DEFAULT '0',
   `timeend` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `FK_rule_user` (`userid`),
-  KEY `FK_rule_course` (`courseid`),
-  CONSTRAINT `FK_rule_course` FOREIGN KEY (`courseid`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `FK_rule_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  KEY `FK_rule_user` (`user_id`),
+  KEY `FK_rule_course` (`course_id`),
+  CONSTRAINT `FK_rule_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `FK_rule_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `rule`
---
-
-LOCK TABLES `rule` WRITE;
+-- Copiando dados para a tabela integro.rule: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `rule` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rule` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `schedule`
---
 
-DROP TABLE IF EXISTS `schedule`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `schedule` (
+-- Copiando estrutura para tabela integro.schedule
+CREATE TABLE IF NOT EXISTS `schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `metakind` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `instanceid` int(11) NOT NULL,
-  `disciplineid` int(11) NOT NULL,
+  `discipline_id` int(11) NOT NULL,
+  `instance_id` int(11) NOT NULL,
+  `instance_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `vacancies` int(11) NOT NULL,
   `hourstart` int(11) NOT NULL,
   `hourend` int(11) NOT NULL,
@@ -223,58 +206,36 @@ CREATE TABLE `schedule` (
   `timecreated` int(11) NOT NULL,
   `weekdays` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_schedule_discipline` (`disciplineid`),
-  CONSTRAINT `FK_schedule_discipline` FOREIGN KEY (`disciplineid`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  KEY `FK_schedule_discipline` (`discipline_id`),
+  CONSTRAINT `FK_schedule_discipline` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `schedule`
---
-
-LOCK TABLES `schedule` WRITE;
+-- Copiando dados para a tabela integro.schedule: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `schedule` DISABLE KEYS */;
 /*!40000 ALTER TABLE `schedule` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `subscription`
---
 
-DROP TABLE IF EXISTS `subscription`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `subscription` (
+-- Copiando estrutura para tabela integro.subscription
+CREATE TABLE IF NOT EXISTS `subscription` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) NOT NULL DEFAULT '0',
-  `instanceid` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `instance_id` int(11) NOT NULL DEFAULT '0',
+  `instance_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT '0',
   `classid` int(11) DEFAULT '0',
-  `metakind` varchar(255) COLLATE utf8_unicode_ci DEFAULT '0',
   `timestart` int(11) DEFAULT '0',
   `timeend` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `FK_subscription_user` (`userid`),
-  CONSTRAINT `FK_subscription_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  KEY `FK_subscription_user` (`user_id`),
+  CONSTRAINT `FK_subscription_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `subscription`
---
-
-LOCK TABLES `subscription` WRITE;
+-- Copiando dados para a tabela integro.subscription: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `subscription` DISABLE KEYS */;
 /*!40000 ALTER TABLE `subscription` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `user`
---
 
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
+-- Copiando estrutura para tabela integro.user
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -283,90 +244,72 @@ CREATE TABLE `user` (
   `timecreated` bigint(20) DEFAULT NULL,
   `timeupdated` bigint(20) DEFAULT NULL,
   `timelastlogin` bigint(20) DEFAULT NULL,
+  `securityhash` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`)
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `securityhash` (`securityhash`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
+-- Copiando dados para a tabela integro.user: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Beta','$2a$10$IlZdwa3nQwad5H4ngW.miOoZfwtFhFJ0lDMcoahPo.Xj2yex79kc6','admin','matteusbarbosa2@gmail.com',NULL,NULL,NULL),(2,'Alfa',NULL,NULL,NULL,NULL,NULL,NULL),(3,'Bravo',NULL,NULL,NULL,NULL,NULL,NULL),(4,'Rambo',NULL,NULL,NULL,NULL,NULL,NULL),(5,'Delta',NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`, `securityhash`) VALUES
+	(1, 'Beta', '$2a$10$KfuVSBgPdJJgT6Bk/pDtGOUZZW1Simpgr6YFJnIED7hjywZp/XB8m', 'admin', 'matteusbarbosa2@gmail.com', 1452539980680, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`, `securityhash`) VALUES
+	(2, 'Alfa', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`, `securityhash`) VALUES
+	(3, 'Bravo', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`, `securityhash`) VALUES
+	(4, 'Rambo', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`, `securityhash`) VALUES
+	(5, 'Delta', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `user_responsible`
---
 
-DROP TABLE IF EXISTS `user_responsible`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_responsible` (
+-- Copiando estrutura para tabela integro.userresponsible
+CREATE TABLE IF NOT EXISTS `userresponsible` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `timestart` int(11) DEFAULT NULL,
   `timeend` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_user_responsible_user` (`userid`),
-  CONSTRAINT `FK_user_responsible_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  KEY `FK_user_responsible_user` (`user_id`),
+  CONSTRAINT `FK_user_responsible_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `user_responsible`
---
+-- Copiando dados para a tabela integro.userresponsible: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `userresponsible` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userresponsible` ENABLE KEYS */;
 
-LOCK TABLES `user_responsible` WRITE;
-/*!40000 ALTER TABLE `user_responsible` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_responsible` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `warning`
---
-
-DROP TABLE IF EXISTS `warning`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `warning` (
+-- Copiando estrutura para tabela integro.warning
+CREATE TABLE IF NOT EXISTS `warning` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(45) DEFAULT NULL,
-  `details` text,
-  `timecreated` bigint(20) DEFAULT NULL,
-  `timevalid` bigint(20) DEFAULT NULL,
-  `timeupdated` bigint(20) DEFAULT NULL,
-  `url` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `discipline_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `details` text COLLATE utf8_unicode_ci,
+  `url` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `timecreated` bigint(20) NOT NULL DEFAULT '0',
+  `timeupdated` bigint(20) NOT NULL DEFAULT '0',
+  `timevalid` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `FK_warning_discipline` (`discipline_id`),
+  KEY `FK_warning_user` (`user_id`),
+  CONSTRAINT `FK_warning_discipline` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `FK_warning_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `warning`
---
-
-LOCK TABLES `warning` WRITE;
+-- Copiando dados para a tabela integro.warning: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `warning` DISABLE KEYS */;
-INSERT INTO `warning` VALUES (1,'Lorem Ipsum',NULL,1452897820,NULL,1452897820,'http://www.soma.com.br'),(2,'Lorem Ipsum',NULL,1452897820,NULL,1452897820,'http://www.soma.com.br'),(3,'Lorem Ipsum',NULL,1452897820,NULL,1452897820,'http://www.soma.com.br');
+INSERT INTO `warning` (`id`, `discipline_id`, `user_id`, `title`, `details`, `url`, `timecreated`, `timeupdated`, `timevalid`) VALUES
+	(1, 1, 2, 'Testing News 1', 'Existem muitas variações disponíveis de passagens de Lorem Ipsum, mas a maioria sofreu algum tipo de alteração, seja por inserção de passagens com humor, ou palavras aleatórias que não parecem nem um pouco convincentes. Se você pretende usar uma passagem de Lorem Ipsum, precisa ter certeza de que não há algo embaraçoso escrito escondido no meio do texto. Todos os geradores de Lorem Ipsum na internet tendem a repetir pedaços predefinidos conforme necessário, fazendo deste o primeiro gerador de Lorem Ipsum autêntico da internet. Ele usa um dicionário com mais de 200 palavras em Latim combinado com um punhado de modelos de estrutura de frases para gerar um Lorem Ipsum com aparência razoável, livre de repetições, inserções de humor, palavras não características, etc.', 'http://www.soma.com.br', 1452795116, 1452795116, 1462097700);
+INSERT INTO `warning` (`id`, `discipline_id`, `user_id`, `title`, `details`, `url`, `timecreated`, `timeupdated`, `timevalid`) VALUES
+	(2, 2, 5, 'Testing News 2', 'Existem muitas variações disponíveis de passagens de Lorem Ipsum, mas a maioria sofreu algum tipo de alteração, seja por inserção de passagens com humor, ou palavras aleatórias que não parecem nem um pouco convincentes. Se você pretende usar uma passagem de Lorem Ipsum, precisa ter certeza de que não há algo embaraçoso escrito escondido no meio do texto. Todos os geradores de Lorem Ipsum na internet tendem a repetir pedaços predefinidos conforme necessário, fazendo deste o primeiro gerador de Lorem Ipsum autêntico da internet. Ele usa um dicionário com mais de 200 palavras em Latim combinado com um punhado de modelos de estrutura de frases para gerar um Lorem Ipsum com aparência razoável, livre de repetições, inserções de humor, palavras não características, etc.', 'http://www.soma.com.br', 1452795116, 1452795116, 1462097700);
+INSERT INTO `warning` (`id`, `discipline_id`, `user_id`, `title`, `details`, `url`, `timecreated`, `timeupdated`, `timevalid`) VALUES
+	(3, 3, 3, 'Testing News 3', 'Existem muitas variações disponíveis de passagens de Lorem Ipsum, mas a maioria sofreu algum tipo de alteração, seja por inserção de passagens com humor, ou palavras aleatórias que não parecem nem um pouco convincentes. Se você pretende usar uma passagem de Lorem Ipsum, precisa ter certeza de que não há algo embaraçoso escrito escondido no meio do texto. Todos os geradores de Lorem Ipsum na internet tendem a repetir pedaços predefinidos conforme necessário, fazendo deste o primeiro gerador de Lorem Ipsum autêntico da internet. Ele usa um dicionário com mais de 200 palavras em Latim combinado com um punhado de modelos de estrutura de frases para gerar um Lorem Ipsum com aparência razoável, livre de repetições, inserções de humor, palavras não características, etc.', 'http://www.soma.com.br', 1452795116, 1452795116, 1462097700);
 /*!40000 ALTER TABLE `warning` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping routines for database 'integro'
---
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2016-01-17 23:06:29

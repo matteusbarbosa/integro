@@ -11,6 +11,7 @@ var index = require('./routes/index');
 var frontpage = require('./routes/frontpage');
 var course = require('./routes/course');
 var discipline = require('./routes/discipline');
+var examination = require('./routes/examination');
 var media = require('./routes/media');
 var warning = require('./routes/warning');
 var helmet = require('helmet');
@@ -39,6 +40,7 @@ app.use('/materialdesign', express.static(__dirname + '/node_modules/material-de
 app.use('/mdl-icons', express.static(__dirname + '/node_modules/mdi/'));
 
 app.set('trust proxy', 1);
+
 app.set('cfg', {
     list: 15,
     secret: 'integro',
@@ -62,6 +64,7 @@ app.use('/media', media);
 app.use('/warning', warning);
 app.use('/course', course);
 app.use('/discipline', discipline);
+app.use('/examination', examination);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
