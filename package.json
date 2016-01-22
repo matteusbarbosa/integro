@@ -37,6 +37,7 @@
   "author": "Matteus Barbosa",
   "license": "ISC",
   "scripts": {
+    "test-export" : "mocha test -R markdown > testresults.md --recursive",
     "test": "mocha test",
     "tsc": "tsc",
     "tsc:w": "tsc -w",

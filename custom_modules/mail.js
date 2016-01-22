@@ -9,11 +9,11 @@ module.exports = {
     recovery: function (userto, recoverynumber) {
         
         var maildata = {
-            to: userto.attributes.email,
+            to: userto.email,
             from: mail,
             subject: '✔ Recuperação de senha', // Subject line 
             text: 'Registramos uma solicitação para recuperação de senha.', // plaintext body
-            html: '<b><a href="' + siteroot + '/recovery/validate/'+userto.attributes.username+'/'+recoverynumber+'">✔ Clique aqui</a> para prosseguir e redefinir sua senha.</b>'
+            html: '<b><a href="' + siteroot + '/recovery/validate/'+userto.username+'/'+recoverynumber+'">✔ Clique aqui</a> para prosseguir e redefinir sua senha.</b>'
         }; // html body 
 
         return transporter.sendMail(maildata);
@@ -21,7 +21,7 @@ module.exports = {
     passwordchanged: function (userto) {
         
         var maildata = {
-            to: userto.attributes.email,
+            to: userto.email,
             from: mail,
             subject: '✔ Senha modificada', // Subject line 
             text: 'Sua senha foi atualizada, como solicitado.', // plaintext body
@@ -32,7 +32,7 @@ module.exports = {
     },
     join: function (userto) {
         var maildata = {
-            to: userto.attributes.email,
+            to: userto.email,
             from: mail,
             subject: '✔ Cadastro', // Subject line 
             text: 'Solicitação de cadastro registrada.', // plaintext body 
@@ -43,7 +43,7 @@ module.exports = {
     },
     notify: function (usersto, items) {
         var maildata = {
-            to: userto.attributes.email,
+            to: userto.email,
             from: mail,
             subject: '✔ Notificação de rotina', // Subject line 
             text: 'Informações que podem ser de seu interesse.', // plaintext body 

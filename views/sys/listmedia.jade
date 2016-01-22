@@ -1,6 +1,6 @@
 .mdl-grid
   .mdl-cell.mdl-cell--4-col
-  .mdl-cell.mdl-cell--4-col
+  .mdl-cell.mdl-cell--4-col.mdl-textfield.mdl-js-textfield
    input.mdl-textfield__input#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="searchquery")
   .mdl-cell.mdl-cell--4-col
  .mdl-grid
@@ -25,12 +25,13 @@
         .mdl-card__supporting-text
          small= x.details
         .mdl-card__actions.mdl-card--border
-         dl.list-media
+         table.list-media
           for z, w in x.media
-           dt
-            a(href="z.url")
-             i.mdi.mdi-tag-text-outline.mdi-2x
-           dd
-            strong= z.title
-            br
-            small= z.timecreated
+           tr
+            th
+             a(href="z.url")
+              i.mdi.mdi-tag-text-outline.mdi-2x
+            td
+             strong= z.title
+             br
+             small= z.timecreated

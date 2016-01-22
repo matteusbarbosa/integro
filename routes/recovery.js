@@ -31,20 +31,25 @@ router.get('/', function (req, res, next) {
 
 	res.render('auth/recovery', data);
 });
+
 router.get('/fail/:fail', function (req, res, next) {
 
 	res.render('auth/login', data);
 });
+
+
 router.post('/sendmail', function (req, res, next) {
 
-	user.where('username', req.body.username).fetch().then(function (user) {
+	user.where('username', req.body.username).fetch().then(function (userdata) {
 
-		if (typeof user === "undefined") {
+		if (typeof userdata === "undefined") {
 			throw 'not-found';
 		}
 
+		var user = userdata.toJSON();
+
         //defina o número para recuperação
-        var recoveryhash = crc32(user.attributes.username + ':' + user.attributes.email);
+        var recoveryhash = crc32(user.username + ':' + user.email);
 
         var mailsent = mail.recovery(user, recoveryhash);
 
@@ -70,13 +75,15 @@ router.post('/sendmail', function (req, res, next) {
 
 router.get('/validate/:username/:recoveryhash', function (req, res, next) {
 
-	user.where('username', req.params.username).fetch().then(function (user) {
+	user.where('username', req.params.username).fetch().then(function (userdata) {
 
-		if (typeof user === "undefined") {
+		if (typeof userdata === "undefined") {
 			throw 'not-found';
 		}
 
-		var validhash = crc32(user.attributes.username + ':' + user.attributes.email);
+		var user = userdata.toJSON();
+
+		var validhash = crc32(user.username + ':' + user.email);
 
 		if (validhash !== req.params.recoveryhash) {
 			var data = {
@@ -103,15 +110,18 @@ router.get('/validate/:username/:recoveryhash', function (req, res, next) {
 router.post('/confirm', function (req, res, next) {
 
 	user.where('username', req.body.username).fetch().then(function (userdata) {
-		if (typeof user === "undefined") {
+
+		if (typeof userdata === "undefined") {
 			throw 'not-found';
 		}
 
 		userdata.save({password : bcrypt.hashSync(req.body.password)}, {patch: true}).then(function (usersaved) {
 
-			var mailsent = mail.passwordchanged(userdata);
+			var user = userdata.JSON();
+
+			var mailsent = mail.passwordchanged(user);
 			mailsent.then(function (val) {
-				var validhash = crc32(userdata.attributes.username + ':' + userdata.attributes.email);
+				var validhash = crc32(user.username + ':' + user.email);
 
 				if (validhash !== req.body.recoveryhash) {
 					var data = {

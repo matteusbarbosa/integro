@@ -12,6 +12,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/home', function (req, res, next) {
+
 	var data = {};
 
 	if(req.session.auth === true){
@@ -19,6 +20,7 @@ router.get('/home', function (req, res, next) {
 	}
 
 	res.render('index', data);
+	
 });
 
 router.get('/home/redirected/:why', function (req, res, next) {
