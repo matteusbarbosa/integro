@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `examination` (
   CONSTRAINT `FK_examination_discipline` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela integro.examination: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela integro.examination: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `examination` DISABLE KEYS */;
 INSERT INTO `examination` (`id`, `details`, `discipline_id`) VALUES
 	(1, 'editoração eletrônica como Aldus PageMake', 3);
