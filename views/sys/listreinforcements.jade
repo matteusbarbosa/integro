@@ -16,7 +16,7 @@
    i.text-danger Nenhum resultado para {{ searchlastquery }}
  .mdl-grid
   .section-title.mdl-cell.mdl-cell--12-col
-   h4 Simulados
+   h4 Monitorias
   for x, y in course.discipline
     .mdl-cell.mdl-cell--4-col
      .mdl-card.mdl-shadow--2dp
@@ -25,12 +25,12 @@
       .mdl-card__supporting-text
        small= x.details
       .mdl-card__actions.mdl-card--border
-        table.list-examination
-         for z, w in x.examination
+        table.list-reinforcement
+         for z, w in x.reinforcement
           tr
            th
             a(href="z.url")
-             i.mdi.mdi-arrow-right-bold-circle-outline.mdi-2x(title="Inscrição")
+             i.mdi.mdi-book-open-variant.mdi-2x(title="Inscrição")
            td
             strong= z.title
             br

@@ -23,7 +23,7 @@ var user = require('../models/user');
 			.post('/recovery/sendmail')
 			.expect(function(res){
 				
-				var finduser = user.where({username : 'john'}).fetch();
+				var finduser = user.where({username : 'admin'}).fetch();
 
 				finduser.then(function (userdata) {
 

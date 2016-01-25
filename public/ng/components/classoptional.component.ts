@@ -3,13 +3,13 @@ import {NgFor, NgIf, FORM_DIRECTIVES} from 'angular2/common';
 import {Http, HTTP_PROVIDERS} from 'angular2/http';
 
 @Component({
-	selector: 'examination',
-	templateUrl: '/examination/list',
+	selector: 'classoptional',
+	templateUrl: '/classoptional/list',
 	viewProviders: [HTTP_PROVIDERS, FORM_DIRECTIVES],
 	directives: [NgFor, NgIf]
 })
 
-export class ExaminationComponent {
+export class ClassoptionalComponent {
 
 	searchresults = {}
 	searchquery
@@ -22,7 +22,7 @@ export class ExaminationComponent {
 
 	search() {
 		
-		this.http.get('examination/search/' + this.searchquery).subscribe(res => {
+		this.http.get('classoptional/search/' + this.searchquery).subscribe(res => {
 
         this.searchresults = res.json();
 

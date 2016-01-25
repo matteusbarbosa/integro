@@ -22,14 +22,12 @@ export class MediaComponent {
     }
 
     search() {
-
-            this.searchlastquery = this.searchquery;
                    
             this.http.get('media/search/'+this.searchquery).subscribe(res => {
 
             this.searchresults = res.json();
 
-            this.searchlastquery = this.searchresults > 0 ? this.searchquery : null;
+            this.searchlastquery = this.searchquery;
 
             });
             

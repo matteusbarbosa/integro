@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var reinforcement = require('../models/reinforcement');
+var classoptional = require('../models/classoptional');
 var course = require('../models/course');
 var router = express.Router();
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
@@ -9,12 +9,12 @@ var date = require('../custom_modules/date').timezone(-180);
 router.get('/', function (req, res, next) {
 	var data = {};
 
-	res.render('sys/reinforcements', data);
+	res.render('sys/classoptionals', data);
 });
 
 router.get('/list', function (req, res, next) {
 
-    course.where({id: 1}).fetch({withRelated: ['discipline.reinforcement']}).then(function (coursedata) {
+    course.where({id: 1}).fetch({withRelated: ['discipline.classoptional']}).then(function (coursedata) {
 
         var data = {
             course : coursedata.toJSON()
@@ -22,14 +22,14 @@ router.get('/list', function (req, res, next) {
 
         for(var c = 0; c < data.course.discipline.length; c++){
 
-            for(var x = 0; x < data.course.discipline[c].reinforcement.length; x++){
+            for(var x = 0; x < data.course.discipline[c].classoptional.length; x++){
 
-                data.course.discipline[c].reinforcement[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', data.course.discipline[c].reinforcement[x].timecreated);
+                data.course.discipline[c].classoptional[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', data.course.discipline[c].classoptional[x].timecreated);
 
             }
         }
 
-        res.render('sys/listreinforcements', data);
+        res.render('sys/listclassoptionals', data);
     });
 });
 
@@ -38,12 +38,12 @@ router.get('/list', function (req, res, next) {
  */
  router.get('/search/:search', function (req, res, next) {
 
-    reinforcement.query(function (qb) {
+    classoptional.query(function (qb) {
         qb.where('title', 'LIKE', '%' + req.params.search + '%')
         .orWhere('details', 'LIKE', '%' + req.params.search + '%')
         .orWhere('details', 'LIKE', '%' + req.params.search + '%')
-    }).fetchAll().then(function (reinforcementdata) {
-        res.json(reinforcementdata.toJSON());
+    }).fetchAll().then(function (classoptionaldata) {
+        res.json(classoptionaldata.toJSON());
     });
 
 });

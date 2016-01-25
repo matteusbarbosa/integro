@@ -12,8 +12,11 @@ var frontpage = require('./routes/frontpage');
 var course = require('./routes/course');
 var discipline = require('./routes/discipline');
 var examination = require('./routes/examination');
+var reinforcement = require('./routes/reinforcement');
+var classoptional = require('./routes/classoptional');
 var media = require('./routes/media');
 var warning = require('./routes/warning');
+var support = require('./routes/support');
 var helmet = require('helmet');
 var typescript = require('typescript');
 var compression = require('compression');
@@ -65,6 +68,9 @@ app.use('/warning', warning);
 app.use('/course', course);
 app.use('/discipline', discipline);
 app.use('/examination', examination);
+app.use('/reinforcement', reinforcement);
+app.use('/classoptional', classoptional);
+app.use('/support', support);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

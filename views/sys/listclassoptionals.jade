@@ -16,7 +16,7 @@
    i.text-danger Nenhum resultado para {{ searchlastquery }}
  .mdl-grid
   .section-title.mdl-cell.mdl-cell--12-col
-   h4 Simulados
+   h4 Aulas Opcionais
   for x, y in course.discipline
     .mdl-cell.mdl-cell--4-col
      .mdl-card.mdl-shadow--2dp
@@ -25,8 +25,8 @@
       .mdl-card__supporting-text
        small= x.details
       .mdl-card__actions.mdl-card--border
-        table.list-examination
-         for z, w in x.examination
+        table.list-classoptional
+         for z, w in x.classoptional
           tr
            th
             a(href="z.url")

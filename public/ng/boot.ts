@@ -11,3 +11,12 @@ bootstrap(WarningsComponent);
 
 import {ExaminationComponent} from './components/examination.component';
 bootstrap(ExaminationComponent);
+
+import {ReinforcementComponent} from './components/reinforcement.component';
+bootstrap(ReinforcementComponent);
+
+import {ClassoptionalComponent} from './components/classoptional.component';
+bootstrap(ClassoptionalComponent);
+
+import {SupportComponent} from './components/classoptional.component';
+bootstrap(SupportComponent);
