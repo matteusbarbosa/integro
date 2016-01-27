@@ -6,7 +6,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 //models
 var user = require('../models/user');
-var subscription = require('../models/subscription');
+var bind = require('../models/bind');
 
 router.use(function (req, res, next){
     if(typeof req.session.auth !== "undefined"){
@@ -32,8 +32,8 @@ router.get('/fail/:fail', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     user.where('username', req.body.username)
-    .fetch({withRelated : [{ subscriptions : function(query) { query.where('instance_type', 'course'); }},
-        'subscriptions.course']})
+    .fetch({withRelated : [{ binds : function(query) { query.where('instance_type', 'course'); }},
+        'binds.course']})
     .then(function (userdata) {
 
         var userj = userdata.toJSON();
@@ -47,11 +47,11 @@ router.post('/', function (req, res, next) {
                 email : userj.email
             },
             course : {
-                id : userj.subscriptions[0].course.id,
-                name : userj.subscriptions[0].course.name
+                id : userj.binds[0].course.id,
+                name : userj.binds[0].course.name
             },
-            startaccess : userj.subscriptions[0].timestart,
-            endaccess : userj.subscriptions[0].timeend
+            startaccess : userj.binds[0].timestart,
+            endaccess : userj.binds[0].timeend
         };
 
         if (result) {

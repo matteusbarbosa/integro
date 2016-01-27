@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/list', function (req, res, next) {
 
-    course.where({id: req.session.access.courseid }).fetch({withRelated: ['subscription.user']}).then(function (coursedata) {
+    course.where({id: req.session.access.course.id }).fetch({withRelated: ['bind.user']}).then(function (coursedata) {
 
         var data = {
             course : coursedata.toJSON()
@@ -40,16 +40,16 @@ router.get('/profile/:id', function (req, res, next) {
 
     var user_id = (req.params.id == 0) ? req.session.access.user.id : req.params.id;
 
-    user.where({id: user_id }).fetch({withRelated: ['subscriptions']}).then(function (userdata) {
+    user.where({id: user_id }).fetch({withRelated: ['binds']}).then(function (userdata) {
 
-        userdata.course().then(function(subscription_fetch){
+        userdata.course().then(function(bind_fetch){
 
             var data = {};
 
             try {
 
               data.user = userdata.toJSON();  
-              data.subscription = subscription_fetch.toJSON();
+              data.bind = bind_fetch.toJSON();
               data.user.timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.user.timecreated));
               data.user.timelastlogin = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.user.timelastlogin));
               res.render('sys/userprofile', data);

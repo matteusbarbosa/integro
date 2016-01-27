@@ -34,6 +34,24 @@ export class MediaComponent {
             return this.searchresults;
 
     }
-    add() { }
-    remove() { }
+    
+    bind(media_id) {
+
+        this.http.get('media/bind/' + media_id).subscribe(res => {
+
+            this.result = res.json();
+
+        });
+    }
+
+    unlink(media_id) {
+
+        this.http.get('media/unlink/' + media_id).subscribe(res => {
+
+            this.result = res.json();
+
+        });
+    }
+
+
 }

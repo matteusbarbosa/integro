@@ -30,9 +30,9 @@
          tr
           th
            if z.subs
-            i.mdi.mdi-checkbox-marked-circle-outline.mdi-2x(title="Já inscrito")
+            i.mdi.mdi-checkbox-marked-circle-outline.mdi-2x.link-bound(title="Já inscrito")
            else
-            a(href="z.url")
+            a.link-bind(href="#", (click)="bind(z.id)", [ngClass]="{ bound : isBound }")
              i.mdi.mdi-arrow-right-bold-circle-outline.mdi-2x(title="Inscrição")
           td
            strong= z.title

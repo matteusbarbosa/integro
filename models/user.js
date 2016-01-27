@@ -1,34 +1,36 @@
-var subscription = require('./subscription');
+var bind = require('./bind');
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 module.exports = bookshelf.model('user', {
     tableName: 'user',
-    subscriptions: function () {
-        return this.hasMany('subscription');
+    binds: function () {
+        return this.hasMany('bind');
     },
     role: function () {
         return this.hasOne('role');
     },
     course: function(){
-        return subscription
-        .where({ instance_type : 'subscription', user_id : this.id})
-        .fetch({ withRelated : 'course'});
+        return this.binds
+        .fetch({withRelated : [{
+            binds : function(query) { query.where('instance_type', 'course'); }},
+            'binds.course']});
     },
     examinations: function(){
-        return subscription
-        .where({ instance_type : 'examination', user_id : this.id})
-        .fetch({ withRelated : 'discipline' });
+        return this.binds
+        .fetch({withRelated : [{
+            binds : function(query) { query.where('instance_type', 'examination'); }},
+            'binds.examination']});
 
     },
     reinforcements: function(){
-        return subscription
-        .where({ instance_type : 'reinforcement', user_id : this.id})
-        .fetch({ withRelated : 'discipline' });
-
+        return this.binds
+        .fetch({withRelated : [{
+            binds : function(query) { query.where('instance_type', 'reinforcement'); }},
+            'binds.reinforcement']});
     },
     classoptionals: function(){
-        return subscription
-        .where({ instance_type : 'classoptional', user_id : this.id})
-        .fetch({ withRelated : 'course' });
-
+        return this.binds
+        .fetch({withRelated : [{
+            binds : function(query) { query.where('instance_type', 'classoptional'); }},
+            'binds.classoptional']});
     }
 });

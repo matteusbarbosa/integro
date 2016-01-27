@@ -1,5 +1,5 @@
-var subscription = require('./discipline');
-var subscription = require('./user');
+var bind = require('./discipline');
+var user = require('./user');
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 module.exports = bookshelf.model('warning', {
   tableName: 'warning',

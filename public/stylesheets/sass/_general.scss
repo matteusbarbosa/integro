@@ -56,11 +56,17 @@ main{
  #section-footer{}
 }
 .list-examination{
-    
+    th{
+        .link-bound{
+            color: rgb(76,175,80);
+        }
+        .link-bind{
+            
+        }
+    }
 }
 
 .list-media{
-    height: 256px;
     overflow-y: scroll;
     dt{
         border-left: 3px solid rgb(68,138,255);

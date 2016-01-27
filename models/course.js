@@ -1,13 +1,13 @@
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 var discipline = require('./discipline');
-var subscription = require('./subscription');
+var bind = require('./bind');
 
 module.exports = bookshelf.model('course', {
 	tableName: 'course',
 	discipline: function () {
 		return this.hasMany('discipline');
 	},
-	subscriptions: function() {
-		return this.morphMany('subscription', 'course', ['instance_type', 'instance_id']);
+	binds: function() {
+		return this.morphMany('bind', 'course', ['instance_type', 'instance_id']);
 	}
 });

@@ -34,4 +34,22 @@ export class ReinforcementComponent {
 
     }
 
+	bind(reinforcement_id) {
+
+		this.http.get('reinforcement/bind/' + reinforcement_id).subscribe(res => {
+
+			this.result = res.json();
+
+		});
+	}
+
+	unlink(reinforcement_id) {
+
+		this.http.get('reinforcement/unlink/' + reinforcement_id).subscribe(res => {
+
+			this.result = res.json();
+
+		});
+	}
+
 }

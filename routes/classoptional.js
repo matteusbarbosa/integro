@@ -36,6 +36,23 @@ router.get('/list', function (req, res, next) {
 });
 
 /*
+ * ng click bind
+ */
+router.get('/bind/:id', function (req, res, next){
+
+    bind.forge({
+        user_id : req.session.access.user.id,
+        instance_id : req.params.id,
+        instance_type : 'classoptional'
+    })
+    .save()
+    .then(bindsave => res.status(200))
+    .catch(error => res.status(500)
+            //.send(error.message)
+            );
+});
+
+/*
  * ng json query
  */
  router.get('/search/:search', function (req, res, next) {

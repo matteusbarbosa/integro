@@ -5,7 +5,7 @@ module.exports = bookshelf.model('reinforcement', {
     discipline: function () {
         return this.belongsTo(discipline);
     },
-    subscription: function () {
-        return this.morphMany(subscription, 'reinforcement', ['instance_type', 'instance_id']);
+    bind: function () {
+        return this.morphMany(bind, 'reinforcement', ['instance_type', 'instance_id']);
     }
 });

@@ -4,12 +4,12 @@ var examination = require('../models/examination');
 var router = express.Router();
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 var date = require('../custom_modules/date').timezone(-180);
-var subscription = require('./subscription');
 var _ = require('lodash');
 
 //models
 var course = require('../models/course');
 var user = require('../models/user');
+var bind = require('../models/bind');
 
 router.get('/', function (req, res, next) {
 	var data = {};
@@ -23,7 +23,7 @@ router.get('/list', function (req, res, next) {
     .then(function (coursedata) {
 
         user.where({id: req.session.access.user.id })
-        .fetch({withRelated : [ { subscriptions : function (query) { query.where('instance_type', 'examination'); }}, 'subscriptions.examination']})
+        .fetch({withRelated : [ { binds : function (query) { query.where('instance_type', 'examination'); }}, 'binds.examination']})
         .then(function (subs_fetch){
 
             var data = {
@@ -35,7 +35,7 @@ router.get('/list', function (req, res, next) {
 
                 for(var x = 0; x < data.course.discipline[c].examination.length; x++){
 
-                    var exist = _.some(data.user.subscriptions, {instance_id : data.course.discipline[c].examination[x].id });
+                    var exist = _.some(data.user.binds, {instance_id : data.course.discipline[c].examination[x].id });
 
                     if(exist){
                         data.course.discipline[c].examination[x].subs = true;
@@ -54,6 +54,22 @@ router.get('/list', function (req, res, next) {
 });
 
 /*
+ * ng click bind
+ */
+router.get('/bind/:id', function (req, res, next){
+
+    bind.forge({
+        user_id : req.session.access.user.id,
+        instance_id : req.params.id,
+        instance_type : 'examination'
+    })
+    .save()
+    .then(bindsave => res.status(200))
+    .catch(error => res.status(500)
+            //.send(error.message)
+            );
+});
+/*
  * ng json query
  */
  router.get('/search/:search', function (req, res, next) {
@@ -70,9 +86,9 @@ router.get('/list', function (req, res, next) {
 
 
  router.get('/home/redirected/:why', function (req, res, next) {
-   var data = {};
+     var data = {};
 
-   res.render('index', data);
-});
+     res.render('index', data);
+ });
 
  module.exports = router;

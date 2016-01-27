@@ -36,6 +36,23 @@ router.get('/list', function (req, res, next) {
 });
 
 /*
+ * ng click bind
+ */
+ router.get('/bind/:id', function (req, res, next){
+
+    bind.forge({
+        user_id : req.session.access.user.id,
+        instance_id : req.params.id,
+        instance_type : 'reinforcement'
+    })
+    .save()
+    .then(bindsave => res.status(200))
+    .catch(error => res.status(500)
+            //.send(error.message)
+            );
+});
+
+/*
  * ng json query
  */
  router.get('/search/:search', function (req, res, next) {
@@ -51,10 +68,10 @@ router.get('/list', function (req, res, next) {
 });
 
 
-router.get('/home/redirected/:why', function (req, res, next) {
-	var data = {};
+ router.get('/home/redirected/:why', function (req, res, next) {
+   var data = {};
 
-	res.render('index', data);
+   res.render('index', data);
 });
 
-module.exports = router;
+ module.exports = router;

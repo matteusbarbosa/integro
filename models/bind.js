@@ -4,8 +4,8 @@ var examination = require('./examination');
 var reinforcement = require('./reinforcement');
 var classoptional = require('./classoptional');
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
-module.exports = bookshelf.model('subscription', {
-	tableName: 'subscription',
+module.exports = bookshelf.model('bind', {
+	tableName: 'bind',
 	user: function () {
 		return this.belongsTo('user');
 	},

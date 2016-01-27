@@ -34,4 +34,22 @@ export class ClassoptionalComponent {
 
     }
 
+	bind(classoptional_id) {
+
+		this.http.get('classoptional/bind/' + classoptional_id).subscribe(res => {
+
+			this.result = res.json();
+
+		});
+	}
+
+	unlink(classoptional_id) {
+
+		this.http.get('classoptional/unlink/' + classoptional_id).subscribe(res => {
+
+			this.result = res.json();
+
+		});
+	}
+
 }
