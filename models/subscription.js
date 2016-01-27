@@ -7,21 +7,21 @@ var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 module.exports = bookshelf.model('subscription', {
 	tableName: 'subscription',
 	user: function () {
-		return this.belongsTo(user);
+		return this.belongsTo('user');
 	},
 	instance: function () {
 		return this.morphTo('instance', course, examination, reinforcement, classoptional);
 	},
 	course: function () {
-		return this.belongsTo(course, 'instance_id');
+		return this.belongsTo('course', 'instance_id');
 	},
 	reinforcement: function () {
-		return this.belongsTo(reinforcement, 'instance_id');
+		return this.belongsTo('reinforcement', 'instance_id');
 	},
 	examination: function () {
-		return this.belongsTo(examination, 'instance_id');
+		return this.belongsTo('examination', 'instance_id');
 	},
 	classoptional: function () {
-		return this.belongsTo(classoptional, 'instance_id');
+		return this.belongsTo('classoptional', 'instance_id');
 	}
 });

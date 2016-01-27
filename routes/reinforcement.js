@@ -29,6 +29,8 @@ router.get('/list', function (req, res, next) {
             }
         }
 
+        data.path = req.path;
+
         res.render('sys/listreinforcements', data);
     });
 });

@@ -17,10 +17,13 @@ var classoptional = require('./routes/classoptional');
 var media = require('./routes/media');
 var warning = require('./routes/warning');
 var support = require('./routes/support');
+var user = require('./routes/user');
 var helmet = require('helmet');
 var typescript = require('typescript');
 var compression = require('compression');
+var session = require('express-session');
 var app = express();
+var router = express.Router();
 var expiryDate = Date.now() + 60 * 60 * 1000;
 
 // view engine setup
@@ -43,6 +46,15 @@ app.use('/materialdesign', express.static(__dirname + '/node_modules/material-de
 app.use('/mdl-icons', express.static(__dirname + '/node_modules/mdi/'));
 
 app.set('trust proxy', 1);
+router.use(session({
+    /*    genid: function(req) {
+     return expiryDate; // use UUIDs for session IDs
+ },*/
+ secret: 'integro',
+ resave: false,
+ saveUninitialized: true,
+ cookie: {maxAge: null, secure: false}
+}));
 
 app.set('cfg', {
     list: 15,
@@ -71,6 +83,7 @@ app.use('/examination', examination);
 app.use('/reinforcement', reinforcement);
 app.use('/classoptional', classoptional);
 app.use('/support', support);
+app.use('/user', user);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

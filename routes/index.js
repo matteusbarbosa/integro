@@ -46,6 +46,8 @@ router.get('/home', function (req, res, next) {
         req.session.warnings = false;
     }
 
+    data.path = req.path;
+
     res.render('sys/home', data);
 });
 

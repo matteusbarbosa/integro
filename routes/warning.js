@@ -27,6 +27,8 @@ router.get('/list', function (req, res, next) {
             data.warnings[c].details = data.warnings[c].details.substr(0,255);
             data.warnings[c].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.warnings[c].timecreated));
         }
+
+        data.path = req.path;
         
         res.render('sys/listwarnings', data);
     });

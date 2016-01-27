@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var classoptional = require('../models/classoptional');
+var support = require('../models/support');
 var course = require('../models/course');
 var router = express.Router();
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
@@ -9,12 +9,12 @@ var date = require('../custom_modules/date').timezone(-180);
 router.get('/', function (req, res, next) {
 	var data = {};
 
-	res.render('sys/classoptionals', data);
+	res.render('sys/supports', data);
 });
 
 router.get('/list', function (req, res, next) {
 
-    course.where({id: 1}).fetch({withRelated: ['discipline.classoptional']}).then(function (coursedata) {
+    course.where({id: 1}).fetch({withRelated: ['discipline.support']}).then(function (coursedata) {
 
         var data = {
             course : coursedata.toJSON()
@@ -22,17 +22,27 @@ router.get('/list', function (req, res, next) {
 
         for(var c = 0; c < data.course.discipline.length; c++){
 
-            for(var x = 0; x < data.course.discipline[c].classoptional.length; x++){
+            for(var x = 0; x < data.course.discipline[c].support.length; x++){
 
-                data.course.discipline[c].classoptional[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', data.course.discipline[c].classoptional[x].timecreated);
+                data.course.discipline[c].support[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', data.course.discipline[c].support[x].timecreated);
 
             }
         }
 
-        data.path = req.path;
-
-        res.render('sys/listclassoptionals', data);
+        res.render('sys/listsupports', data);
     });
+});
+
+ router.get('/profile/:id', function (req, res, next) {
+
+    support.query(function (qb) {
+        qb.where('title', 'LIKE', '%' + req.params.search + '%')
+        .orWhere('details', 'LIKE', '%' + req.params.search + '%')
+        .orWhere('details', 'LIKE', '%' + req.params.search + '%')
+    }).fetchAll().then(function (supportdata) {
+        res.json(supportdata.toJSON());
+    });
+
 });
 
 /*
@@ -40,12 +50,12 @@ router.get('/list', function (req, res, next) {
  */
  router.get('/search/:search', function (req, res, next) {
 
-    classoptional.query(function (qb) {
+    support.query(function (qb) {
         qb.where('title', 'LIKE', '%' + req.params.search + '%')
         .orWhere('details', 'LIKE', '%' + req.params.search + '%')
         .orWhere('details', 'LIKE', '%' + req.params.search + '%')
-    }).fetchAll().then(function (classoptionaldata) {
-        res.json(classoptionaldata.toJSON());
+    }).fetchAll().then(function (supportdata) {
+        res.json(supportdata.toJSON());
     });
 
 });

@@ -25,13 +25,16 @@
       .mdl-card__supporting-text
        small= x.details
       .mdl-card__actions.mdl-card--border
-        table.list-examination
-         for z, w in x.examination
-          tr
-           th
+       table.list-examination
+        for z, w in x.examination
+         tr
+          th
+           if z.subs
+            i.mdi.mdi-checkbox-marked-circle-outline.mdi-2x(title="Já inscrito")
+           else
             a(href="z.url")
              i.mdi.mdi-arrow-right-bold-circle-outline.mdi-2x(title="Inscrição")
-           td
-            strong= z.title
-            br
-            small= z.timecreated
+          td
+           strong= z.title
+           br
+           small= z.timecreated

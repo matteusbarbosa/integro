@@ -2,6 +2,10 @@ html{
     height:100%;
 }
 
+main{
+    background-color: rgb(220, 220, 220);
+}
+
 #card-login{
     margin-top:15%;
     padding: 12px;
@@ -51,8 +55,11 @@ html{
  #section-news{}
  #section-footer{}
 }
+.list-examination{
+    
+}
 
-dl.list-media{
+.list-media{
     height: 256px;
     overflow-y: scroll;
     dt{
@@ -156,4 +163,28 @@ dl.list-media{
 
 .c-wt{
     color: #fff !important;
+}
+
+#page-userprofile{
+    table#tb-profile{
+        width:100%;
+        border: 0px;
+    }
+}
+
+
+
+#page-404{
+h1{
+    text-align:center;
+}
+    .links-404{
+     width: 100%;
+     padding: 24px 0px;
+     text-align:center;
+    a{
+        font-size: 2em;
+    }
+      
+    }
 }

@@ -25,6 +25,8 @@ router.get('/list', function (req, res, next) {
                  data.course.discipline[c].media[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.course.discipline[c].media[x].timecreated));
             }
         }
+
+        data.path = req.path;
         
         res.render('sys/listmedia', data);       
     });

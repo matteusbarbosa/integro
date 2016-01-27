@@ -5,19 +5,31 @@ header.mdl-layout__header
   // Title
   a.mdl-layout-title.c-wt(href="/home")
      i.mdi.mdi-home-variant
-     Íntegro
+     spanÍntegro
     // Add spacer, to align navigation to the right
   .mdl-layout-spacer
     // Navigation. We hide it in small screens.
-  nav.mdl-navigation.mdl-layout--large-screen-only
+  nav#menu-main.mdl-navigation.mdl-layout--large-screen-only
    a.mdl-navigation__link(href='/warning') Avisos
    a.mdl-navigation__link(href='/media') Mídia        
    a.mdl-navigation__link(href='/examination') Simulados    
    a.mdl-navigation__link(href='/reinforcement') Monitorias     
    a.mdl-navigation__link(href='/classoptional') Aulas Opcionais
-   a.mdl-navigation__link(href='/support') Suporte     
-   a.mdl-navigation__link(href='/logout', title="Logout")
-    i.mdi.mdi-logout
+   a.mdl-navigation__link#btn-logout(href="#")
+    i.mdi.mdi-account-convert
+   ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect(for='btn-logout')
+    li.mdl-menu__item
+     a(href='/user/profile/0', title="Perfil") 
+      i.mdi.mdi-account-convert
+      span Perfil
+    li.mdl-menu__item
+     a(href='/support/', title="Suporte")
+      i.mdi.mdi-help
+      span Suporte
+    li.mdl-menu__item
+     a(href='/logout/', title="Logout")
+      i.mdi.mdi-logoff
+      span Logout
 .mdl-layout__drawer
  a.mdl-layout-title(href="/home")
    i.mdi.mdi-home-variant
@@ -27,7 +39,18 @@ header.mdl-layout__header
   a.mdl-navigation__link(href='/examination') Simulados    
   a.mdl-navigation__link(href='/reinforcement') Monitorias     
   a.mdl-navigation__link(href='/classoptional') Aulas Opcionais
-  a.mdl-navigation__link(href='/support') Suporte 
-  a.mdl-navigation__link(href='../logout', title="Logout")
-   i.mdi.mdi-logout
-   spanLogout
+  a.mdl-navigation__link#btn-logout(href="#")
+    i.mdi.mdi-account-convert
+   ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect(for='btn-logout')
+    li.mdl-menu__item
+     a(href='/user/profile/0', title="Perfil") 
+      i.mdi.mdi-account-convert
+      span Perfil
+    li.mdl-menu__item
+     a(href='/support/', title="Suporte")
+      i.mdi.mdi-help
+      span Suporte
+    li.mdl-menu__item
+     a(href='/logout/', title="Logout")
+      i.mdi.mdi-logoff
+      span Logout
