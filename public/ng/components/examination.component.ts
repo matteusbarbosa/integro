@@ -3,7 +3,6 @@ import {NgFor, NgIf, NgClass, FORM_DIRECTIVES} from 'angular2/common';
 import {Http, HTTP_PROVIDERS} from 'angular2/http';
 
 @Component({
-	inputs: ['isBound'],
 	selector: 'examination',
 	templateUrl: '/examination/list',
 	viewProviders: [HTTP_PROVIDERS, FORM_DIRECTIVES],
@@ -16,10 +15,20 @@ export class ExaminationComponent {
 	searchquery
 	searchlastquery
 	http
-	isBound = true
+	isBound
 
 	constructor(@Inject(Http) http:Http){
 		this.http = http;
+	}
+
+	list(discipline_id: number) {
+
+		this.http.get('examination/list/' + this.searchquery).subscribe(res => {
+
+			this.list = res.json();
+
+		});
+
 	}
 
 	search() {
@@ -32,25 +41,31 @@ export class ExaminationComponent {
 
 		});
 
-		return this.searchresults;
-
 	}
 
-	bind(examination_id) {
+	bind(examination_id : number) {
+
+		console.log(examination_id);
 
 		this.http.get('examination/bind/' + examination_id).subscribe(res => {
 
 			this.result = res.json();
 
+			console.log(isBound);
+
 		});
 	}
 
-	unlink(examination_id) {
+	unlink(examination_id : number) {
 
 		this.http.get('examination/unlink/' + examination_id).subscribe(res => {
 
 			this.result = res.json();
 
+			console.log(isBound);
+
 		});
+
+		return true;
 	}
 }

@@ -17,7 +17,9 @@ router.get('/', function (req, res, next) {
 
 router.get('/list', function (req, res, next) {
 
-    course.where({id: req.session.access.course.id }).fetch({withRelated: ['bind.user']}).then(function (coursedata) {
+    course.where({id: req.session.access.course.id })
+    .fetch({withRelated: ['discipline']})
+    .then(function (coursedata) {
 
         var data = {
             course : coursedata.toJSON()

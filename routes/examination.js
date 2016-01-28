@@ -53,7 +53,23 @@ router.get('/list', function (req, res, next) {
     });
 });
 
+
 /*
+ * ng json query
+ */
+ router.get('/search/:search', function (req, res, next) {
+
+    examination.query(function (qb) {
+        qb.where('title', 'LIKE', '%' + req.params.search + '%')
+        .orWhere('details', 'LIKE', '%' + req.params.search + '%')
+        .orWhere('details', 'LIKE', '%' + req.params.search + '%')
+    }).fetchAll().then(function (examinationdata) {
+        res.json(examinationdata.toJSON());
+    });
+
+});
+
+ /*
  * ng click bind
  */
 router.get('/bind/:id', function (req, res, next){
@@ -69,19 +85,22 @@ router.get('/bind/:id', function (req, res, next){
             //.send(error.message)
             );
 });
-/*
- * ng json query
+
+ /*
+ * ng click unlink
  */
- router.get('/search/:search', function (req, res, next) {
+router.get('/unlink/:id', function (req, res, next){
 
-    examination.query(function (qb) {
-        qb.where('title', 'LIKE', '%' + req.params.search + '%')
-        .orWhere('details', 'LIKE', '%' + req.params.search + '%')
-        .orWhere('details', 'LIKE', '%' + req.params.search + '%')
-    }).fetchAll().then(function (examinationdata) {
-        res.json(examinationdata.toJSON());
-    });
-
+    bind.where({
+        user_id : req.session.access.user.id,
+        instance_id : req.params.id,
+        instance_type : 'examination'
+    })
+    .destroy()
+    .then(binddestroy => res.status(200))
+    .catch(error => res.status(500)
+            //.send(error.message)
+            );
 });
 
 
