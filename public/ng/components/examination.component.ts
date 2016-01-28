@@ -1,12 +1,14 @@
 import {Component, Inject} from 'angular2/core';
 import {NgFor, NgIf, NgClass, FORM_DIRECTIVES} from 'angular2/common';
 import {Http, HTTP_PROVIDERS} from 'angular2/http';
+import {ExaminationService} from './ExaminationService';
 
 @Component({
 	selector: 'examination',
 	templateUrl: '/examination/list',
-	viewProviders: [HTTP_PROVIDERS, FORM_DIRECTIVES],
-	directives: [NgFor, NgIf, NgClass]
+	viewProviders: [FORM_DIRECTIVES, ExaminationService],
+	directives: [NgFor, NgIf, NgClass],
+	providers: [ExaminationService, HTTP_PROVIDERS]
 })
 
 export class ExaminationComponent {
@@ -16,18 +18,16 @@ export class ExaminationComponent {
 	searchlastquery
 	http
 	isBound
+	exs
 
-	constructor(@Inject(Http) http:Http){
+	constructor(@Inject(Http) http:Http, 
+		@Inject(ExaminationService) exs:ExaminationService){
+
 		this.http = http;
-	}
+		this.exs = this.exs.getList(1)._examinations;
 
-	list(discipline_id: number) {
-
-		this.http.get('examination/list/' + this.searchquery).subscribe(res => {
-
-			this.list = res.json();
-
-		});
+		console.log(this.exs);
+		
 
 	}
 
@@ -49,9 +49,9 @@ export class ExaminationComponent {
 
 		this.http.get('examination/bind/' + examination_id).subscribe(res => {
 
-			this.result = res.json();
+			this.listbound[examination_id] = true;
 
-			console.log(isBound);
+			this.result = res.json();
 
 		});
 	}
@@ -59,6 +59,8 @@ export class ExaminationComponent {
 	unlink(examination_id : number) {
 
 		this.http.get('examination/unlink/' + examination_id).subscribe(res => {
+
+			this.listbound[examination_id] = false;
 
 			this.result = res.json();
 

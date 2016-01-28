@@ -17,19 +17,21 @@
  .mdl-grid
   .section-title.mdl-cell.mdl-cell--12-col
    h4 Simulados
-  .mdl-cell.mdl-cell--4-col(*ngFor="#dcp of discipline")
-    .mdl-card.mdl-shadow--2dp
-     .mdl-card__title
-      h4 {{ dcp.title }}
-     .mdl-card__supporting-text
-      small {{ dcp.details }}
-     .mdl-card__actions.mdl-card--border
-      table
-       tr(*ngFor="#exm of discipline.examination", (click)="bind()")
-        th
-         i.mdi.mdi-arrow-right-bold-circle-outline.mdi-2x(title="Inscrição")
-         i.mdi.mdi-checkbox-marked-circle-outline.mdi-2x.link-bound(title="Já inscrito")
-        td
-         strong {{ exm.title }}
-         br
-         small {{ exm.timecreated }}
+  for x, y in course.discipline
+    .mdl-cell.mdl-cell--4-col
+     .mdl-card.mdl-shadow--2dp
+      .mdl-card__title
+       h4= x.title
+      .mdl-card__supporting-text
+       small= x.details
+      .mdl-card__actions.mdl-card--border
+        for z, w in x.examination
+         if z.subs
+          tr((click)="bind(z.id)", [(ngModel)]="listbound[z.id]")
+           th
+            i.mdi.mdi-arrow-right-bold-circle-outline.mdi-2x(title="Inscrição", (click)="bind(z.id)", [ngClass]="{ hide : listbound[z.id] == true }")
+            i.mdi.mdi-checkbox-marked-circle-outline.mdi-2x.link-bound(title="Já inscrito", (click)="unlink(z.id)", [ngClass]="{ hide : listbound[z.id] == true }")
+           td
+            strong= z.title
+            br
+            small= z.timecreated

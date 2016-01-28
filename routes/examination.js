@@ -12,9 +12,8 @@ var user = require('../models/user');
 var bind = require('../models/bind');
 
 router.get('/', function (req, res, next) {
-	var data = {};
 
-	res.render('sys/examinations', data);
+    res.render('sys/examinations');
 });
 
 router.get('/list', function (req, res, next) {
@@ -26,27 +25,23 @@ router.get('/list', function (req, res, next) {
         .fetch({withRelated : [ { binds : function (query) { query.where('instance_type', 'examination'); }}, 'binds.examination']})
         .then(function (subs_fetch){
 
-            var data = {
-                course : coursedata.toJSON(),
-                user : subs_fetch.toJSON()
-            };
+            var data = coursedata.toJSON();
+            data.user = subs_fetch.toJSON();
 
-            for(var c = 0; c < data.course.discipline.length; c++){
+            for(var c = 0; c < data.discipline.length; c++){
 
-                for(var x = 0; x < data.course.discipline[c].examination.length; x++){
+                for(var x = 0; x < data.discipline[c].examination.length; x++){
 
-                    var exist = _.some(data.user.binds, {instance_id : data.course.discipline[c].examination[x].id });
+                    var exist = _.some(data.user.binds, {instance_id : data.discipline[c].examination[x].id });
 
                     if(exist){
-                        data.course.discipline[c].examination[x].subs = true;
+                        data.discipline[c].examination[x].subs = true;
                     }
 
-                    data.course.discipline[c].examination[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', data.course.discipline[c].examination[x].timecreated);
+                    data.discipline[c].examination[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', data.discipline[c].examination[x].timecreated);
                     
                 }
             }
-
-            data.path = req.path;
 
             res.render('sys/listexaminations', data);
         });
