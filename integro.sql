@@ -10,17 +10,71 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+-- Copiando estrutura para tabela integro.bind
+CREATE TABLE IF NOT EXISTS `bind` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `instance_id` int(11) NOT NULL DEFAULT '0',
+  `instance_type` varchar(50) COLLATE utf8_unicode_ci DEFAULT '0',
+  `class_id` int(11) DEFAULT NULL,
+  `timestart` int(11) DEFAULT NULL,
+  `timeend` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id_instance_id_instance_type` (`user_id`,`instance_id`,`instance_type`),
+  CONSTRAINT `FK_bind_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Copiando dados para a tabela integro.bind: ~13 rows (aproximadamente)
+/*!40000 ALTER TABLE `bind` DISABLE KEYS */;
+INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
+	(1, 1, 1, 'reinforcement', 0, 0, 0);
+INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
+	(2, 2, 1, NULL, 0, 0, 0);
+INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
+	(3, 3, 1, NULL, 0, 0, 0);
+INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
+	(4, 5, 1, NULL, 0, 0, 0);
+INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
+	(5, 4, 1, NULL, 0, 0, 0);
+INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
+	(7, 1, 1, 'course', 0, 0, 0);
+INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
+	(8, 1, 1, 'examination', 0, 0, 0);
+INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
+	(9, 2, 1, 'examination', 0, 0, 0);
+INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
+	(10, 3, 1, 'examination', 0, 0, 0);
+INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
+	(13, 2, 1, 'course', 0, 0, 0);
+INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
+	(25, 1, 2, 'examination', NULL, NULL, NULL);
+INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
+	(29, 1, 5, 'examination', NULL, NULL, NULL);
+INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
+	(31, 1, 0, 'examination', NULL, NULL, NULL);
+/*!40000 ALTER TABLE `bind` ENABLE KEYS */;
+
+
 -- Copiando estrutura para tabela integro.classoptional
 CREATE TABLE IF NOT EXISTS `classoptional` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `discipline_id` int(11) DEFAULT NULL,
   `number` int(11) NOT NULL DEFAULT '0',
   `title` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `details` text COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`id`),
+  KEY `FK_classoptional_discipline` (`discipline_id`),
+  CONSTRAINT `FK_classoptional_discipline` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela integro.classoptional: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela integro.classoptional: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `classoptional` DISABLE KEYS */;
+INSERT INTO `classoptional` (`id`, `discipline_id`, `number`, `title`, `details`) VALUES
+	(1, 1, 18, 'CLASSOPTIONAL TEST', 'TEST DETAILS');
+INSERT INTO `classoptional` (`id`, `discipline_id`, `number`, `title`, `details`) VALUES
+	(2, 2, 12, 'CLASSOPTIONAL TEST', 'TEST DETAILS');
+INSERT INTO `classoptional` (`id`, `discipline_id`, `number`, `title`, `details`) VALUES
+	(3, 3, 15, 'CLASSOPTIONAL TEST', 'TEST DETAILS');
 /*!40000 ALTER TABLE `classoptional` ENABLE KEYS */;
 
 
@@ -111,6 +165,7 @@ INSERT INTO `disciplinemedia` (`discipline_id`, `media_id`, `id`) VALUES
 -- Copiando estrutura para tabela integro.examination
 CREATE TABLE IF NOT EXISTS `examination` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `details` text COLLATE utf8_unicode_ci NOT NULL,
   `discipline_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -120,12 +175,12 @@ CREATE TABLE IF NOT EXISTS `examination` (
 
 -- Copiando dados para a tabela integro.examination: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `examination` DISABLE KEYS */;
-INSERT INTO `examination` (`id`, `details`, `discipline_id`) VALUES
-	(1, 'editoração eletrônica como Aldus PageMake', 3);
-INSERT INTO `examination` (`id`, `details`, `discipline_id`) VALUES
-	(2, 'editoração eletrônica como Aldus PageMake', 1);
-INSERT INTO `examination` (`id`, `details`, `discipline_id`) VALUES
-	(3, 'editoração eletrônica como Aldus PageMake', 2);
+INSERT INTO `examination` (`id`, `title`, `details`, `discipline_id`) VALUES
+	(1, 'Test', 'editoração eletrônica como Aldus PageMake', 3);
+INSERT INTO `examination` (`id`, `title`, `details`, `discipline_id`) VALUES
+	(2, 'Test', 'editoração eletrônica como Aldus PageMake', 1);
+INSERT INTO `examination` (`id`, `title`, `details`, `discipline_id`) VALUES
+	(3, 'Test', 'editoração eletrônica como Aldus PageMake', 2);
 /*!40000 ALTER TABLE `examination` ENABLE KEYS */;
 
 
@@ -161,12 +216,22 @@ INSERT INTO `media` (`id`, `user_id`, `url`, `title`, `details`, `metatitle`, `f
 -- Copiando estrutura para tabela integro.reinforcement
 CREATE TABLE IF NOT EXISTS `reinforcement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `details` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `discipline_id` int(11) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `details` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  KEY `FK_reinforcement_discipline` (`discipline_id`),
+  CONSTRAINT `FK_reinforcement_discipline` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela integro.reinforcement: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela integro.reinforcement: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `reinforcement` DISABLE KEYS */;
+INSERT INTO `reinforcement` (`id`, `discipline_id`, `title`, `details`) VALUES
+	(1, 1, 'TEST REINFORCEMENT', 'Details...');
+INSERT INTO `reinforcement` (`id`, `discipline_id`, `title`, `details`) VALUES
+	(2, 1, 'TEST REINFORCEMENT 2', 'Details...');
+INSERT INTO `reinforcement` (`id`, `discipline_id`, `title`, `details`) VALUES
+	(3, 3, 'TEST REINFORCEMENT 3', 'Details...');
 /*!40000 ALTER TABLE `reinforcement` ENABLE KEYS */;
 
 
@@ -215,25 +280,6 @@ CREATE TABLE IF NOT EXISTS `schedule` (
 /*!40000 ALTER TABLE `schedule` ENABLE KEYS */;
 
 
--- Copiando estrutura para tabela integro.subscription
-CREATE TABLE IF NOT EXISTS `subscription` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
-  `instance_id` int(11) NOT NULL DEFAULT '0',
-  `instance_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT '0',
-  `classid` int(11) DEFAULT '0',
-  `timestart` int(11) DEFAULT '0',
-  `timeend` int(11) DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `FK_subscription_user` (`user_id`),
-  CONSTRAINT `FK_subscription_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Copiando dados para a tabela integro.subscription: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `subscription` DISABLE KEYS */;
-/*!40000 ALTER TABLE `subscription` ENABLE KEYS */;
-
-
 -- Copiando estrutura para tabela integro.user
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -253,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Copiando dados para a tabela integro.user: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`, `securityhash`) VALUES
-	(1, 'Beta', '$2a$10$KfuVSBgPdJJgT6Bk/pDtGOUZZW1Simpgr6YFJnIED7hjywZp/XB8m', 'admin', 'matteusbarbosa2@gmail.com', 1452539980680, NULL, NULL, NULL);
+	(1, 'Beta', '$2a$10$KfuVSBgPdJJgT6Bk/pDtGOUZZW1Simpgr6YFJnIED7hjywZp/XB8m', 'admin', 'matteusbarbosa2@gmail.com', 1452539980680, NULL, 1453925338941, NULL);
 INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`, `securityhash`) VALUES
 	(2, 'Alfa', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`, `securityhash`) VALUES
