@@ -17,7 +17,8 @@
  .mdl-grid
   .section-title.mdl-cell.mdl-cell--12-col
    h4 Simulados
-  .mdl-cell.mdl-cell--4-col(*ngFor="#dcp of discipline")
+ .mdl-grid
+  .mdl-cell.mdl-cell--4-col(*ngFor="#dcp of list_course")
     .mdl-card.mdl-shadow--2dp
      .mdl-card__title
       h4 {{ dcp.title }}
@@ -25,7 +26,7 @@
       small {{ dcp.details }}
      .mdl-card__actions.mdl-card--border
       table
-       tr(*ngFor="#exm of discipline.examination", (click)="bind()")
+       tr(*ngFor="#exm of dcp.examination", (click)="bind()")
         th
          i.mdi.mdi-arrow-right-bold-circle-outline.mdi-2x(title="Inscrição")
          i.mdi.mdi-checkbox-marked-circle-outline.mdi-2x.link-bound(title="Já inscrito")

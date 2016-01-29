@@ -18,10 +18,20 @@ router.get('/', function (req, res, next) {
 
 router.get('/list', function (req, res, next) {
 
-    course.where({id: req.session.access.course.id}).fetch({withRelated: ['discipline.examination']})
+    res.render('sys/listexaminations');
+});
+
+/*
+JSON
+*/
+router.get('/bycourse/:courseid', function (req, res, next) {
+
+    //course.where({id: req.session.access.course.id}).fetch({withRelated: ['discipline.examination']})
+    course.where({id: req.params.courseid }).fetch({withRelated: ['discipline.examination']})
     .then(function (coursedata) {
 
-        user.where({id: req.session.access.user.id })
+        //user.where({id: req.session.access.user.id })
+        user.where({id: 1 })
         .fetch({withRelated : [ { binds : function (query) { query.where('instance_type', 'examination'); }}, 'binds.examination']})
         .then(function (subs_fetch){
 
@@ -43,10 +53,12 @@ router.get('/list', function (req, res, next) {
                 }
             }
 
-            res.render('sys/listexaminations', data);
+            res.json(data);
         });
     });
 });
+
+
 
 
 /*
