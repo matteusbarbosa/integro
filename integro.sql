@@ -22,9 +22,9 @@ CREATE TABLE IF NOT EXISTS `bind` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id_instance_id_instance_type` (`user_id`,`instance_id`,`instance_type`),
   CONSTRAINT `FK_bind_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela integro.bind: ~13 rows (aproximadamente)
+-- Copiando dados para a tabela integro.bind: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `bind` DISABLE KEYS */;
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
 	(1, 1, 1, 'reinforcement', 0, 0, 0);
@@ -33,13 +33,7 @@ INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`,
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
 	(3, 3, 1, NULL, 0, 0, 0);
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(4, 5, 1, NULL, 0, 0, 0);
-INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(5, 4, 1, NULL, 0, 0, 0);
-INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
 	(7, 1, 1, 'course', 0, 0, 0);
-INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(8, 1, 1, 'examination', 0, 0, 0);
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
 	(9, 2, 1, 'examination', 0, 0, 0);
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
@@ -47,11 +41,11 @@ INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`,
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
 	(13, 2, 1, 'course', 0, 0, 0);
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(25, 1, 2, 'examination', NULL, NULL, NULL);
+	(65, 1, 2, 'examination', NULL, NULL, NULL);
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(29, 1, 5, 'examination', NULL, NULL, NULL);
+	(67, 1, 1, 'examination', NULL, NULL, NULL);
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(31, 1, 0, 'examination', NULL, NULL, NULL);
+	(68, 1, 3, 'examination', NULL, 2147483647, NULL);
 /*!40000 ALTER TABLE `bind` ENABLE KEYS */;
 
 
@@ -299,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Copiando dados para a tabela integro.user: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`, `securityhash`) VALUES
-	(1, 'Beta', '$2a$10$KfuVSBgPdJJgT6Bk/pDtGOUZZW1Simpgr6YFJnIED7hjywZp/XB8m', 'admin', 'matteusbarbosa2@gmail.com', 1452539980680, NULL, 1453925338941, NULL);
+	(1, 'Beta', '$2a$10$KfuVSBgPdJJgT6Bk/pDtGOUZZW1Simpgr6YFJnIED7hjywZp/XB8m', 'admin', 'matteusbarbosa2@gmail.com', 1452539980680, NULL, 1454070724583, NULL);
 INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`, `securityhash`) VALUES
 	(2, 'Alfa', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`, `securityhash`) VALUES
