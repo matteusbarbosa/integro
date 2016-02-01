@@ -26,10 +26,10 @@
       small {{ dcp.details }}
      .mdl-card__actions.mdl-card--border
       table(width="100%")
-       tr(*ngFor="#exm of dcp.examination", [class.box-selected]="exm.subs === true", [class.box-available]="exm.subs !== true")
+       tr(*ngFor="#exm of dcp.examination", (click)="toggleBind(exm, 1)", [class.box-selected]="exm.subs === true", [class.box-available]="exm.subs !== true")
         th
-         i.mdi.mdi-arrow-right-bold-circle-outline.mdi-2x(title="Clique para se inscrever.", *ngIf="!exm.subs", (click)="bind(exm, 1)", [class.hide]="exm.subs === true")
-         i.mdi.mdi-checkbox-marked-circle-outline.mdi-2x.link-bound(title="Já inscrito. Clique novamente para desfazer.", *ngIf="exm.subs === true", (click)="unlink(exm, 1)", [class.hide]="exm.subs === false")
+         i.mdi.mdi-arrow-right-bold-circle-outline.mdi-2x(title="Clique para se inscrever.", *ngIf="!exm.subs", [class.hide]="exm.subs === true")
+         i.mdi.mdi-checkbox-marked-circle-outline.mdi-2x.link-bound(title="Já inscrito. Clique novamente para desfazer.", *ngIf="exm.subs === true", [class.hide]="exm.subs === false")
         td
          strong {{ exm.title }}
          br

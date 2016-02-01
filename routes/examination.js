@@ -84,7 +84,8 @@ router.get('/bind', function (req, res, next){
         /* user_id : req.session.access.user.id, */
         user_id : req.query.user_id,
         instance_id : req.query.id,
-        instance_type : 'examination'
+        instance_type : 'examination',
+        timestart: Date.now()
     })
     .save()
     .then(success => res.status(200).send(success))

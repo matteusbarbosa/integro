@@ -71,6 +71,15 @@ export class ExaminationComponent {
 		});
 	}
 
+	toggleBind(exs_instance: Examination, user_id: number) {
+
+		if (exs_instance.subs === true){
+			this.unlink(exs_instance, user_id);
+		} else{
+			this.bind(exs_instance, user_id);
+		}
+	}
+
 	bind(exs_instance : Examination, user_id : number) {
 
 		exs_instance.subs = true;
