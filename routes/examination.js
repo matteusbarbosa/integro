@@ -52,7 +52,6 @@ router.get('/bycourse/:courseid', function (req, res, next) {
                     
                 }
             }
-
             res.json(data);
         });
     });
@@ -79,35 +78,41 @@ router.get('/bycourse/:courseid', function (req, res, next) {
  /*
  * ng click bind
  */
-router.get('/bind/:id', function (req, res, next){
+router.get('/bind', function (req, res, next){
 
     bind.forge({
-        user_id : req.session.access.user.id,
-        instance_id : req.params.id,
+        /* user_id : req.session.access.user.id, */
+        user_id : req.query.user_id,
+        instance_id : req.query.id,
         instance_type : 'examination'
     })
     .save()
-    .then(bindsave => res.status(200))
+    .then(success => res.status(200).send(success))
     .catch(error => res.status(500)
-            //.send(error.message)
-            );
+            .send(error.message)
+    );
 });
 
  /*
  * ng click unlink
  */
-router.get('/unlink/:id', function (req, res, next){
+router.get('/unlink', function (req, res, next){
 
     bind.where({
-        user_id : req.session.access.user.id,
-        instance_id : req.params.id,
+        /* user_id : req.session.access.user.id, */
+        user_id : req.query.user_id,
+        instance_id : req.query.id,
         instance_type : 'examination'
     })
     .destroy()
-    .then(binddestroy => res.status(200))
-    .catch(error => res.status(500)
-            //.send(error.message)
-            );
+    .then(success => {
+        res.status(200).send(success);
+    })
+    .catch(error => {
+           res.status(500)
+            .send(error.message);
+    }
+    );
 });
 
 

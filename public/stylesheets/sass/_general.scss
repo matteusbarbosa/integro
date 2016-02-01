@@ -48,16 +48,16 @@ main{
                 width: 100%;
                 .mdl-card__title{
                     a{
-                     font-family: Roboto, Verdana;
-                     text-decoration: none; 
-                 }
-             }
-         }
-     }
- }
- #section-images{}
- #section-news{}
- #section-footer{}
+                        font-family: Roboto, Verdana;
+                        text-decoration: none; 
+                    }
+                }
+            }
+        }
+    }
+    #section-images{}
+    #section-news{}
+    #section-footer{}
 }
 .list-examination{
     th{
@@ -65,7 +65,7 @@ main{
             color: rgb(76,175,80);
         }
         .link-bind{
-            
+
         }
     }
 }
@@ -185,16 +185,29 @@ main{
 
 
 #page-404{
-h1{
-    text-align:center;
-}
+    h1{
+        text-align:center;
+    }
     .links-404{
-     width: 100%;
-     padding: 24px 0px;
-     text-align:center;
-    a{
-        font-size: 2em;
+        width: 100%;
+        padding: 24px 0px;
+        text-align:center;
+        a{
+            font-size: 2em;
+        }
     }
-      
+}
+
+.box-available{
+    @include background-gradient(#37d077, #2ab966);
+    color: #fff;
+    &:hover{
+        cursor: pointer;
     }
+}
+
+.box-selected{
+    @include background-gradient(#95a5a6, #7f8c8d);
+    
+    color: #fff;
 }

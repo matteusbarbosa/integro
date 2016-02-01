@@ -10,6 +10,7 @@
        url('../fonts/DEVROYE_.ttf')  format('truetype'), /* Safari, Android, iOS */
 }
 
+@import 'mixins';
 @import 'mdl_overrides';
 @import 'phone';
 @import 'general';

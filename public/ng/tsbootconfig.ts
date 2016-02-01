@@ -15,4 +15,4 @@ System.config({
         }
     }
 });
-System.import('/ng/boot').then(null, console.error.bind(console));
+System.import('/ng/boot.ts').then(null, console.error.bind(console));

@@ -2,7 +2,8 @@ import {Component, Inject} from 'angular2/core';
 import {NgFor, NgIf, NgClass, FORM_DIRECTIVES} from 'angular2/common';
 import {Http, HTTP_PROVIDERS} from 'angular2/http';
 import {ExaminationService} from './Service';
-import 'rxjs/add/operator/map';
+import {Examination} from './Examination';
+/* import 'rxjs/add/operator/map'; */
 
 @Component({
 	selector: 'examination',
@@ -14,58 +15,82 @@ import 'rxjs/add/operator/map';
 
 export class ExaminationComponent {
 
-	searchquery
+	query_search
 	searchlastquery
 	isBound
 	course
 
+	list_user
+
+	result_bind
+	result_unlink
+	result_search
+
 	exs : ExaminationService
 
-	list_course
+	list_course = []
 	
 	constructor(@Inject(Http) http: Http) {
 
 		this.exs = new ExaminationService(http);
 
+	}
+
+	ngOnInit(){
 		this.course = 1;
 
 		this.getList(this.course);
+	}
 
-		console.log(this.list_course);
-
+	ngOnDestroy(){
 
 	}
 
 	getList(course_id : number){
 
-		this.exs.getList(course_id);
+		this.exs.getList(course_id).subscribe(res => {
 
-		this.list_course = this.exs.list_course;
+			this.list_course = res.json();
+
+		});
+		
 	}
 
 	search() {
 
-		this.exs.find(this.searchquery);
+		if(this.query_search.length == 0){
+			return false;
+		}
 
-		this.searchlastquery = this.searchquery;
+		this.exs.find(this.query_search).subscribe(res => {
 
-		return this.exs.result_search;
+			this.searchlastquery = this.query_search;
+
+			return this.result_search = res.json();
+
+		});
+	}
+
+	bind(exs_instance : Examination, user_id : number) {
+
+		exs_instance.subs = true;
+
+		this.exs.bind(exs_instance.id, user_id).subscribe(res => {
+
+			this.result_bind = res.json();
+
+		});
 
 	}
 
-	bind(examination_id : number, user_id : number) {
+	unlink(exs_instance: Examination, user_id: number) {
 
-		this.exs.bind(examination_id, user_id);
+		exs_instance.subs = false;
 
-		return this.exs.result_bind;
+		this.exs.unlink(exs_instance.id, user_id).subscribe(res => {
 
-	}
+			this.result_unlink = res.json();
 
-	unlink(examination_id : number, user_id : number) {
-
-		this.exs.unlink(examination_id, user_id);
-
-		return this.exs.result_bind;
-
+		});
 	}
 }
