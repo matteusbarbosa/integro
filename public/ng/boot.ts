@@ -1,25 +1,29 @@
-import {bootstrap} from 'angular2/platform/browser';
+import {bootstrap} from '/angular2/platform/browser';
 /*
-import {FrontpageComponent} from './components/frontpage.component';
+import {FrontpageComponent} from './components/frontpage/Component';
+
 bootstrap(FrontpageComponent);
 
-import {UserComponent} from './components/user.component';
-bootstrap(UserComponent);
+import {ProfileComponent} from './components/profile/Component';
 
-import {MediaComponent} from './components/media.component';
+bootstrap(ProfileComponent);
+*/
+import {WarningComponent} from './components/warning/Component';
+
+bootstrap(WarningComponent);
+
+import {MediaComponent} from './components/media/Component';
+
 bootstrap(MediaComponent);
 
-import {WarningsComponent} from './components/warning.component';
-bootstrap(WarningsComponent);
+import {ExaminationComponent} from './components/examination/Component';
 
-import {ReinforcementComponent} from './components/reinforcement.component';
+bootstrap(ExaminationComponent);
+
+import {ReinforcementComponent} from './components/reinforcement/Component';
+
 bootstrap(ReinforcementComponent);
 
-import {ClassoptionalComponent} from './components/classoptional.component';
-bootstrap(ClassoptionalComponent);
+import {ClassOptionalComponent} from './components/classoptional/Component';
 
-import {SupportComponent} from './components/support.component';
-bootstrap(SupportComponent); */
-
-import {ExaminationComponent} from './components/examination/Component';
-bootstrap(ExaminationComponent);
+bootstrap(ClassOptionalComponent); 

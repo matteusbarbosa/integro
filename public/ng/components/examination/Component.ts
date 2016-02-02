@@ -30,19 +30,17 @@ export class ExaminationComponent {
 
 	list_course = []
 	
-	constructor(@Inject(Http) http: Http) {
-
+	constructor( @Inject(Http) http: Http) {
+		
 		this.exs = new ExaminationService(http);
 
-	}
-
-	ngOnInit(){
 		this.course = 1;
 
 		this.getList(this.course);
+
 	}
 
-	ngOnDestroy(){
+	ngOnInit() {
 
 	}
 

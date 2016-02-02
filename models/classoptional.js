@@ -7,5 +7,11 @@ module.exports = bookshelf.model('classoptional', {
     },
     bind: function () {
         return this.morphMany(bind, 'classoptional', ['instance_type', 'instance_id']);
+    },
+    user: function(){
+    	return this.belongsTo('user');
+    },
+    course: function(){
+    	return this.belongsTo('course');
     }
 });

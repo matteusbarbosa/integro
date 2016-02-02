@@ -8,5 +8,5 @@ module.exports = bookshelf.model('warning', {
   },
   discipline : function(){
       return this.belongsTo(discipline);
-  }  
+  }
 });

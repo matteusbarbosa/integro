@@ -22,53 +22,54 @@ CREATE TABLE IF NOT EXISTS `bind` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id_instance_id_instance_type` (`user_id`,`instance_id`,`instance_type`),
   CONSTRAINT `FK_bind_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela integro.bind: ~7 rows (aproximadamente)
+-- Copiando dados para a tabela integro.bind: ~10 rows (aproximadamente)
 /*!40000 ALTER TABLE `bind` DISABLE KEYS */;
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(1, 1, 1, 'reinforcement', 0, 0, 0);
+	(2, 2, 1, NULL, 0, NULL, 0);
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(2, 2, 1, NULL, 0, 0, 0);
+	(3, 3, 1, NULL, 0, NULL, 0);
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(3, 3, 1, NULL, 0, 0, 0);
+	(7, 1, 1, 'course', 0, NULL, 0);
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(7, 1, 1, 'course', 0, 0, 0);
+	(9, 2, 1, 'examination', 0, NULL, 0);
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(9, 2, 1, 'examination', 0, 0, 0);
+	(10, 3, 1, 'examination', 0, NULL, 0);
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(10, 3, 1, 'examination', 0, 0, 0);
+	(13, 2, 1, 'course', 0, NULL, 0);
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(13, 2, 1, 'course', 0, 0, 0);
+	(69, 1, 3, 'examination', NULL, 2147483647, NULL);
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(65, 1, 2, 'examination', NULL, NULL, NULL);
+	(70, 1, 1, 'reinforcement', NULL, 2147483647, NULL);
 INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(67, 1, 1, 'examination', NULL, NULL, NULL);
-INSERT INTO `bind` (`id`, `user_id`, `instance_id`, `instance_type`, `class_id`, `timestart`, `timeend`) VALUES
-	(68, 1, 3, 'examination', NULL, 2147483647, NULL);
+	(72, 1, 2, 'examination', NULL, 2147483647, NULL);
 /*!40000 ALTER TABLE `bind` ENABLE KEYS */;
 
 
 -- Copiando estrutura para tabela integro.classoptional
 CREATE TABLE IF NOT EXISTS `classoptional` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `discipline_id` int(11) DEFAULT NULL,
+  `course_id` int(11) DEFAULT NULL,
   `number` int(11) NOT NULL DEFAULT '0',
   `title` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `details` text COLLATE utf8_unicode_ci NOT NULL,
+  `timestart` bigint(20) DEFAULT NULL,
+  `timeend` bigint(20) DEFAULT NULL,
+  `timedisabled` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_classoptional_discipline` (`discipline_id`),
-  CONSTRAINT `FK_classoptional_discipline` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  KEY `FK_classoptional_discipline` (`course_id`),
+  CONSTRAINT `FK_classoptional_discipline` FOREIGN KEY (`course_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Copiando dados para a tabela integro.classoptional: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `classoptional` DISABLE KEYS */;
-INSERT INTO `classoptional` (`id`, `discipline_id`, `number`, `title`, `details`) VALUES
-	(1, 1, 18, 'CLASSOPTIONAL TEST', 'TEST DETAILS');
-INSERT INTO `classoptional` (`id`, `discipline_id`, `number`, `title`, `details`) VALUES
-	(2, 2, 12, 'CLASSOPTIONAL TEST', 'TEST DETAILS');
-INSERT INTO `classoptional` (`id`, `discipline_id`, `number`, `title`, `details`) VALUES
-	(3, 3, 15, 'CLASSOPTIONAL TEST', 'TEST DETAILS');
+INSERT INTO `classoptional` (`id`, `course_id`, `number`, `title`, `details`, `timestart`, `timeend`, `timedisabled`) VALUES
+	(1, 1, 18, 'CLASSOPTIONAL TEST', 'TEST DETAILS', NULL, NULL, NULL);
+INSERT INTO `classoptional` (`id`, `course_id`, `number`, `title`, `details`, `timestart`, `timeend`, `timedisabled`) VALUES
+	(2, 2, 12, 'CLASSOPTIONAL TEST', 'TEST DETAILS', NULL, NULL, NULL);
+INSERT INTO `classoptional` (`id`, `course_id`, `number`, `title`, `details`, `timestart`, `timeend`, `timedisabled`) VALUES
+	(3, 3, 15, 'CLASSOPTIONAL TEST', 'TEST DETAILS', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `classoptional` ENABLE KEYS */;
 
 
@@ -213,19 +214,21 @@ CREATE TABLE IF NOT EXISTS `reinforcement` (
   `discipline_id` int(11) DEFAULT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `details` text COLLATE utf8_unicode_ci,
+  `timecreated` bigint(20) DEFAULT NULL,
+  `timedisabled` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_reinforcement_discipline` (`discipline_id`),
   CONSTRAINT `FK_reinforcement_discipline` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela integro.reinforcement: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela integro.reinforcement: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `reinforcement` DISABLE KEYS */;
-INSERT INTO `reinforcement` (`id`, `discipline_id`, `title`, `details`) VALUES
-	(1, 1, 'TEST REINFORCEMENT', 'Details...');
-INSERT INTO `reinforcement` (`id`, `discipline_id`, `title`, `details`) VALUES
-	(2, 1, 'TEST REINFORCEMENT 2', 'Details...');
-INSERT INTO `reinforcement` (`id`, `discipline_id`, `title`, `details`) VALUES
-	(3, 3, 'TEST REINFORCEMENT 3', 'Details...');
+INSERT INTO `reinforcement` (`id`, `discipline_id`, `title`, `details`, `timecreated`, `timedisabled`) VALUES
+	(1, 1, 'TEST REINFORCEMENT', 'Details...', 2147483647, NULL);
+INSERT INTO `reinforcement` (`id`, `discipline_id`, `title`, `details`, `timecreated`, `timedisabled`) VALUES
+	(2, 1, 'TEST REINFORCEMENT 2', 'Details...', 2147483647, NULL);
+INSERT INTO `reinforcement` (`id`, `discipline_id`, `title`, `details`, `timecreated`, `timedisabled`) VALUES
+	(3, 3, 'TEST REINFORCEMENT 3', 'Details...', 2147483647, NULL);
 /*!40000 ALTER TABLE `reinforcement` ENABLE KEYS */;
 
 
@@ -293,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Copiando dados para a tabela integro.user: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`, `securityhash`) VALUES
-	(1, 'Beta', '$2a$10$KfuVSBgPdJJgT6Bk/pDtGOUZZW1Simpgr6YFJnIED7hjywZp/XB8m', 'admin', 'matteusbarbosa2@gmail.com', 1452539980680, NULL, 1454070724583, NULL);
+	(1, 'Beta', '$2a$10$KfuVSBgPdJJgT6Bk/pDtGOUZZW1Simpgr6YFJnIED7hjywZp/XB8m', 'admin', 'matteusbarbosa2@gmail.com', 1452539980680, NULL, 1454446003778, NULL);
 INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`, `securityhash`) VALUES
 	(2, 'Alfa', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `user` (`id`, `name`, `password`, `username`, `email`, `timecreated`, `timeupdated`, `timelastlogin`, `securityhash`) VALUES
@@ -339,16 +342,16 @@ CREATE TABLE IF NOT EXISTS `warning` (
   KEY `FK_warning_user` (`user_id`),
   CONSTRAINT `FK_warning_discipline` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `FK_warning_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Copiando dados para a tabela integro.warning: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `warning` DISABLE KEYS */;
 INSERT INTO `warning` (`id`, `discipline_id`, `user_id`, `title`, `details`, `url`, `timecreated`, `timeupdated`, `timevalid`) VALUES
-	(1, 1, 2, 'Testing News 1', 'Existem muitas variações disponíveis de passagens de Lorem Ipsum, mas a maioria sofreu algum tipo de alteração, seja por inserção de passagens com humor, ou palavras aleatórias que não parecem nem um pouco convincentes. Se você pretende usar uma passagem de Lorem Ipsum, precisa ter certeza de que não há algo embaraçoso escrito escondido no meio do texto. Todos os geradores de Lorem Ipsum na internet tendem a repetir pedaços predefinidos conforme necessário, fazendo deste o primeiro gerador de Lorem Ipsum autêntico da internet. Ele usa um dicionário com mais de 200 palavras em Latim combinado com um punhado de modelos de estrutura de frases para gerar um Lorem Ipsum com aparência razoável, livre de repetições, inserções de humor, palavras não características, etc.', 'http://www.soma.com.br', 1452795116, 1452795116, 1462097700);
+	(1, 1, 2, 'Testing News 1', 'Existem muitas variações disponíveis de passagens de Lorem Ipsum, mas a maioria sofreu algum tipo de alteração, seja por inserção de passagens com humor, ou palavras aleatórias que não parecem nem um pouco convincentes. Se você pretende usar uma passagem de Lorem Ipsum, precisa ter certeza de que não há algo embaraçoso escrito escondido no meio do texto. Todos os geradores de Lorem Ipsum na internet tendem a repetir pedaços predefinidos conforme necessário, fazendo deste o primeiro gerador de Lorem Ipsum autêntico da internet. Ele usa um dicionário com mais de 200 palavras em Latim combinado com um punhado de modelos de estrutura de frases para gerar um Lorem Ipsum com aparência razoável, livre de repetições, inserções de humor, palavras não características, etc.', 'http://www.soma.com.br', 2147483647, 1452795116, 1462097700);
 INSERT INTO `warning` (`id`, `discipline_id`, `user_id`, `title`, `details`, `url`, `timecreated`, `timeupdated`, `timevalid`) VALUES
-	(2, 2, 5, 'Testing News 2', 'Existem muitas variações disponíveis de passagens de Lorem Ipsum, mas a maioria sofreu algum tipo de alteração, seja por inserção de passagens com humor, ou palavras aleatórias que não parecem nem um pouco convincentes. Se você pretende usar uma passagem de Lorem Ipsum, precisa ter certeza de que não há algo embaraçoso escrito escondido no meio do texto. Todos os geradores de Lorem Ipsum na internet tendem a repetir pedaços predefinidos conforme necessário, fazendo deste o primeiro gerador de Lorem Ipsum autêntico da internet. Ele usa um dicionário com mais de 200 palavras em Latim combinado com um punhado de modelos de estrutura de frases para gerar um Lorem Ipsum com aparência razoável, livre de repetições, inserções de humor, palavras não características, etc.', 'http://www.soma.com.br', 1452795116, 1452795116, 1462097700);
+	(2, 2, 5, 'Testing News 2', 'Existem muitas variações disponíveis de passagens de Lorem Ipsum, mas a maioria sofreu algum tipo de alteração, seja por inserção de passagens com humor, ou palavras aleatórias que não parecem nem um pouco convincentes. Se você pretende usar uma passagem de Lorem Ipsum, precisa ter certeza de que não há algo embaraçoso escrito escondido no meio do texto. Todos os geradores de Lorem Ipsum na internet tendem a repetir pedaços predefinidos conforme necessário, fazendo deste o primeiro gerador de Lorem Ipsum autêntico da internet. Ele usa um dicionário com mais de 200 palavras em Latim combinado com um punhado de modelos de estrutura de frases para gerar um Lorem Ipsum com aparência razoável, livre de repetições, inserções de humor, palavras não características, etc.', 'http://www.soma.com.br', 2147483647, 1452795116, 1462097700);
 INSERT INTO `warning` (`id`, `discipline_id`, `user_id`, `title`, `details`, `url`, `timecreated`, `timeupdated`, `timevalid`) VALUES
-	(3, 3, 3, 'Testing News 3', 'Existem muitas variações disponíveis de passagens de Lorem Ipsum, mas a maioria sofreu algum tipo de alteração, seja por inserção de passagens com humor, ou palavras aleatórias que não parecem nem um pouco convincentes. Se você pretende usar uma passagem de Lorem Ipsum, precisa ter certeza de que não há algo embaraçoso escrito escondido no meio do texto. Todos os geradores de Lorem Ipsum na internet tendem a repetir pedaços predefinidos conforme necessário, fazendo deste o primeiro gerador de Lorem Ipsum autêntico da internet. Ele usa um dicionário com mais de 200 palavras em Latim combinado com um punhado de modelos de estrutura de frases para gerar um Lorem Ipsum com aparência razoável, livre de repetições, inserções de humor, palavras não características, etc.', 'http://www.soma.com.br', 1452795116, 1452795116, 1462097700);
+	(3, 3, 3, 'Testing News 3', 'Existem muitas variações disponíveis de passagens de Lorem Ipsum, mas a maioria sofreu algum tipo de alteração, seja por inserção de passagens com humor, ou palavras aleatórias que não parecem nem um pouco convincentes. Se você pretende usar uma passagem de Lorem Ipsum, precisa ter certeza de que não há algo embaraçoso escrito escondido no meio do texto. Todos os geradores de Lorem Ipsum na internet tendem a repetir pedaços predefinidos conforme necessário, fazendo deste o primeiro gerador de Lorem Ipsum autêntico da internet. Ele usa um dicionário com mais de 200 palavras em Latim combinado com um punhado de modelos de estrutura de frases para gerar um Lorem Ipsum com aparência razoável, livre de repetições, inserções de humor, palavras não características, etc.', 'http://www.soma.com.br', 2147483647, 1452795116, 1462097700);
 /*!40000 ALTER TABLE `warning` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

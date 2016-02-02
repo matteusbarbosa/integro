@@ -3,6 +3,17 @@ var app = express();
 var router = express.Router();
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 var bcrypt = require('bcrypt-nodejs');
+var router = express.Router();
+var session = require('express-session');
+router.use(session({
+    /*    genid: function(req) {
+     return expiryDate; // use UUIDs for session IDs
+ },*/
+ secret: 'integro',
+ resave: false,
+ saveUninitialized: true,
+ cookie: {maxAge: null, secure: false}
+}));
 
 //models
 var user = require('../models/user');

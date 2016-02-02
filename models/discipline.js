@@ -19,5 +19,8 @@ module.exports = bookshelf.model('discipline', {
 	},
 	classoptional: function(){
 		return this.hasMany('classoptional');
+	},
+	warning : function(){
+		return this.hasMany('warning');
 	}
 });

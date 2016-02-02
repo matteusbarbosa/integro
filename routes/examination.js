@@ -1,15 +1,25 @@
 var express = require('express');
 var app = express();
-var examination = require('../models/examination');
 var router = express.Router();
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 var date = require('../custom_modules/date').timezone(-180);
 var _ = require('lodash');
+var session = require('express-session');
+router.use(session({
+    /*    genid: function(req) {
+     return expiryDate; // use UUIDs for session IDs
+ },*/
+ secret: 'integro',
+ resave: false,
+ saveUninitialized: true,
+ cookie: {maxAge: null, secure: false}
+}));
 
 //models
 var course = require('../models/course');
 var user = require('../models/user');
 var bind = require('../models/bind');
+var examination = require('../models/examination');
 
 router.get('/', function (req, res, next) {
 
@@ -26,11 +36,11 @@ JSON
 */
 router.get('/bycourse/:courseid', function (req, res, next) {
 
-    //course.where({id: req.session.access.course.id}).fetch({withRelated: ['discipline.examination']})
+    course.where({id: req.session.access.course.id}).fetch({withRelated: ['discipline.examination']})
     course.where({id: req.params.courseid }).fetch({withRelated: ['discipline.examination']})
     .then(function (coursedata) {
 
-        //user.where({id: req.session.access.user.id })
+        user.where({id: req.session.access.user.id })
         user.where({id: 1 })
         .fetch({withRelated : [ { binds : function (query) { query.where('instance_type', 'examination'); }}, 'binds.examination']})
         .then(function (subs_fetch){
@@ -48,7 +58,7 @@ router.get('/bycourse/:courseid', function (req, res, next) {
                         data.discipline[c].examination[x].subs = true;
                     }
 
-                    data.discipline[c].examination[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', data.discipline[c].examination[x].timecreated);
+                    data.discipline[c].examination[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.discipline[c].examination[x].timecreated));
                     
                 }
             }
@@ -56,9 +66,6 @@ router.get('/bycourse/:courseid', function (req, res, next) {
         });
     });
 });
-
-
-
 
 /*
  * ng json query

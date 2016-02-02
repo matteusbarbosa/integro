@@ -2,36 +2,36 @@
  .mdl-cell.mdl-cell--4-col
  .mdl-cell.mdl-cell--4-col
   .mdl-textfield.mdl-js-textfield
-   input.mdl-textfield__input#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="searchquery")
+   input.mdl-textfield__input#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="query_search")
  .mdl-cell.mdl-cell--4-col
 .mdl-grid
  .mdl-cell.mdl-cell--12-col
-  section(*ngIf='searchresults != null && searchresults.length > 0')
-   i.text-muted {{ searchresults.length }} Resultados para {{ searchlastquery }}
+  section(*ngIf='result_search != null && result_search.length > 0')
+   i.text-muted {{ result_search.length }} Resultados para {{ query_search_last }}
    ul
-    li(*ngFor="#item of searchresults")
+    li(*ngFor="#item of result_search")
      {{ item.title }}
      a.text-primary(href="{{ item.url }}", target="_blank") (...)
-  section(*ngIf='searchresults != null && searchresults.length == 0')
-   i.text-danger Nenhum resultado para {{ searchlastquery }}
- .mdl-grid
+  section(*ngIf='result_search != null && result_search.length == 0')
+   i.text-danger Nenhum resultado para {{ query_search_last }}
+.mdl-grid
   .section-title.mdl-cell.mdl-cell--12-col
    h4 Aulas Opcionais
-  for x, y in course.discipline
-    .mdl-cell.mdl-cell--4-col
-     .mdl-card.mdl-shadow--2dp
-      .mdl-card__title
-       h4= x.title
-      .mdl-card__supporting-text
-       small= x.details
-      .mdl-card__actions.mdl-card--border
-        table.list-classoptional
-         for z, w in x.classoptional
-          tr
-           th
-            a(href="z.url")
-             i.mdi.mdi-arrow-right-bold-circle-outline.mdi-2x(title="Inscrição")
-           td
-            strong= z.title
-            br
-            small= z.timecreated
+.mdl-grid
+  .mdl-cell.mdl-cell--4-col
+  .mdl-cell.mdl-cell--4-col
+    .mdl-card.mdl-shadow--2dp
+     .mdl-card__title
+      h4 Aulas Opcionais
+     .mdl-card__supporting-text
+      small Aulas Opcionais
+     .mdl-card__actions.mdl-card--border
+      table(width="100%")
+       tr(*ngFor="#copt of list_course.classoptional", (click)="toggleBind(copt, 1)", [class.box-selected]="copt.subs === true", [class.box-available]="copt.subs !== true")
+        th
+         i.mdi.mdi-arrow-right-bold-circle-outline.mdi-2x(title="Clique para se inscrever.", *ngIf="!copt.subs", [class.hide]="copt.subs === true")
+         i.mdi.mdi-checkbox-marked-circle-outline.mdi-2x.link-bound(title="Já inscrito. Clique novamente para desfazer.", *ngIf="copt.subs === true", [class.hide]="copt.subs === false")
+        td
+         strong {{ copt.title }}
+         br
+         small {{ copt.timecreated }}

@@ -1,38 +1,35 @@
 .mdl-grid
-  .mdl-cell.mdl-cell--4-col
-  .mdl-cell.mdl-cell--4-col
-   .mdl-textfield.mdl-js-textfield
-    input.mdl-textfield__input#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="searchquery")
-  .mdl-cell.mdl-cell--4-col
- .mdl-grid
-  .mdl-cell.mdl-cell--12-col
-   section(*ngIf="searchresults.length > 0")
-    i.text-muted {{ searchresults.length }} Resultados para {{ searchlastquery }}
-    ul
-     li(*ngFor="#item of searchresults")
-      {{ item.title }}
-      a.text-primary(href="{{ item.url }}", target="_blank") (...)
-   section(*ngIf="searchresults.length == 0")
-    i.text-danger Nenhum resultado para {{ searchquery }}
-   .section-title
-    h4
-     span Mídia
-   .mdl-grid
-     for x, y in course.discipline
-      .mdl-cell.mdl-cell--4-col
-       .mdl-card.mdl-shadow--2dp
-        .mdl-card__title
-         h4= x.title
-        .mdl-card__supporting-text
-         small= x.details
-        .mdl-card__actions.mdl-card--border
-         table.list-media
-          for z, w in x.media
-           tr
-            th
-             a(href="z.url")
-              i.mdi.mdi-tag-text-outline.mdi-2x
-            td
-             strong= z.title
-             br
-             small= z.timecreated
+ .mdl-cell.mdl-cell--4-col
+ .mdl-cell.mdl-cell--4-col
+  .mdl-textfield.mdl-js-textfield
+   input.mdl-textfield__input#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="query_search")
+ .mdl-cell.mdl-cell--4-col
+.mdl-grid
+ .mdl-cell.mdl-cell--12-col
+  section(*ngIf='result_search != null && result_search.length > 0')
+   i.text-muted {{ result_search.length }} Resultados para {{ query_search_last }}
+   ul
+    li(*ngFor="#item of result_search")
+     {{ item.title }}
+     a.text-primary(href="{{ item.url }}", target="_blank") (...)
+  section(*ngIf='result_search != null && result_search.length == 0')
+   i.text-danger Nenhum resultado para {{ query_search_last }}
+.mdl-grid
+  .section-title.mdl-cell.mdl-cell--12-col
+   h4 Mídia
+.mdl-grid
+  .mdl-cell.mdl-cell--4-col(*ngFor="#dcp of list_course.discipline")
+    .mdl-card.mdl-shadow--2dp
+     .mdl-card__title
+      h4 {{ dcp.title }}
+     .mdl-card__supporting-text
+      small {{ dcp.details }}
+     .mdl-card__actions.mdl-card--border
+      table(width="100%")
+       tr(*ngFor="#md of dcp.media")
+        th
+         i.mdi.mdi-file-check.mdi-2x
+        td
+         strong {{ md.title }}
+         br
+         small {{ md.timecreated }}

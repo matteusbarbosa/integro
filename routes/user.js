@@ -38,6 +38,12 @@ router.get('/list', function (req, res, next) {
     });
 });
 
+router.get('/home/redirected/:why', function (req, res, next) {
+   var data = {};
+
+   res.render('index', data);
+});
+
 router.get('/profile/:id', function (req, res, next) {
 
     var user_id = (req.params.id == 0) ? req.session.access.user.id : req.params.id;
@@ -75,13 +81,8 @@ router.get('/profile/:id', function (req, res, next) {
     }).fetchAll().then(function (userdata) {
         res.json(userdata.toJSON());
     });
-
 });
 
- router.get('/home/redirected/:why', function (req, res, next) {
-   var data = {};
-
-   res.render('index', data);
-});
+ 
 
  module.exports = router;

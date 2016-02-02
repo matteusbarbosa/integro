@@ -7,6 +7,9 @@ module.exports = bookshelf.model('course', {
 	discipline: function () {
 		return this.hasMany('discipline');
 	},
+	classoptional: function () {
+		return this.hasMany('classoptional');
+	},
 	binds: function() {
 		return this.morphMany('bind', 'course', ['instance_type', 'instance_id']);
 	}

@@ -4,6 +4,19 @@ var router = express.Router();
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 var warning = require('../models/warning');
 var date = require('../custom_modules/date').timezone(-180);
+var session = require('express-session');
+router.use(session({
+    /*    genid: function(req) {
+     return expiryDate; // use UUIDs for session IDs
+ },*/
+ secret: 'integro',
+ resave: false,
+ saveUninitialized: true,
+ cookie: {maxAge: null, secure: false}
+}));
+
+//models
+var course = require('../models/course');
 
 router.get('/', function (req, res, next) {
     var data = {};
@@ -13,48 +26,52 @@ router.get('/', function (req, res, next) {
 
 router.get('/list', function (req, res, next) {
 
-    warning.query(function (qb) {
-        qb.where('timevalid', '>=', Date.now() / 1000);
-    }).fetchAll().then(function (warningdata) {
+    res.render('sys/listwarnings');
+});
 
-        var data = {};
+/*
+JSON
+*/
+router.get('/bycourse/:courseid', function (req, res, next) {
 
-        var data = {
-            warnings: warningdata.toJSON()
-        };
-        
-        for(var c = 0; c< data.warnings.length; c++){
-            data.warnings[c].details = data.warnings[c].details.substr(0,255);
-            data.warnings[c].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.warnings[c].timecreated));
-        }
+    //course.where({id: req.session.access.course.id}).fetch({withRelated: ['discipline.warning']})
+    course.where({id: req.params.courseid }).fetch({withRelated: ['discipline.warning.user']})
+    .then(function (coursedata) {
 
-        data.path = req.path;
-        
-        res.render('sys/listwarnings', data);
+        var data = coursedata.toJSON();
+
+            for(var c = 0; c < data.discipline.length; c++){
+
+                for(var x = 0; x < data.discipline[c].warning.length; x++){
+                        data.discipline[c].warning[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.discipline[c].warning[x].timecreated));
+                }
+            }
+
+        res.json(data);
+
     });
-    // data.warnings	
 });
 
 
 /*
  * ng json query
  */
-router.get('/search/:search', function (req, res, next) {
+ router.get('/search/:search', function (req, res, next) {
 
     warning.query(function (qb) {
         qb.where('title', 'LIKE', '%' + req.params.search + '%')
-          .orWhere('details', 'LIKE', '%' + req.params.search + '%')
-          .orWhere('url', 'LIKE', '%' + req.params.search + '%');
+        .orWhere('details', 'LIKE', '%' + req.params.search + '%')
+        .orWhere('url', 'LIKE', '%' + req.params.search + '%');
     }).fetchAll().then(function (warningdata) {
 
         res.json(warningdata.toJSON());
     });
 });
 
-router.get('/home/redirected/:why', function (req, res, next) {
+ router.get('/home/redirected/:why', function (req, res, next) {
     var data = {};
 
     res.render('index', data);
 });
 
-module.exports = router;
+ module.exports = router;

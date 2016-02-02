@@ -10,6 +10,20 @@ main{
     display: none !important;
 }
 
+#mobile-devices{
+    margin: 0px auto;
+    width: 40%;
+    font-size: 36px;
+    margin-top: 10%;
+    text-align: center;
+
+    .mdi{
+        color: #C0C0C0;
+        text-shadow: 1px 1px white, -1px -1px #888;
+        letter-spacing: 16px;
+    }
+}
+
 #card-login{
     margin-top:15%;
     padding: 12px;
@@ -208,6 +222,6 @@ main{
 
 .box-selected{
     @include background-gradient(#95a5a6, #7f8c8d);
-    
+
     color: #fff;
 }

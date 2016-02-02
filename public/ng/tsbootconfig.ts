@@ -4,13 +4,14 @@ System.config({
         typescript : '/typescript/lib/typescript.js'
     },
     packages: {
-        angular2js: {
+        'angular2js': {
+            format: 'register',
             defaultExtension: 'js'
         },
-        angular2: {
+        'angular2': {
             defaultExtension: 'js'
         },
-        ng: {
+        'ng': {
             defaultExtension: 'ts'
         }
     }

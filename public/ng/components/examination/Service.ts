@@ -7,9 +7,7 @@ export class ExaminationService {
 	http
 
 	constructor(@Inject(Http) http: Http) {
-
 		this.http = http;
-		
 	}
 
 	find(examination_id : number){

@@ -5,6 +5,16 @@ var discipline = require('../models/discipline');
 var media = require('../models/media');
 var course = require('../models/course');
 var date = require('../custom_modules/date').timezone(-180);
+var session = require('express-session');
+router.use(session({
+    /*    genid: function(req) {
+     return expiryDate; // use UUIDs for session IDs
+ },*/
+ secret: 'integro',
+ resave: false,
+ saveUninitialized: true,
+ cookie: {maxAge: null, secure: false}
+}));
 
 router.get('/', function (req, res, next) {
     var data = {};
@@ -14,21 +24,29 @@ router.get('/', function (req, res, next) {
 
 router.get('/list', function (req, res, next) {
 
-    course.where({id: 1}).fetch({withRelated: ['discipline.media']}).then(function (coursedata) {
+    res.render('sys/listmedia');
+});
 
-        var data = {};
+/*
+JSON
+*/
+router.get('/bycourse/:courseid', function (req, res, next) {
 
-        data.course = coursedata.toJSON();
+    //course.where({id: req.session.access.course.id}).fetch({withRelated: ['discipline.media']})
+    course.where({id: req.params.courseid }).fetch({withRelated: ['discipline.media.user']})
+    .then(function (coursedata) {
 
-        for(var c = 0; c < data.course.discipline.length; c++){
-            for(var x = 0; x < data.course.discipline[c].media.length; x++){
-                 data.course.discipline[c].media[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.course.discipline[c].media[x].timecreated));
+        var data = coursedata.toJSON();
+
+            for(var c = 0; c < data.discipline.length; c++){
+
+                for(var x = 0; x < data.discipline[c].media.length; x++){
+                        data.discipline[c].media[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.discipline[c].media[x].timecreated));
+                }
             }
-        }
 
-        data.path = req.path;
-        
-        res.render('sys/listmedia', data);       
+        res.json(data);
+
     });
 });
 
@@ -43,10 +61,8 @@ router.get('/bind/:id', function (req, res, next){
         instance_type : 'media'
     })
     .save()
-    .then(bindsave => res.status(200))
-    .catch(error => res.status(500)
-            //.send(error.message)
-            );
+    .then(success => res.status(200).send(success))
+    .catch(error => res.status(500).send(error.message));
 });
 
 /*

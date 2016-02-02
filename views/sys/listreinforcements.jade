@@ -2,36 +2,35 @@
  .mdl-cell.mdl-cell--4-col
  .mdl-cell.mdl-cell--4-col
   .mdl-textfield.mdl-js-textfield
-   input.mdl-textfield__input#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="searchquery")
+   input.mdl-textfield__input#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="query_search")
  .mdl-cell.mdl-cell--4-col
 .mdl-grid
  .mdl-cell.mdl-cell--12-col
-  section(*ngIf='searchresults != null && searchresults.length > 0')
-   i.text-muted {{ searchresults.length }} Resultados para {{ searchlastquery }}
+  section(*ngIf='result_search != null && result_search.length > 0')
+   i.text-muted {{ result_search.length }} Resultados para {{ searchlastquery }}
    ul
-    li(*ngFor="#item of searchresults")
+    li(*ngFor="#item of result_search")
      {{ item.title }}
      a.text-primary(href="{{ item.url }}", target="_blank") (...)
-  section(*ngIf='searchresults != null && searchresults.length == 0')
+  section(*ngIf='result_search != null && result_search.length == 0')
    i.text-danger Nenhum resultado para {{ searchlastquery }}
- .mdl-grid
+.mdl-grid
   .section-title.mdl-cell.mdl-cell--12-col
    h4 Monitorias
-  for x, y in course.discipline
-    .mdl-cell.mdl-cell--4-col
-     .mdl-card.mdl-shadow--2dp
-      .mdl-card__title
-       h4= x.title
-      .mdl-card__supporting-text
-       small= x.details
-      .mdl-card__actions.mdl-card--border
-        table.list-reinforcement
-         for z, w in x.reinforcement
-          tr
-           th
-            a(href="z.url")
-             i.mdi.mdi-book-open-variant.mdi-2x(title="Inscrição")
-           td
-            strong= z.title
-            br
-            small= z.timecreated
+.mdl-grid
+  .mdl-cell.mdl-cell--4-col(*ngFor="#dcp of list_course.discipline")
+    .mdl-card.mdl-shadow--2dp
+     .mdl-card__title
+      h4 {{ dcp.title }}
+     .mdl-card__supporting-text
+      small {{ dcp.details }}
+     .mdl-card__actions.mdl-card--border
+      table(width="100%")
+       tr(*ngFor="#rf of dcp.reinforcement", (click)="toggleBind(rf, 1)", [class.box-selected]="rf.subs === true", [class.box-available]="rf.subs !== true")
+        th
+         i.mdi.mdi-arrow-right-bold-circle-outline.mdi-2x(title="Clique para se inscrever.", *ngIf="!rf.subs", [class.hide]="rf.subs === true")
+         i.mdi.mdi-checkbox-marked-circle-outline.mdi-2x.link-bound(title="Já inscrito. Clique novamente para desfazer.", *ngIf="rf.subs === true", [class.hide]="rf.subs === false")
+        td
+         strong {{ rf.title }}
+         br
+         small {{ rf.timecreated }}

@@ -1,26 +1,35 @@
-form
- .mdl-grid
-  .mdl-cell.mdl-cell--4-col
-  .mdl-cell.mdl-cell--4-col
-   .mdl-textfield.mdl-js-textfield.center-block
-    input.mdl-textfield__input#searchinput(type="text", name="searchwarnings", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="searchquery", placeholder="Digite um termo e pressione ENTER")
-  .mdl-cell.mdl-cell--4-col
- .mdl-grid
-  .mdl-cell.mdl-cell--12-col
-   section(*ngIf="searchresults.length > 0")
-    i.text-muted {{ searchresults.length }} Resultados para {{ searchlastquery }}
-    ul
-     li(*ngFor="#item of searchresults")
-      {{ item.title }}
-      a.text-primary(href="{{ item.url }}", target="_blank") (...)
-   section(*ngIf="searchresults.length == 0")
-    i.text-danger Nenhum resultado para {{ searchquery }}
-   .section-title
-    h4 Recentes
-    dl
-    for item, key in warnings
-     dt= item.title
-      small.pull-right= item.timecreated
-     dd= item.details
-      small
-       a(href="item.url") (...)
+.mdl-grid
+ .mdl-cell.mdl-cell--4-col
+ .mdl-cell.mdl-cell--4-col
+  .mdl-textfield.mdl-js-textfield
+   input.mdl-textfield__input#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="query_search")
+ .mdl-cell.mdl-cell--4-col
+.mdl-grid
+ .mdl-cell.mdl-cell--12-col
+  section(*ngIf='result_search != null && result_search.length > 0')
+   i.text-muted {{ result_search.length }} Resultados para {{ query_search_last }}
+   ul
+    li(*ngFor="#item of result_search")
+     {{ item.title }}
+     a.text-primary(href="{{ item.url }}", target="_blank") (...)
+  section(*ngIf='result_search != null && result_search.length == 0')
+   i.text-danger Nenhum resultado para {{ query_search_last }}
+.mdl-grid
+  .section-title.mdl-cell.mdl-cell--12-col
+   h4 Avisos
+.mdl-grid
+  .mdl-cell.mdl-cell--4-col(*ngFor="#dcp of list_course.discipline")
+    .mdl-card.mdl-shadow--2dp
+     .mdl-card__title
+      h4 {{ dcp.title }}
+     .mdl-card__supporting-text
+      small {{ dcp.details }}
+     .mdl-card__actions.mdl-card--border
+      table(width="100%")
+       tr(*ngFor="#wr of dcp.warning")
+        th
+         i.mdi.mdi-alert-outline.mdi-2x
+        td
+         strong {{ wr.title }}
+         br
+         small {{ wr.timecreated }}
