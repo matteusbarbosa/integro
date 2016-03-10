@@ -1,20 +1,20 @@
 var user = require('./user');
-var course = require('./course');
+var warning = require('./warning');
+var media = require('./media');
 var examination = require('./examination');
 var reinforcement = require('./reinforcement');
 var classoptional = require('./classoptional');
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
-module.exports = bookshelf.model('bind', {
-	tableName: 'bind',
+module.exports = bookshelf.model('log', {
+	tableName: 'log',
 	user: function () {
 		return this.belongsTo('user');
 	},
 	instance: function () {
-		return this.morphTo('instance', course, examination, reinforcement, classoptional);
+		return this.morphTo('instance', warning, media, examination, reinforcement, classoptional);
 	},
-	course: function () {
-		console.log('course');
-		return this.belongsTo('course', 'instance_id');
+	warning: function () {
+		return this.belongsTo('warning', 'instance_id');
 	},
 	reinforcement: function () {
 		return this.belongsTo('reinforcement', 'instance_id');

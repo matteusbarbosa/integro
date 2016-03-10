@@ -1,38 +1,30 @@
 extends layout
 
-block content
- div#page-frontpage
-  #section-header
-   .title-image-caption
-    h1 Íntegro
-  #section-links
-   .mdl-grid
-    .mdl-cell.mdl-cell--3-col
-     .mdl-card.mdl-shadow--3dp
-      h4.mdl-card__title 
-       a(href="/join") Matrícula
-      .mdl-card__media
-      .mdl-card__supporting-text
-      .mdl-card__actions
-    .mdl-cell.mdl-cell--3-col
-     .mdl-card.mdl-shadow--3dp
-      h4.mdl-card__title
-       a(href="/login") SIA
-      .mdl-card__media 
-      .mdl-card__supporting-text
-      .mdl-card__actions
-    .mdl-cell.mdl-cell--3-col
-     .mdl-card.mdl-shadow--3dp
-      h4.mdl-card__title 
-       a(href="/finance") Financeiro
-      .mdl-card__media
-      .mdl-card__supporting-text
-      .mdl-card__actions
-    .mdl-cell.mdl-cell--3-col
-     .mdl-card.mdl-shadow--3dp
-      h4.mdl-card__title
-       a(href="/") Carômetro
-      .mdl-card__media
-      .mdl-card__supporting-text
-      .mdl-card__actions
-   frontpage
+block	content
+  #page-frontpage
+    #section-header
+      .title-image-caption
+        h1 Íntegro
+    #section-links
+      .container
+        .row
+          .col-sm-3.col-xs-6
+           .panel.text-center
+              i.fa.fa-paperclip
+              h4
+                a(href="/join") Matrícula
+          .col-sm-3.col-xs-6
+           .panel.text-center
+              i.fa.fa-database
+              h4
+                a(href="/login") SIA
+          .col-sm-3.col-xs-6
+           .panel.text-center
+              i.fa.fa-balance-scale
+              h4
+                a(href="/finance") Financeiro
+          .col-sm-3.col-xs-6
+           .panel.text-center
+              i.fa.fa-institution
+              h4
+                a(href="http://www.soma.com.br") Website

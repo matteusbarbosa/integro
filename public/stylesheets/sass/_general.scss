@@ -3,7 +3,7 @@ html{
 }
 
 main{
-    background-color: rgb(220, 220, 220);
+
 }
 
 .hide{
@@ -49,26 +49,26 @@ main{
 #page-frontpage{
     #section-header{
         background-image: url('../images/student-1.jpg');
-        background-size:100%;
+        background-size: cover 100%;
+        background-position: 0px -50px;
         padding: 48px 0px;
         min-height: 256px;
         width:100%;
     }
     #section-links{
         margin: 12px 0px;
-        .mdl-cell{
-            padding: 0px 6px;
-            .mdl-card{
-                width: 100%;
-                .mdl-card__title{
-                    a{
-                        font-family: Roboto, Verdana;
-                        text-decoration: none; 
-                    }
-                }
+        .panel{
+            padding: 24px 0px;
+            margin: 24px 0px;
+            i.fa{
+                    font-size: 4.5em;
+            }
+            h4{
+                line-height: 2em;
             }
         }
     }
+
     #section-images{}
     #section-news{}
     #section-footer{}
@@ -125,7 +125,7 @@ main{
 .section-title{
     border-bottom: 1px dotted gray;
     height: 1.2em;
-    margin: 24px 6px 36px 6px;
+    margin: 36px 6px 72px 6px;
     h4{
         font-family: Devroye, Verdana;
         text-align: center;
@@ -224,4 +224,37 @@ main{
     @include background-gradient(#95a5a6, #7f8c8d);
 
     color: #fff;
+}
+
+.box-discipline{
+    &.panel-info{
+        h4{
+            color: #fff;
+
+            i.fa{
+                margin-right: 12px;
+            }
+
+        }
+
+        table{
+            th{
+            width: 15%;
+            text-align: center;
+            vertical-align: middle;
+                i.fa{
+                    font-size: 1.8em;
+                    
+                }
+            }
+
+            td{
+                ul{
+                    padding-left: 6px;
+                    list-style:none;
+                    line-height: 1.4em;
+                }
+            }
+        }
+    }
 }

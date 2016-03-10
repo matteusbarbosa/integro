@@ -8,6 +8,12 @@ module.exports = bookshelf.model('user', {
     role: function () {
         return this.hasOne('role');
     },
+    course: function (){
+        return this.hasMany('course').through('bind');
+    }
+
+    /*,
+    
     course: function(){
         return this.binds
         .fetch({withRelated : [{
@@ -32,5 +38,5 @@ module.exports = bookshelf.model('user', {
         .fetch({withRelated : [{
             binds : function(query) { query.where('instance_type', 'classoptional'); }},
             'binds.classoptional']});
-    }
+    } */
 });

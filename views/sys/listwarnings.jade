@@ -1,35 +1,40 @@
-.mdl-grid
- .mdl-cell.mdl-cell--4-col
- .mdl-cell.mdl-cell--4-col
-  .mdl-textfield.mdl-js-textfield
-   input.mdl-textfield__input#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="query_search")
- .mdl-cell.mdl-cell--4-col
-.mdl-grid
- .mdl-cell.mdl-cell--12-col
-  section(*ngIf='result_search != null && result_search.length > 0')
-   i.text-muted {{ result_search.length }} Resultados para {{ query_search_last }}
-   ul
-    li(*ngFor="#item of result_search")
-     {{ item.title }}
-     a.text-primary(href="{{ item.url }}", target="_blank") (...)
-  section(*ngIf='result_search != null && result_search.length == 0')
-   i.text-danger Nenhum resultado para {{ query_search_last }}
-.mdl-grid
-  .section-title.mdl-cell.mdl-cell--12-col
-   h4 Avisos
-.mdl-grid
-  .mdl-cell.mdl-cell--4-col(*ngFor="#dcp of list_course.discipline")
-    .mdl-card.mdl-shadow--2dp
-     .mdl-card__title
-      h4 {{ dcp.title }}
-     .mdl-card__supporting-text
-      small {{ dcp.details }}
-     .mdl-card__actions.mdl-card--border
-      table(width="100%")
-       tr(*ngFor="#wr of dcp.warning")
-        th
-         i.mdi.mdi-alert-outline.mdi-2x
-        td
-         strong {{ wr.title }}
-         br
-         small {{ wr.timecreated }}
+.container
+  .row
+   .col-sm-4
+   .col-sm-4
+    ..form-control
+     input.form-control#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="query_search")
+   .col-sm-4
+  .row
+   .col-sm-12
+    section(*ngIf='result_search != null && result_search.length > 0')
+     i.text-muted {{ result_search.length }} Resultados para {{ query_search_last }}
+     ul
+      li(*ngFor="#item of result_search")
+       {{ item.title }}
+       a.text-primary(href="{{ item.url }}", target="_blank") (...)
+    section(*ngIf='result_search != null && result_search.length == 0')
+     i.text-danger Nenhum resultado para {{ query_search_last }}
+  .row
+    .section-title.col-sm-12
+     h4 Avisos
+  .row
+    .col-sm-4(*ngFor="#dcp of list_course.discipline")
+      .panel.panel-info.box-discipline
+       .panel-heading
+        h4
+          i.fa.fa-folder-open-o
+          {{ dcp.title }}
+       .panel-body
+        small {{ dcp.details }}
+       .panel-footer
+        table.table
+         tr(*ngFor="#wr of dcp.warning")
+          th
+           i.fa.fa-info-circle
+          td
+            ul
+              li
+                strong {{ wr.title }}
+              li
+                small {{ wr.timecreated }}

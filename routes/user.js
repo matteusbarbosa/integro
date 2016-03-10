@@ -17,56 +17,61 @@ router.get('/', function (req, res, next) {
 
 router.get('/list', function (req, res, next) {
 
-    course.where({id: req.session.access.course.id })
-    .fetch({withRelated: ['discipline']})
-    .then(function (coursedata) {
+  course.where({id: req.session.access.course.id })
+  .fetch({withRelated: ['discipline']})
+  .then(function (coursedata) {
 
-        var data = {
-            course : coursedata.toJSON()
-        };
+    var data = {
+      course : coursedata.toJSON()
+    };
 
-        for(var c = 0; c < data.course.discipline.length; c++){
+    for(var c = 0; c < data.course.discipline.length; c++){
 
-            for(var x = 0; x < data.course.discipline[c].user.length; x++){
+      for(var x = 0; x < data.course.discipline[c].user.length; x++){
 
-                data.course.discipline[c].user[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', data.course.discipline[c].user[x].timecreated);
+        data.course.discipline[c].user[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', data.course.discipline[c].user[x].timecreated);
 
-            }
-        }
+      }
+    }
 
-        res.render('sys/listusers', data);
-    });
+    res.render('sys/listusers', data);
+  });
 });
 
 router.get('/home/redirected/:why', function (req, res, next) {
-   var data = {};
+ var data = {};
 
-   res.render('index', data);
+ res.render('index', data);
 });
 
 router.get('/profile/:id', function (req, res, next) {
 
-    var user_id = (req.params.id == 0) ? req.session.access.user.id : req.params.id;
+  var user_id = (req.params.id == 0) ? req.session.access.user.id : req.params.id;
 
-    user.where({id: user_id }).fetch({withRelated: ['binds']}).then(function (userdata) {
+  var u = user.where({'user.id': user_id }).fetch(
+    {withRelated : [{ 
+      binds : function(qb) { qb.where('instance_type', 'course').orderBy('timestart', 'DESC')},
+    }, 'binds.course.disciplines']})
+  .then(function (userdata) {
 
-        userdata.course().then(function(bind_fetch){
+    var data = {};
 
-            var data = {};
+    data.user = userdata.toJSON();
 
-            try {
+    console.log(data.user.binds[0].course);
 
-              data.user = userdata.toJSON();  
-              data.bind = bind_fetch.toJSON();
-              data.user.timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.user.timecreated));
-              data.user.timelastlogin = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.user.timelastlogin));
-              res.render('sys/userprofile', data);
+    data.user.timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.user.timecreated));
+    data.user.timelastlogin = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.user.timelastlogin));
 
-          } catch (ex){
-            res.status(404).render('404');
-        }              
-    });
-    });
+    return res.json(data);
+
+  }).catch(function(err){
+
+    console.log('error');
+
+    next();
+  });
+
 });
 
 /*
@@ -74,13 +79,13 @@ router.get('/profile/:id', function (req, res, next) {
  */
  router.get('/search/:search', function (req, res, next) {
 
-    user.query(function (qb) {
-        qb.where('title', 'LIKE', '%' + req.params.search + '%')
-        .orWhere('details', 'LIKE', '%' + req.params.search + '%')
-        .orWhere('details', 'LIKE', '%' + req.params.search + '%')
-    }).fetchAll().then(function (userdata) {
-        res.json(userdata.toJSON());
-    });
+  user.query(function (qb) {
+    qb.where('title', 'LIKE', '%' + req.params.search + '%')
+    .orWhere('details', 'LIKE', '%' + req.params.search + '%')
+    .orWhere('details', 'LIKE', '%' + req.params.search + '%')
+  }).fetchAll().then(function (userdata) {
+    res.json(userdata.toJSON());
+  });
 });
 
  

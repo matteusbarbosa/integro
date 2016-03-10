@@ -1,7 +1,7 @@
 extends layout
 
 block content
- .mdl-grid#page-userprofile
+ .row#page-userprofile
   .mdl-cell.mdl-cell--2-col
   .mdl-cell.mdl-cell--8-col
    table.mdl-data-table.mdl-js-data-table#tb-profile
@@ -19,7 +19,7 @@ block content
       td= user.email
      tr
       th Curso
-      td(colspan=3, align="center")= bind.course.name
+      td(colspan=3, align="center")= course.name
      tr
       th Data de criação
       td= user.timecreated

@@ -1,97 +1,38 @@
-header.mdl-layout__header
- .mdl-layout__drawer-button
-  i.mdi.mdi-view-list
- .mdl-layout__header-row
-  // Title
-  a.mdl-layout-title.c-wt(href="/home")
-     i.mdi.mdi-home-variant
-     spanÍntegro
-    // Add spacer, to align navigation to the right
-  .mdl-layout-spacer
-    // Navigation. We hide it in small screens.
-  nav#menu-main.mdl-navigation.mdl-layout--large-screen-only
-   a.mdl-navigation__link(href='/warning') Avisos
-   a.mdl-navigation__link(href='/media') Mídia        
-   a.mdl-navigation__link(href='/examination') Simulados    
-   a.mdl-navigation__link(href='/reinforcement') Monitorias     
-   a.mdl-navigation__link(href='/classoptional') Aulas Opcionais
-   a.mdl-navigation__link#btn-logout(href="#")
-    i.mdi.mdi-account-convert
-   ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect(for='btn-logout')
-    li.mdl-menu__item
-     a(href='/user/profile/0', title="Perfil") 
-      i.mdi.mdi-account-convert
-      span Perfil
-    li.mdl-menu__item
-     a(href='/support/', title="Suporte")
-      i.mdi.mdi-help
-      span Suporte
-    li.mdl-menu__item
-     a(href='/logout/', title="Logout")
-      i.mdi.mdi-logoff
-      span Logout
-.mdl-layout__drawer
- a.mdl-layout-title(href="/home")
-   i.mdi.mdi-home-variant
- nav.mdl-navigation
-  a.mdl-navigation__link(href='/warning') Avisos
-  a.mdl-navigation__link(href='/media') Mídia        
-  a.mdl-navigation__link(href='/examination') Simulados    
-  a.mdl-navigation__link(href='/reinforcement') Monitorias     
-  a.mdl-navigation__link(href='/classoptional') Aulas Opcionais
-  a.mdl-navigation__link#btn-logout(href="#")
-    i.mdi.mdi-account-convert
-   ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect(for='btn-logout')
-    li.mdl-menu__item
-     a(href='/user/profile/0', title="Perfil") 
-      i.mdi.mdi-account-convert
-      span Perfil
-    li.mdl-menu__item
-     a(href='/support/', title="Suporte")
-      i.mdi.mdi-help
-      span Suporte
-    li.mdl-menu__item
-     a(href='/logout/', title="Logout")
-      i.mdi.mdi-logoff
-      span Logout
 nav.navbar.navbar-inverse
-      .container-fluid
-        .navbar-header
-          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-2')
-            span.sr-only Toggle navigation
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.navbar-brand(href='#') Brand
-        #bs-example-navbar-collapse-2.collapse.navbar-collapse
-          ul.nav.navbar-nav
-            li.active
-              a(href='#')
-                | Link
-                span.sr-only (current)
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-2')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href="/home") SIA
+    #bs-example-navbar-collapse-2.collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li
+          a(href='/warning') Avisos
+        li
+          a(href='/media') Mídia    
+        li
+          a(href='/examination') Simulados  
+        li
+          a(href='/reinforcement') Monitorias   
+        li
+          a(href='/classoptional') Aulas Opcionais
+      ul.nav.navbar-nav.navbar-right
+        li
+          a(href="#")
+            i.fa.fa-eye(title="Ambiente monitorado")
+        li
+          a(href="#")
+            i.fa.fa-question-circle(title="Ajuda")
+        li.dropdown
+          a.dropdown-toggle.fa-stack(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+            i.fa.fa-circle-thin.fa-stack-2x
+            i.fa.fa-user.fa-stack-1x
+          ul.dropdown-menu(role='menu')
             li
-              a(href='#') Link
-            li.dropdown
-              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-                | Dropdown 
-                span.caret
-              ul.dropdown-menu(role='menu')
-                li
-                  a(href='#') Action
-                li
-                  a(href='#') Another action
-                li
-                  a(href='#') Something else here
-                li.divider
-                li
-                  a(href='#') Separated link
-                li.divider
-                li
-                  a(href='#') One more separated link
-          form.navbar-form.navbar-left(role='search')
-            .form-group
-              input.form-control(type='text', placeholder='Search')
-            button.btn.btn-default(type='submit') Submit
-          ul.nav.navbar-nav.navbar-right
+              a(href="/profile") Perfil
+            li.divider
             li
-              a(href='#') Link
+              a(href='/logout/') Logout

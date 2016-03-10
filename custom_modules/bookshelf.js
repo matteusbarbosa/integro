@@ -6,7 +6,8 @@ var knex = require('knex')({
     password : '',
     database : 'integro',
     charset  : 'utf8'
-  }
+  },
+  debug: true
 });
 
 module.exports = require('bookshelf')(knex);

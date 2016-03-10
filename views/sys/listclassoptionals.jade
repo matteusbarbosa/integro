@@ -1,11 +1,11 @@
-.mdl-grid
- .mdl-cell.mdl-cell--4-col
- .mdl-cell.mdl-cell--4-col
-  .mdl-textfield.mdl-js-textfield
-   input.mdl-textfield__input#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="query_search")
- .mdl-cell.mdl-cell--4-col
-.mdl-grid
- .mdl-cell.mdl-cell--12-col
+.row
+ .col-sm-4
+ .col-sm-4
+  ..form-control
+   input.form-control#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="query_search")
+ .col-sm-4
+.row
+ .col-sm-12
   section(*ngIf='result_search != null && result_search.length > 0')
    i.text-muted {{ result_search.length }} Resultados para {{ query_search_last }}
    ul
@@ -14,14 +14,14 @@
      a.text-primary(href="{{ item.url }}", target="_blank") (...)
   section(*ngIf='result_search != null && result_search.length == 0')
    i.text-danger Nenhum resultado para {{ query_search_last }}
-.mdl-grid
-  .section-title.mdl-cell.mdl-cell--12-col
+.row
+  .section-title.col-sm-12
    h4 Aulas Opcionais
-.mdl-grid
-  .mdl-cell.mdl-cell--4-col
-  .mdl-cell.mdl-cell--4-col
-    .mdl-card.mdl-shadow--2dp
-     .mdl-card__title
+.row
+  .col-sm-4
+  .col-sm-4
+    .panel
+     .panel-heading
       h4 Aulas Opcionais
      .mdl-card__supporting-text
       small Aulas Opcionais

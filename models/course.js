@@ -4,7 +4,7 @@ var bind = require('./bind');
 
 module.exports = bookshelf.model('course', {
 	tableName: 'course',
-	discipline: function () {
+	disciplines: function () {
 		return this.hasMany('discipline');
 	},
 	classoptional: function () {

@@ -19,13 +19,11 @@ var user = require('../models/user');
 		it('get user examinations', function() {
 
 			user.where({id : 1})
-			.fetch({ 'withRelated' : ['subscriptions.examination'] })
+			.fetch({ 'withRelated' : ['binds.examination'] })
 			.then(function(subs_fetch){
 
-				console.log(subs_fetch.toJSON());
-
         /*
-        subscription
+        bind
         .where({ instance_type : 'examination', user_id : req.session.access.user.id})
         .fetch({ withRelated : 'examination' })
         .then(function(ex_subs){
