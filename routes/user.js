@@ -10,9 +10,7 @@ var user = require('../models/user');
 var course = require('../models/course');
 
 router.get('/', function (req, res, next) {
-	var data = {};
-
-	res.render('sys/users', data);
+	res.render('sys/users');
 });
 
 router.get('/list', function (req, res, next) {
@@ -30,7 +28,6 @@ router.get('/list', function (req, res, next) {
       for(var x = 0; x < data.course.discipline[c].user.length; x++){
 
         data.course.discipline[c].user[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', data.course.discipline[c].user[x].timecreated);
-
       }
     }
 
@@ -39,9 +36,7 @@ router.get('/list', function (req, res, next) {
 });
 
 router.get('/home/redirected/:why', function (req, res, next) {
- var data = {};
-
- res.render('index', data);
+ res.render('index');
 });
 
 router.get('/profile/:id', function (req, res, next) {
@@ -58,8 +53,6 @@ router.get('/profile/:id', function (req, res, next) {
 
     data.user = userdata.toJSON();
 
-    console.log(data.user.binds[0].course);
-
     data.user.timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.user.timecreated));
     data.user.timelastlogin = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.user.timelastlogin));
 
@@ -72,6 +65,10 @@ router.get('/profile/:id', function (req, res, next) {
     next();
   });
 
+});
+
+router.get('/view', function (req, res, next) {
+    res.render('sys/userprofile');
 });
 
 /*

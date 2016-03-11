@@ -36,8 +36,8 @@ JSON
 */
 router.get('/bycourse/:courseid', function (req, res, next) {
 
-    course.where({id: req.session.access.course.id}).fetch({withRelated: ['discipline.examination']})
-    course.where({id: req.params.courseid }).fetch({withRelated: ['discipline.examination']})
+    course.where({id: req.session.access.course.id}).fetch({withRelated: ['disciplines.examinations']})
+    course.where({id: req.params.courseid }).fetch({withRelated: ['disciplines.examinations']})
     .then(function (coursedata) {
 
         user.where({id: req.session.access.user.id })
@@ -48,17 +48,17 @@ router.get('/bycourse/:courseid', function (req, res, next) {
             var data = coursedata.toJSON();
             data.user = subs_fetch.toJSON();
 
-            for(var c = 0; c < data.discipline.length; c++){
+            for(var c = 0; c < data.disciplines.length; c++){
 
-                for(var x = 0; x < data.discipline[c].examination.length; x++){
+                for(var x = 0; x < data.disciplines[c].examinations.length; x++){
 
-                    var exist = _.some(data.user.binds, {instance_id : data.discipline[c].examination[x].id });
+                    var exist = _.some(data.user.binds, {instance_id : data.disciplines[c].examinations[x].id });
 
                     if(exist){
-                        data.discipline[c].examination[x].subs = true;
+                        data.disciplines[c].examinations[x].subs = true;
                     }
 
-                    data.discipline[c].examination[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.discipline[c].examination[x].timecreated));
+                    data.disciplines[c].examinations[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.disciplines[c].examinations[x].timecreated));
                     
                 }
             }

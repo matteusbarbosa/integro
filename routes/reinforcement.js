@@ -37,28 +37,28 @@ JSON
 router.get('/bycourse/:courseid', function (req, res, next) {
 
     //course.where({id: req.session.access.course.id}).fetch({withRelated: ['discipline.reinforcement']})
-    course.where({id: req.params.courseid }).fetch({withRelated: ['discipline.reinforcement']})
+    course.where({id: req.params.courseid }).fetch({withRelated: ['disciplines.reinforcements']})
     .then(function (coursedata) {
 
         //user.where({id: req.session.access.user.id })
         user.where({id: 1 })
-        .fetch({withRelated : [ { binds : function (query) { query.where('instance_type', 'reinforcement'); }}, 'binds.reinforcement']})
+        .fetch({withRelated : [ { binds : function (query) { query.where('instance_type', 'reinforcements'); }}, 'binds.reinforcements']})
         .then(function (subs_fetch){
 
             var data = coursedata.toJSON();
             data.user = subs_fetch.toJSON();
 
-            for(var c = 0; c < data.discipline.length; c++){
+            for(var c = 0; c < data.disciplines.length; c++){
 
-                for(var x = 0; x < data.discipline[c].reinforcement.length; x++){
+                for(var x = 0; x < data.disciplines[c].reinforcements.length; x++){
 
-                    var exist = _.some(data.user.binds, {instance_id : data.discipline[c].reinforcement[x].id });
+                    var exist = _.some(data.user.binds, {instance_id : data.disciplines[c].reinforcements[x].id });
 
                     if(exist){
-                        data.discipline[c].reinforcement[x].subs = true;
+                        data.disciplines[c].reinforcements[x].subs = true;
                     }
 
-                    data.discipline[c].reinforcement[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.discipline[c].reinforcement[x].timecreated));
+                    data.disciplines[c].reinforcements[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.disciplines[c].reinforcements[x].timecreated));
                     
                 }
             }

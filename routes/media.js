@@ -33,15 +33,15 @@ JSON
 router.get('/bycourse/:courseid', function (req, res, next) {
 
     //course.where({id: req.session.access.course.id}).fetch({withRelated: ['discipline.media']})
-    course.where({id: req.params.courseid }).fetch({withRelated: ['discipline.media.user']})
+    course.where({id: req.params.courseid }).fetch({withRelated: ['disciplines.media.user']})
     .then(function (coursedata) {
 
         var data = coursedata.toJSON();
 
-            for(var c = 0; c < data.discipline.length; c++){
+            for(var c = 0; c < data.disciplines.length; c++){
 
-                for(var x = 0; x < data.discipline[c].media.length; x++){
-                        data.discipline[c].media[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.discipline[c].media[x].timecreated));
+                for(var x = 0; x < data.disciplines[c].media.length; x++){
+                        data.disciplines[c].media[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.disciplines[c].media[x].timecreated));
                 }
             }
 

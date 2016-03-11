@@ -25,19 +25,10 @@ router.use(function (req, res, next) {
 });  
 
 router.get('/', function (req, res, next) {
-
-    var data = {
-        modules: {
-            1: 'Inscrição',
-            2: 'SIA',
-            3: 'Financeiro'}
-    };
-
-    res.render('index', data);
+    res.render('index');
 });
 
 router.get('/home', function (req, res, next) {
-
     res.render('sys/home');
 });
 

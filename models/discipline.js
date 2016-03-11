@@ -11,16 +11,16 @@ module.exports = bookshelf.model('discipline', {
 	media: function () {
 		return this.hasMany('media').through('disciplinemedia', 'id', 'discipline_id');
 	},
-	examination: function(){
+	examinations: function(){
 		return this.hasMany('examination');
 	},
-	reinforcement: function(){
+	reinforcements: function(){
 		return this.hasMany('reinforcement');
 	},
-	classoptional: function(){
+	classoptionals: function(){
 		return this.hasMany('classoptional');
 	},
-	warning : function(){
+	warnings : function(){
 		return this.hasMany('warning');
 	}
 });

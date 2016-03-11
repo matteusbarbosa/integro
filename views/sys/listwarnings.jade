@@ -2,7 +2,7 @@
   .row
    .col-sm-4
    .col-sm-4
-    ..form-control
+    .form-control
      input.form-control#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="query_search")
    .col-sm-4
   .row
@@ -11,7 +11,7 @@
      i.text-muted {{ result_search.length }} Resultados para {{ query_search_last }}
      ul
       li(*ngFor="#item of result_search")
-       {{ item.title }}
+       span {{ item.title }}
        a.text-primary(href="{{ item.url }}", target="_blank") (...)
     section(*ngIf='result_search != null && result_search.length == 0')
      i.text-danger Nenhum resultado para {{ query_search_last }}
@@ -19,7 +19,7 @@
     .section-title.col-sm-12
      h4 Avisos
   .row
-    .col-sm-4(*ngFor="#dcp of list_course.discipline")
+    .col-sm-4(*ngFor="#dcp of list_course.disciplines")
       .panel.panel-info.box-discipline
        .panel-heading
         h4
@@ -29,7 +29,7 @@
         small {{ dcp.details }}
        .panel-footer
         table.table
-         tr(*ngFor="#wr of dcp.warning")
+         tr(*ngFor="#wr of dcp.warnings")
           th
            i.fa.fa-info-circle
           td

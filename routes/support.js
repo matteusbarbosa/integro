@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/list', function (req, res, next) {
 
-    course.where({id: 1}).fetch({withRelated: ['discipline.support']}).then(function (coursedata) {
+    course.where({id: 1}).fetch({withRelated: ['disciplines.support']}).then(function (coursedata) {
 
         var data = {
             course : coursedata.toJSON()

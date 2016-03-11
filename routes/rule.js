@@ -3,8 +3,6 @@ var app = express();
 var router = express.Router();
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 
-
-
 router.get('/', function (req, res, next) {
 	var data = {};
 

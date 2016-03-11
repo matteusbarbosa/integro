@@ -1,13 +1,17 @@
 import {bootstrap} from '/angular2/platform/browser';
+
 /*
+
 import {FrontpageComponent} from './components/frontpage/Component';
 
 bootstrap(FrontpageComponent);
 
+*/
+
 import {ProfileComponent} from './components/profile/Component';
 
 bootstrap(ProfileComponent);
-*/
+
 import {WarningComponent} from './components/warning/Component';
 
 bootstrap(WarningComponent);

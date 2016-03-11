@@ -1,4 +1,3 @@
-
 export class ClassOptional {
 
 	id
@@ -10,5 +9,4 @@ export class ClassOptional {
 	constructor(classoptional: Object) {
 		this.id = classoptional.id
 	}
-
 }

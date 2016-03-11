@@ -35,7 +35,6 @@ JSON
 */
 router.get('/bycourse/:courseid', function (req, res, next) {
 
-    //course.where({id: req.session.access.course.id}).fetch({withRelated: ['discipline.classoptional']})
     course.where({id: req.params.courseid }).fetch({withRelated: ['classoptional']})
     .then(function (coursedata) {
 
@@ -47,6 +46,8 @@ router.get('/bycourse/:courseid', function (req, res, next) {
             var data = coursedata.toJSON();
             data.user = subs_fetch.toJSON();
 
+            console.log(data);
+
                 for(var c = 0; c < data.classoptional.length; c++){
 
                     var exist = _.some(data.user.binds, {instance_id : data.classoptional[c].id });
@@ -55,7 +56,7 @@ router.get('/bycourse/:courseid', function (req, res, next) {
                         data.classoptional[c].subs = true;
                     }
 
-                    data.classoptional[c].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.classoptional[c].timecreated));
+                    data.classoptional[c].timestart = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.classoptional[c].timestart));
                     
                 }
 

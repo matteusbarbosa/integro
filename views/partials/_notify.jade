@@ -1,12 +1,12 @@
 if messages
- .container
-  .row
-   .col-sm-8.col-sm-offset-2
-     if messages.success
-      .alert.alert-success.mgn-v
-       a(href="#" class="close" data-dismiss="alert" aria-label="close") &times
-       strong #{messages.success}
-     if messages.error
-      .alert.alert-danger.mgn-v
-       a(href="#" class="close" data-dismiss="alert" aria-label="close") &times
-       strong #{messages.error}
+  .container
+    .row
+      .col-sm-8.col-sm-offset-2
+      if messages.success
+        .alert.alert-success.mgn-v
+          a(href="#" class="close" data-dismiss="alert" aria-label="close") &times
+          strong #{messages.success}
+      if messages.error
+        .alert.alert-danger.mgn-v
+        a(href="#" class="close" data-dismiss="alert" aria-label="close") &times
+          strong #{messages.error}

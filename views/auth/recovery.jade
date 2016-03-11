@@ -1,10 +1,8 @@
-extends ../layout
+extends ../layouts/wide
 block content
  .container
     .row
-        .col-sm-4
-        |     
-        |     
+        .col-sm-4  
         .col-sm-4
           #form-login
             form(method='post', action='/recovery/sendmail', role='login')
