@@ -37,11 +37,9 @@ JSON
 router.get('/bycourse/:courseid', function (req, res, next) {
 
     course.where({id: req.session.access.course.id}).fetch({withRelated: ['disciplines.examinations']})
-    course.where({id: req.params.courseid }).fetch({withRelated: ['disciplines.examinations']})
     .then(function (coursedata) {
 
         user.where({id: req.session.access.user.id })
-        user.where({id: 1 })
         .fetch({withRelated : [ { binds : function (query) { query.where('instance_type', 'examination'); }}, 'binds.examination']})
         .then(function (subs_fetch){
 
@@ -54,10 +52,9 @@ router.get('/bycourse/:courseid', function (req, res, next) {
 
                     var exist = _.some(data.user.binds, {instance_id : data.disciplines[c].examinations[x].id });
 
-                    if(exist){
-                        data.disciplines[c].examinations[x].subs = true;
-                    }
-
+                    /* t/f */
+                    data.disciplines[c].examinations[x].subs = exist;
+                    
                     data.disciplines[c].examinations[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.disciplines[c].examinations[x].timecreated));
                     
                 }
@@ -122,7 +119,6 @@ router.get('/unlink', function (req, res, next){
     }
     );
 });
-
 
  router.get('/home/redirected/:why', function (req, res, next) {
      var data = {};

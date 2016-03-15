@@ -1,0 +1,37 @@
+extends layouts/wide
+
+block content
+	.container
+		.row
+			.col-sm-6.col-sm-offset-3
+				h3 Perfil do usuário
+		.row
+			.col-sm-6.col-sm-offset-3
+				table
+					tr
+						th Nome
+					tr
+						td #{user.name}
+					tr
+						th Data de cadastro
+					tr
+						td #{user.timecreated}
+					tr
+						th Último acesso
+					tr
+						td #{user.timelastlogin}
+					if user.selfprofile
+						tr
+							th Usuário
+						tr
+							td #{user.username}
+						
+							tr
+								th Senha
+							tr
+								td
+									a(href="#") Alterar
+						tr
+							th Email cadastrado
+						tr
+							td #{user.email}

@@ -1,6 +1,7 @@
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 var course = require('./course');
 var examination = require('./examination');
+var schedule = require('./schedule');
 var disciplinemedia = require('./disciplinemedia');
 var media = require('./media');
 module.exports = bookshelf.model('discipline', {
@@ -22,5 +23,8 @@ module.exports = bookshelf.model('discipline', {
 	},
 	warnings : function(){
 		return this.hasMany('warning');
+	},
+	schedules : function(){
+		return this.hasMany('schedule');
 	}
 });

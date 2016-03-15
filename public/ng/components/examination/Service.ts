@@ -1,6 +1,7 @@
 import {Examination} from './Examination';
 import {Injectable, Inject} from 'angular2/core';
-import {Http, HTTP_PROVIDERS} from 'angular2/http';
+import {Http, HTTP_PROVIDERS, Response} from 'angular2/http';
+import 'rxjs/Rx';
 
 export class ExaminationService {
 
@@ -31,16 +32,7 @@ export class ExaminationService {
 
 	}
 
-
-/*
-	getList já relaciona inscritos x disponíveis
-	userList(user_id: number) {
-
-		this.http.get('examination/userlist/' + user_id).subscribe(res => {
-
-			this.list_user = res.json();
-
-		});
-} */
-
+	vacanciesAvailable(examination_id: number) {
+		return this.http.get('schedule/vacancies/check/examination/' + examination_id).map(response => response.json());
+	}
 }

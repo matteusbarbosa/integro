@@ -29,13 +29,14 @@
           small {{ dcp.details }}
        .panel-footer
         table.table
-         tr(*ngFor="#exm of dcp.examinations", (click)="toggleBind(exm, 1)", [class.box-selected]="exm.subs === true", [class.box-available]="exm.subs !== true")
+         tr(*ngFor="#exm of dcp.examinations", (click)="toggleBind(exm, 1)", [class.box-selected]="exm.subs === true", [class.box-available]="exm.subs === false && exm.vacancies_left > 0", [class.box-blocked]="exm.vacancies_left <= 0 && exm.subs === false")
           th
-           i.fa.fa-arrow-circle-o-right(title="Clique para se inscrever.", *ngIf="!exm.subs", [class.hide]="exm.subs === true")
+           i.fa.fa-arrow-circle-o-right(title="Clique para se inscrever.", *ngIf="exm.subs === false && exm.vacancies_left > 0", [class.hide]="exm.subs === true")
            i.fa.fa-check-circle-o.link-bound(title="Já inscrito. Clique novamente para desfazer.", *ngIf="exm.subs === true", [class.hide]="exm.subs === false")
+           i.fa.fa-times-circle-o.link-blocked(title="Não há vagas.", *ngIf="exm.subs === false", [class.hide]="exm.vacancies_left > 0")
           td
             ul
               li
-                strong {{ exm.title }}
+                strong {{ exm.title+" ("+exm.vacancies_left+")" }}
               li
                 small {{ exm.timecreated }}

@@ -32,12 +32,6 @@ var user = require('../models/user');
 
 				data.user = userdata.toJSON();
 
-				console.log(data.user.binds[0].course);
-
-
-
-				console.log(data.course);
-
 				data.user.timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.user.timecreated));
 				data.user.timelastlogin = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.user.timelastlogin));
 

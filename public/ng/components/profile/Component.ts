@@ -7,7 +7,7 @@ import {Profile} from './Profile';
 
 @Component({
 	selector: 'profile',
-	templateUrl: '/profile/list',
+	templateUrl: '/profile/',
 	viewProviders: [FORM_DIRECTIVES, ProfileService, HTTP_PROVIDERS],
 	directives: [NgFor, NgIf, NgClass],
 	providers: [HTTP_PROVIDERS]

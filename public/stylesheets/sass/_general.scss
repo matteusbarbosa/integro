@@ -226,6 +226,11 @@ main{
     color: #fff;
 }
 
+.box-blocked{
+    @include background-gradient(#D91E18, #D91A18);
+    color: #fff;
+}
+
 .box-discipline{
     &.panel-info{
         h4{

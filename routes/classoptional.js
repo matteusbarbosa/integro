@@ -46,8 +46,6 @@ router.get('/bycourse/:courseid', function (req, res, next) {
             var data = coursedata.toJSON();
             data.user = subs_fetch.toJSON();
 
-            console.log(data);
-
                 for(var c = 0; c < data.classoptional.length; c++){
 
                     var exist = _.some(data.user.binds, {instance_id : data.classoptional[c].id });

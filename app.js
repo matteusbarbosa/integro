@@ -18,6 +18,7 @@ var media = require('./routes/media');
 var warning = require('./routes/warning');
 var support = require('./routes/support');
 var user = require('./routes/user');
+var schedule = require('./routes/schedule');
 var helmet = require('helmet');
 var typescript = require('typescript');
 var compression = require('compression');
@@ -73,6 +74,7 @@ app.use('/reinforcement', reinforcement);
 app.use('/classoptional', classoptional);
 app.use('/support', support);
 app.use('/user', user);
+app.use('/schedule', schedule);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

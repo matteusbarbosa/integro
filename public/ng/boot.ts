@@ -6,11 +6,15 @@ import {FrontpageComponent} from './components/frontpage/Component';
 
 bootstrap(FrontpageComponent);
 
-*/
-
 import {ProfileComponent} from './components/profile/Component';
 
 bootstrap(ProfileComponent);
+
+*/
+/*
+import {ScheduleComponent} from './components/schedule/Component';
+
+bootstrap(ScheduleComponent); */
 
 import {WarningComponent} from './components/warning/Component';
 

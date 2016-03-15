@@ -10,7 +10,7 @@ var user = require('../models/user');
 var course = require('../models/course');
 
 router.get('/', function (req, res, next) {
-	res.render('sys/users');
+  res.render('sys/users');
 });
 
 router.get('/list', function (req, res, next) {
@@ -41,7 +41,7 @@ router.get('/home/redirected/:why', function (req, res, next) {
 
 router.get('/profile/:id', function (req, res, next) {
 
-  var user_id = (req.params.id == 0) ? req.session.access.user.id : req.params.id;
+  var user_id = (req.params.id == 0 || req.params.id == req.session.access.user.id) ? req.session.access.user.id : req.params.id;
 
   var u = user.where({'user.id': user_id }).fetch(
     {withRelated : [{ 
@@ -53,10 +53,12 @@ router.get('/profile/:id', function (req, res, next) {
 
     data.user = userdata.toJSON();
 
+    data.user.selfprofile = (req.params.id == 0 || req.params.id == req.session.access.user.id);
+
     data.user.timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.user.timecreated));
     data.user.timelastlogin = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.user.timelastlogin));
 
-    return res.json(data);
+    return res.render('sys/profile', data);
 
   }).catch(function(err){
 
@@ -65,10 +67,6 @@ router.get('/profile/:id', function (req, res, next) {
     next();
   });
 
-});
-
-router.get('/view', function (req, res, next) {
-    res.render('sys/userprofile');
 });
 
 /*
