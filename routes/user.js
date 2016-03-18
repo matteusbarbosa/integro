@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-
+var bcrypt = require('bcrypt-nodejs');
 var router = express.Router();
 var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 var date = require('../custom_modules/date').timezone(-180);
@@ -66,6 +66,33 @@ router.get('/profile/:id', function (req, res, next) {
 
     next();
   });
+
+});
+
+router.post('/reset/', function (req, res, next) {
+
+  user.where({ id : req.session.access.user.id})
+  .fetch()
+  .then(function(userdata){
+
+    var data = {};
+
+    data.user = userdata.toJSON();
+
+    var compare = bcrypt.compareSync(req.body.pw_old, data.user.password);
+
+    if(compare === true){
+
+      userdata.save({password: bcrypt.hashSync(req.body.pw_new) }, {patch: true}).then(function(model){
+        res.send('/user/profile/0');
+      });
+    }
+  })
+  .catch(function(err){
+    console.log(err);
+  })
+
+  res.next();
 
 });
 

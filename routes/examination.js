@@ -40,7 +40,9 @@ router.get('/bycourse/:courseid', function (req, res, next) {
     .then(function (coursedata) {
 
         user.where({id: req.session.access.user.id })
-        .fetch({withRelated : [ { binds : function (query) { query.where('instance_type', 'examination'); }}, 'binds.examination']})
+        .fetch({withRelated : [ { binds : function (query) { query.where('instance_type', 'examination'); }},
+            { 'binds.examination.schedules' : function (query) { query.where('instance_type', 'examination'); }}
+            ]})
         .then(function (subs_fetch){
 
             var data = coursedata.toJSON();
@@ -51,6 +53,8 @@ router.get('/bycourse/:courseid', function (req, res, next) {
                 for(var x = 0; x < data.disciplines[c].examinations.length; x++){
 
                     var exist = _.some(data.user.binds, {instance_id : data.disciplines[c].examinations[x].id });
+
+                    console.log(data.disciplines[c].examinations[x].schedules);
 
                     /* t/f */
                     data.disciplines[c].examinations[x].subs = exist;

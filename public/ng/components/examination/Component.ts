@@ -111,24 +111,32 @@ export class ExaminationComponent {
 
 		}
 
+		checkDates(exs_instance: Examination) {
+
+			return this.exs.checkDates(exs_instance.id);
+
+		}
+
 		bind(exs_instance : Examination, user_id : number) {
 
-			exs_instance.subs = true;
+			
 
 			this.exs.bind(exs_instance.id, user_id).subscribe(res => {
 
 				this.result_bind = res.json();
+
+				exs_instance.subs = true;
 
 			});
 		}
 
 		unlink(exs_instance: Examination, user_id: number) {
 
-			exs_instance.subs = false;
-
-			this.exs.unlink(exs_instance.id, user_id).subscribe(res => {
+				this.exs.unlink(exs_instance.id, user_id).subscribe(res => {
 
 				this.result_unlink = res.json();
+
+				exs_instance.subs = false;
 
 			});
 		}

@@ -61,7 +61,7 @@ main{
             padding: 24px 0px;
             margin: 24px 0px;
             i.fa{
-                    font-size: 4.5em;
+                font-size: 4.5em;
             }
             h4{
                 line-height: 2em;
@@ -213,7 +213,7 @@ main{
 }
 
 .box-available{
-    @include background-gradient(#37d077, #2ab966);
+    @include background-gradient(#95a5a6, #7f8c8d);
     color: #fff;
     &:hover{
         cursor: pointer;
@@ -221,8 +221,7 @@ main{
 }
 
 .box-selected{
-    @include background-gradient(#95a5a6, #7f8c8d);
-
+    @include background-gradient(#37d077, #2ab966);
     color: #fff;
 }
 
@@ -244,9 +243,9 @@ main{
 
         table{
             th{
-            width: 15%;
-            text-align: center;
-            vertical-align: middle;
+                width: 15%;
+                text-align: center;
+                vertical-align: middle;
                 i.fa{
                     font-size: 1.8em;
                     

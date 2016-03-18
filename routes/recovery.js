@@ -19,13 +19,7 @@ router.use(session({
  saveUninitialized: true,
  cookie: {maxAge: null, secure: false}
 }));
-router.use(function test(req, res, next) {
-	if (typeof req.session.auth !== "undefined") {
-		res.redirect('/');
-	}
 
-	next();
-});
 router.get('/', function (req, res, next) {
 	data = {};
 

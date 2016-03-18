@@ -42,7 +42,7 @@ router.get('/bycourse/:courseid', function (req, res, next) {
 
         //user.where({id: req.session.access.user.id })
         user.where({id: 1 })
-        .fetch({withRelated : [ { binds : function (query) { query.where('instance_type', 'reinforcements'); }}, 'binds.reinforcements']})
+        .fetch({withRelated : [ { binds : function (query) { query.where('instance_type', 'reinforcement'); }}, 'binds.reinforcement']})
         .then(function (subs_fetch){
 
             var data = coursedata.toJSON();
@@ -59,9 +59,9 @@ router.get('/bycourse/:courseid', function (req, res, next) {
                     }
 
                     data.disciplines[c].reinforcements[x].timecreated = date('(%a) :: %d de %B, %Hh:%Mm', new Date(data.disciplines[c].reinforcements[x].timecreated));
-                    
                 }
             }
+
             res.json(data);
         });
     });

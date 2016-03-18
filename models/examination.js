@@ -11,6 +11,6 @@ module.exports = bookshelf.model('examination', {
         return this.morphMany(bind, 'examination', ['instance_type', 'instance_id']);
     },
     schedules: function () {
-        return this.morphMany('schedule', 'examination', ['instance_type', 'instance_id']);
+        return this.morphMany(schedule, 'examination', ['instance_type', 'instance_id']);
     },
 });

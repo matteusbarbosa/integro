@@ -35,4 +35,8 @@ export class ExaminationService {
 	vacanciesAvailable(examination_id: number) {
 		return this.http.get('schedule/vacancies/check/examination/' + examination_id).map(response => response.json());
 	}
+
+	checkDates(examination_id: number) {
+		return this.http.get('schedule/dates/check/examination/' + examination_id).map(response => response.json());
+	}
 }
