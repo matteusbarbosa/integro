@@ -1,0 +1,3 @@
+/*
+	Tests done by vendor
+*/

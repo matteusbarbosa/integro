@@ -1,0 +1,30 @@
+extends ../layouts/wide
+
+block content
+  .container-fluid
+    .row
+      .col-sm-4.pull-right
+      .container
+    .row
+      .col-sm-4
+      .col-sm-4
+        #card-login
+          form#form-login(method='POST', action='/login', role='login')
+            .center-block
+              img.img-responsive.center-block(src='http://www.soma.com.br/wp-content/themes/soma/_/img/soma.png', alt='')
+              label(for="field-username") Matrícula
+              input#field-username.form-control(type='text', name='username', placeholder='Usuário',required='', value='admin')
+              label(for="field-pw") Senha
+              input#field-pw.form-control(type='password', name='password',placeholder='Senha', required='')
+              button#btn-login.btn.btn-success(type='submit', name='go') 
+                  span Entrar
+              hr
+        .form-links
+        ul
+          li 
+            a(href='www.soma.com.br') SOMA
+          li
+            a(href='recovery') Recuperar senha
+          li
+            a(href='join') Cadastro
+      .col-sm-4

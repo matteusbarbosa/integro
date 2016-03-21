@@ -1,0 +1,38 @@
+.container
+  .row
+   .col-sm-4
+   .col-sm-4
+    .form-control
+     input.form-control#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="query_search")
+   .col-sm-4
+  .row
+   .col-sm-12
+    section(*ngIf='result_search != null && result_search.length > 0')
+     i.text-muted {{ result_search.length }} Resultados para {{ query_search_last }}
+     ul
+      li(*ngFor="#item of result_search")
+       {{ item.title }}
+       a.text-primary(href="{{ item.url }}", target="_blank") (...)
+    section(*ngIf='result_search != null && result_search.length == 0')
+     i.text-danger Nenhum resultado para {{ query_search_last }}
+  .row
+    .section-title.col-sm-12
+     h4 Aulas Opcionais
+  .row
+    .col-sm-4
+    .col-sm-4
+      .panel.panel-info.box-discipline
+       .panel-heading
+        h4 Aulas Opcionais
+       .panel-body
+        small Aulas Opcionais
+       .panel-footer
+        table(width="100%")
+         tr(*ngFor="#copt of list_course.classoptional", (click)="toggleBind(copt, 1)", [class.box-selected]="copt.subs === true", [class.box-available]="copt.subs !== true")
+          th
+           i.fa.fa-tag(title="Clique para se inscrever.", *ngIf="!copt.subs", [class.hide]="copt.subs === true")
+           i.fa.fa-check-circle-o(title="Já inscrito. Clique novamente para desfazer.", *ngIf="copt.subs === true", [class.hide]="copt.subs === false")
+          td
+           strong {{ copt.title }}
+           br
+           small {{ copt.timestart }}

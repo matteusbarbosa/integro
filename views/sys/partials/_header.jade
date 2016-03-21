@@ -1,0 +1,38 @@
+nav.navbar.navbar-inverse
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-2')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href="/home") SIA
+    #bs-example-navbar-collapse-2.collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li
+          a(href='/warning') Avisos
+        li
+          a(href='/media') Mídia    
+        li
+          a(href='/examination') Simulados  
+        li
+          a(href='/reinforcement') Monitorias   
+        li
+          a(href='/classoptional') Aulas Opcionais
+      ul.nav.navbar-nav.navbar-right
+        li
+          a(href="#")
+            i.fa.fa-question-circle(title="Ajuda")
+        li.dropdown
+          a.dropdown-toggle.fa-stack(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+            i.fa.fa-circle-thin.fa-stack-2x
+            i.fa.fa-user.fa-stack-1x
+          ul.dropdown-menu(role='menu')
+            li
+              a(href="/user/profile/0") Perfil
+            li.divider
+            li
+              a(href='/logout/') Logout
+        li
+          a
+            i.fa.fa-eye(title="Ambiente monitorado")

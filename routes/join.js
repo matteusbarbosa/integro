@@ -1,15 +1,37 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-var mysql = require('mysql');
+var bookshelf = require('../custom_modules/bookshelf').plugin('registry');
 
-/* GET home page. */
-router.get('', function (req, res) {
+router.get('/', function (req, res, next) {
+	var data = {};
 
-    req.models.person.find({id : 1});
+	res.render('index', data);
+});
 
-    res.render('join', {title: 'Express'});
-    
+router.get('/home', function (req, res, next) {
+	var data = {};
+
+	if(req.session.auth === true){
+		res.redirect('/login');
+	}
+
+	res.render('index', data);
+});
+
+router.get('/home/redirected/:why', function (req, res, next) {
+	var data = {};
+
+	res.render('index', data);
+});
+
+router.get('/logout', function(req, res){
+
+	var data = {};
+
+	req.session.destroy();
+
+	res.redirect('index', data);
 });
 
 module.exports = router;

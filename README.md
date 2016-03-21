@@ -1,1 +1,3 @@
-"Öntegro - Integridade de informa‡äes - Integra‡Æo de setores" 
+Íntegro 
+Integridade de informações
+Integração de setores

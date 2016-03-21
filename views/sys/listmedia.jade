@@ -1,0 +1,49 @@
+.container
+  .row
+   .col-sm-4
+   .col-sm-4
+    .form-group
+     input.form-control#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="query_search")
+   .col-sm-4
+  .row
+   .col-sm-12
+    section(*ngIf='result_search != null && result_search.length > 0')
+     i.text-muted {{ result_search.length }} Resultados para {{ query_search_last }}
+     ul
+      li(*ngFor="#item of result_search") 
+        span {{ item.title }}
+        a.text-primary(href="{{ item.url }}", target="_blank") (...)
+    section(*ngIf='result_search != null && result_search.length == 0')
+     i.text-danger Nenhum resultado para {{ query_search_last }}
+  .row
+    .section-title.col-sm-12
+     h4 Mídia
+  .row
+    .col-sm-4(*ngFor="#dcp of list_course.disciplines")
+      .panel.panel-info.box-discipline
+       .panel-heading
+        h4 
+          i.fa.fa-folder-open-o
+          span {{ dcp.title }}
+       .panel-body
+        small {{ dcp.details }}
+       .panel-footer
+        table.table
+         tr(*ngFor="#md of dcp.media")
+          th
+           i.fa.fa-floppy-o
+          td
+            ul
+              li
+                strong {{ md.title }}
+              li
+                small {{ md.timecreated }}
+          td
+            .dropdown
+              button.btn.btn-sm.btn-link.dropdown-toggle(type="button", id="item-{{ md.id }}-actions", data-toggle="dropdown", aria-haspopup="true", aria-expanded="true", title="Ações relacionadas")
+                i.fa.fa-ellipsis-v
+              ul.dropdown-menu(aria-labelledby="item-{{ md.id }}-actions")
+                li
+                  a(href="/media/edit/{{ md.id }}", title="Editar")
+                    i.fa.fa-edit 
+                    span Editar

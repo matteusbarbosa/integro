@@ -1,0 +1,37 @@
+.container
+  .row
+   .col-sm-4
+   .col-sm-4
+    .form-control
+     input.form-control#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="query_search")
+   .col-sm-4
+  .row
+   .col-sm-12
+    section(*ngIf='result_search != null && result_search.length > 0')
+     i.text-muted {{ result_search.length }} Resultados para {{ searchlastquery }}
+     ul
+      li(*ngFor="#item of result_search")
+       {{ item.title }}
+       a.text-primary(href="{{ item.url }}", target="_blank") (...)
+    section(*ngIf='result_search != null && result_search.length == 0')
+     i.text-danger Nenhum resultado para {{ searchlastquery }}
+  .row
+    .section-title.col-sm-12
+     h4 Monitorias
+  .row
+    .col-sm-4(*ngFor="#dcp of list_course.disciplines")
+      .panel.panel-info.box-discipline
+       .panel-heading
+        h4 {{ dcp.title }}
+       .panel-body
+        small {{ dcp.details }}
+       .panel-footer
+        table(width="100%")
+         tr(*ngFor="#rf of dcp.reinforcements", (click)="toggleBind(rf, 1)", [class.box-selected]="rf.subs === true", [class.box-available]="rf.subs !== true")
+          th
+           i.fa.fa-life-saver(title="Clique para se inscrever.", *ngIf="!rf.subs", [class.hide]="rf.subs === true")
+           i.fa.fa-check-circle-o(title="Já inscrito. Clique novamente para desfazer.", *ngIf="rf.subs === true", [class.hide]="rf.subs === false")
+          td
+           strong {{ rf.title }}
+           br
+           small {{ rf.timecreated }}

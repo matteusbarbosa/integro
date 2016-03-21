@@ -1,0 +1,13 @@
+extends layouts/wide
+block content
+ #page-404.row
+  .mdl-cell.mdl-cell--2-col
+  .mdl-cell.mdl-cell--8-col
+   h1
+    i.mdi.mdi-close-network
+    span 404
+   .links-404
+    a(href="/home") Início 
+    span | 
+    a(href="#", onclick="history.go(-1)") Voltar 
+  .mdl-cell.mdl-cell--2-col

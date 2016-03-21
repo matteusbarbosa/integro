@@ -1,0 +1,43 @@
+.container
+  .row
+   .col-sm-4
+   .col-sm-4
+    .form-control
+     input.form-control#searchinput(type="search", placeholder="Digite um termo e pressione ENTER", name="searchcontents", [value]="", title="", (keyup.enter)="search()", [(ngModel)]="query_search")
+   .col-sm-4
+  .row
+   .col-sm-12
+    section(*ngIf='result_search != null && result_search.length > 0')
+     i.text-muted {{ result_search.length }} Resultados para {{ searchlastquery }}
+     ul
+      li(*ngFor="#item of result_search")
+       span {{ item.title }}
+       a.text-primary(href="{{ item.url }}", target="_blank") (...)
+    section(*ngIf='result_search != null && result_search.length == 0')
+     i.text-danger Nenhum resultado para {{ searchlastquery }}
+  .row
+    .section-title.col-sm-12
+     h4 Simulados
+  .row
+    .col-sm-4(*ngFor="#dcp of list_course.disciplines")
+      .panel.panel-info.box-discipline
+       .panel-heading
+          h4 
+            i.fa.fa-folder-open-o 
+            span {{ dcp.title }}
+       .panel-body
+          small {{ dcp.details }}
+       .panel-footer
+        table.table
+         tr(*ngFor="#exm of dcp.examinations", (click)="toggleBind(exm, 1)", [class.box-selected]="exm.subs === true", [class.box-available]="exm.subs === false && exm.vacancies_left > 0", [class.box-blocked]="exm.vacancies_left <= 0 && exm.subs === false")
+          th
+           i.fa.fa-arrow-circle-o-right(title="Clique para se inscrever.", *ngIf="exm.subs === false && exm.vacancies_left > 0", [class.hide]="exm.subs === true")
+           i.fa.fa-check-circle-o.link-bound(title="Já inscrito. Clique novamente para desfazer.", *ngIf="exm.subs === true", [class.hide]="exm.subs === false")
+           i.fa.fa-times-circle-o.link-blocked(title="Não há vagas.", *ngIf="exm.subs === false", [class.hide]="exm.vacancies_left > 0")
+          td
+            ul
+              li
+                strong {{ exm.title }} :: 
+                  span ({{ exm.vacancies_left }})
+              li
+                small {{ exm.timecreated }}
