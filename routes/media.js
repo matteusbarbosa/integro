@@ -81,6 +81,20 @@ router.get('/bind/:id', function (req, res, next){
     });
 });
 
+ /*
+ */
+ router.get('/edit/:id', function (req, res, next){
+
+    var id = req.params.id;
+    
+    media.where({ id : id }).fetch().then(function(mediadata){
+
+        var jdata = mediadata.toJSON();
+
+        return res.json(jdata);
+    });
+ });
+
  router.get('/home/redirected/:why', function (req, res, next) {
     var data = {};
 

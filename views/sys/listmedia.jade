@@ -38,3 +38,12 @@
                 strong {{ md.title }}
               li
                 small {{ md.timecreated }}
+          td
+            .dropdown
+              button.btn.btn-sm.btn-link.dropdown-toggle(type="button", id="item-{{ md.id }}-actions", data-toggle="dropdown", aria-haspopup="true", aria-expanded="true", title="Ações relacionadas")
+                i.fa.fa-ellipsis-v
+              ul.dropdown-menu(aria-labelledby="item-{{ md.id }}-actions")
+                li
+                  a(href="/media/edit/{{ md.id }}", title="Editar")
+                    i.fa.fa-edit 
+                    span Editar

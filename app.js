@@ -43,6 +43,7 @@ app.use('/systemjs', express.static(__dirname + '/node_modules/systemjs/dist/'))
 app.use('/typescript', express.static(__dirname + '/node_modules/typescript/'));
 app.use('/materialdesign', express.static(__dirname + '/node_modules/material-design-lite/'));
 app.use('/mdl-icons', express.static(__dirname + '/node_modules/mdi/'));
+app.use('/ng2-file-upload', express.static(__dirname + '/node_modules/ng2-file-upload/'));
 
 app.set('trust proxy', 1);
 
