@@ -12,24 +12,9 @@ export class FrontpageService {
 		
 	}
 
-	find(frontpage_id : number){
-
-		return this.http.get('frontpage/search/' + frontpage_id);
-	}
-
-	bind(frontpage_id : number, user_id: number) {
-
-		return this.http.get('frontpage/bind?id=' + frontpage_id + '&user_id=' + user_id);
-	}
-
-	unlink(frontpage_id: number, user_id: number) {
-
-		return this.http.get('frontpage/unlink?id=' + frontpage_id + '&user_id=' + user_id);
-	}
-
 	getList(course_id : number) {
 
-		return this.http.get('frontpage/bycourse/' + course_id);
+		return this.http.get('api/frontpage/bycourse/' + course_id);
 
 	}
 

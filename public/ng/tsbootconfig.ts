@@ -1,5 +1,6 @@
 System.config({
     transpiler: 'typescript',
+
     map: {
         typescript : '/typescript/lib/typescript.js'
     },
@@ -12,6 +13,12 @@ System.config({
             defaultExtension: 'js'
         },
         'ng': {
+            defaultExtension: 'ts'
+        },
+        'test': {
+            defaultExtension: 'ts'
+        },
+        'ng2-uploader': {
             defaultExtension: 'ts'
         }
     }

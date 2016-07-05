@@ -7,7 +7,7 @@ var transporter = nodemailer.createTransport('smtps://' + mail + ':' + mailpw + 
 
 module.exports = {
     recovery: function (userto, recoverynumber) {
-        
+
         var maildata = {
             to: userto.email,
             from: mail,
@@ -19,7 +19,7 @@ module.exports = {
         return transporter.sendMail(maildata);
     },
     passwordchanged: function (userto) {
-        
+
         var maildata = {
             to: userto.email,
             from: mail,
@@ -51,5 +51,38 @@ module.exports = {
         }; // html body 
 
         return transporter.sendMail(maildata);
-    }
+    },
+    declaration: function (userto, declaration_data) {
+
+        var maildata = {
+            to: userto.email,
+            from: '"SOMA | Financeiro" <'+mail+'>',
+            subject: '✔ Declaração de débitos anuais', // Subject line 
+            text: 'Declaração de débitos anuais', // plaintext body
+            html: declaration_data.message,
+            debug: true,
+            attachments: [{
+            // utf-8 string as an attachment
+            filename: declaration_data.filename,
+            path: declaration_data.path
+        }]
+        }; // html body 
+
+        return transporter.sendMail(maildata);
+    },
+
+    mkt: function (userto, mkt_data) {
+
+        var maildata = {
+            to: userto.email,
+            from: '"Desenvolvedor Web | Matteus Barbosa" <'+mail+'>',
+            subject: "✔ Peça agora seu Website + Hospedagem + Emails a R$49,90/mês. Seu produto na web e Seu negócio conectado!",
+            text: 'Peça agora seu Website + Hospedagem + Emails a R$49,90/mês. Seu produto na web e Seu negócio conectado! http://www.desenvolvedormatteus.com.br/contratar', // plaintext body
+           // html: mkt_data.message,
+            html: mkt_data.message,
+            debug: true,
+        }; // html body 
+
+        return transporter.sendMail(maildata);
+    },
 };

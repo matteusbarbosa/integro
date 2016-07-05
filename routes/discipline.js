@@ -25,6 +25,7 @@ router.get('/home/redirected/:why', function (req, res, next) {
 	res.render('index', data);
 });
 
+/* 
 router.get('/:id/medias/json', function (req, res, next) {
 	var data = {};
 
@@ -44,5 +45,7 @@ router.get('/:id/medias/json', function (req, res, next) {
 	}
 
 });
+
+*/
 
 module.exports = router;

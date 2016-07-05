@@ -1,0 +1,25 @@
+#edit-media.modal.fade(role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+      .modal-content
+        form(action="/media/save", method="POST", (ngSubmit)="save()")
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+            h4#myModalLabel.modal-title Mídia 
+          .modal-body
+              .form-group
+                label Título
+                input.form-control(type="text", name="title", [(ngModel)] = "media.title", ngControl="title")
+              .form-group
+                label Arquivo
+                input#fileupload(type="file", name="file",  [(ngModel)] = "media.file", ngControl="file")
+              .form-group
+                label Detalhes
+                textarea.form-control(name="details",  [(ngModel)] = "media.details", ngControl="details") 
+          .modal-footer
+            .col-sm-4
+                button.btn.btn-danger.pull-left(type='button', data-dismiss='modal', (click)="delete(media, user.id)", *ngIf="media !== null") Excluir
+            .col-sm-4
+              button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar 
+            .col-sm-4
+            button.btn.btn-primary.pull-left(type='submit') Salvar alterações

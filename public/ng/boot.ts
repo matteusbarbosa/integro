@@ -34,4 +34,4 @@ bootstrap(ReinforcementComponent);
 
 import {ClassOptionalComponent} from './components/classoptional/Component';
 
-bootstrap(ClassOptionalComponent); 
+bootstrap(ClassOptionalComponent);
