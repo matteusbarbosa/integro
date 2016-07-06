@@ -27,7 +27,8 @@ export class MediaComponent {
 
 	list_user
 
-	filesToUpload: Array<File>
+	fileToUpload: File
+
 
 	result_bind
 	result_unlink
@@ -55,13 +56,12 @@ export class MediaComponent {
 	}
 
 	upload(){
-
-		this.st.makeFileRequest([],this.filesToUpload);
+		return this.st.makeFileRequest([],this.fileToUpload);
 	}
 
 	fileChange(fileInput: any) {
-
-		this.filesToUpload = <Array<File>> fileInput.target.files;
+		this.fileToUpload = <File> fileInput.target.files;
+		console.log(this.fileToUpload);
 	}
 
 	getList(course_id : number){
@@ -71,7 +71,6 @@ export class MediaComponent {
 	}
 
 	edit(discipline_id : number, md_instance: Media, user_id: number) {
-
 		this.Media = md_instance;
 		this.Media.File = null;
 		this.user.id = user_id;
@@ -83,17 +82,20 @@ export class MediaComponent {
 	}
 
 	save(media: Media, user_id: number) {
+		if(this.fileToUpload != null){
+			var file_uploaded = this.upload();
+			console.log(file_uploaded);
+		}
 
-		console.log('form data:');
+		//media.url = this.upload();
+
+		console.log('media updated');
 		console.log(media);
 
-		console.log('file:');
-		console.log(this.filesToUpload);
-
-		this.upload();
-
 		this.md.save(media, user_id).subscribe(res => {
-			return this.media = res.json();
+			this.media = res.json();
+		//	this.media.title =
+			return this.media;
 		});
 	}
 
@@ -110,16 +112,12 @@ export class MediaComponent {
 		}
 
 		this.md.find(this.query_search).subscribe(res => {
-
 			this.query_search_last = this.query_search;
-
 			return this.result_search = res.json();
-
 		});
 	}
 
 	toggleBind(md_instance: Media, user_id: number) {
-
 		if (md_instance.Subs === true){
 			this.unlink(md_instance, user_id);
 		} else{
@@ -128,24 +126,16 @@ export class MediaComponent {
 	}
 
 	bind(md_instance : Media, user_id : number) {
-
 		md_instance.Subs = true;
-
 		this.md.bind(md_instance.id, user_id).subscribe(res => {
-
 			this.result_bind = res.json();
-
 		});
 	}
 
 	unlink(md_instance: Media, user_id: number) {
-
 		md_instance.Subs = false;
-
 		this.md.unlink(md_instance.id, user_id).subscribe(res => {
-
 			this.result_unlink = res.json();
-
 		});
 	}
 

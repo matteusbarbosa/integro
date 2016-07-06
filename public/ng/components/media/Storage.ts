@@ -12,13 +12,14 @@ export class StorageService {
 		this.http = http;
 	}
 
-	public makeFileRequest(params: string[], files: FileList) {
+	public makeFileRequest(params: string[], files: any) {
+
 		    return new Promise((resolve, reject) => {
             var formData: any = new FormData();
             var xhr = new XMLHttpRequest();
 
             for(var i = 0; i < files.length; i++) {
-                formData.append("uploads[]", files[i], files[i].name);
+                formData.append("file_up", files[i], files[i].name);
             }
 
             xhr.onreadystatechange = function () {

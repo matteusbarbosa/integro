@@ -5,9 +5,26 @@ var discipline = require('../models/discipline');
 var media = require('../models/media');
 var course = require('../models/course');
 var date = require('../custom_modules/date').timezone(-180);
+var utils = require('../custom_modules/utils');
 var session = require('express-session');
-var fileUpload = require('express-fileupload');
+var path = require('path');
+//var fileUpload = require('express-fileupload');
 var multer = require("multer");
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/uploads')
+  },
+  filename: function (req, file, cb) {
+    console.log(file);
+    var file_name = path.basename(file.originalname, path.extname(file.originalname));
+
+    cb(null, utils.removeaccents(file_name, "-", true)+'-'+Date.now()+path.extname(file.originalname));
+  }
+});
+
+var upload = multer({ storage: storage });
+
 var bodyParser = require("body-parser");
 
 router.use(session({
@@ -20,11 +37,10 @@ router.use(session({
  cookie: {maxAge: null, secure: false}
 }));
 
-router.use(fileUpload());
+//router.use(fileUpload());
 
 router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: true }));
- 
+
 router.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -49,7 +65,7 @@ router.get('/create', function (req, res, next){
 
 router.get('/find/:id', function (req, res, next){
     var id = req.params.id;
-    
+
     media.where({ id : id }).fetch().then(function(mediadata){
 
         var jdata = mediadata.toJSON();
@@ -87,20 +103,20 @@ router.get('/inputfile', function(req, res) {
     res.render('sys/uploader');
 });
 
-router.post('/upload', multer({dest: "./public/upload/"}).array("uploads[]", 12), function(req, res) {
+router.post('/upload', upload.array('file_up', 5), function(req, res) {
 
-    console.log('data:');
-    console.log(req.files);
-    console.log(req.body);
-    console.log(req.uploads);
-/*
-    req.uploads[0].mv('/upload/'+req.uploads[0].name, function(err) {
-        if (err) {
-            res.status(500).send(err);
-        } else {
-            res.send('File uploaded!');
-        }
-    }); */
+  console.log(req.files);
+
+  var data = {
+    files : []
+  };
+
+  for(var c = 0; c < req.files.length; c++){
+    data.files[c] = {};
+    data.files[c].path = req.files[c].path;
+  }
+
+  res.json(data);
 });
 
 router.delete('/delete', function (req, res){
@@ -170,7 +186,7 @@ router.get('/bycourse/:courseid', function (req, res, next) {
  router.get('/edit/:id', function (req, res, next){
 
     var id = req.params.id;
-    
+
     media.where({ id : id }).fetch().then(function(mediadata){
 
         var jdata = mediadata.toJSON();

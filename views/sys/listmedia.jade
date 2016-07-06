@@ -1,7 +1,7 @@
 #edit-media.modal.fade(role='dialog', aria-labelledby='myModalLabel')
     .modal-dialog(role='document')
       .modal-content
-        form((ngSubmit)="save(media, media.user_id)", encType="multipart/form-data")
+        form((ngSubmit)="save(media, media.user_id)", enctype="multipart/form-data")
           .modal-header
             button.close(type='button', data-dismiss='modal', aria-label='Close')
               span(aria-hidden='true') &times;
@@ -19,14 +19,14 @@
             .row
               .form-group.col-sm-6(*ngIf="media.id != null")
                 strong
-                  a.btn.btn-success.btn-sm(href="{{ media.url }}", target="_blank", style="margin-top: 18px;") 
-                    i.fa.fa-download 
+                  a.btn.btn-success.btn-sm(href="{{ media.url }}", target="_blank", style="margin-top: 18px;")
+                    i.fa.fa-download
                     span  Download de "{{ media.title }}"
               .form-group.col-sm-6
                   label
-                    span(*ngIf="media.id != null") Modificar 
+                    span(*ngIf="media.id != null") Modificar
                     span Arquivo
-                  input#fileupload(type="file", (change)="onChange($event)")
+                  input#fileupload(type="file", (change)="fileChange($event)", name="file_up", accept="image/*, .doc, .docx, .odf, odp, .ods, .xls")
             .row.col-sm-12
               .form-group.col-sm-6
                   label
@@ -35,12 +35,12 @@
             .row.col-sm-12
               .form-group
                   label Detalhes
-                  textarea.form-control(name="details",  [(ngModel)] = "media.details", ngControl="details", rows="8") 
+                  textarea.form-control(name="details",  [(ngModel)] = "media.details", ngControl="details", rows="8")
           .modal-footer
             .col-sm-4
               .btn-group(*ngIf="media.id != null")
                 button.btn.btn-danger.pull-left(type='button', data-dismiss='modal', (click)="delete()")
-                  i.fa.fa-trash 
+                  i.fa.fa-trash
                   span  Excluir Mídia {{ media.id }}
             .col-sm-4
             .col-sm-4
@@ -71,7 +71,7 @@
     .col-sm-4(*ngFor="#dcp of list_course.disciplines")
       .panel.panel-info.box-discipline
        .panel-heading
-        h4 
+        h4
           i.fa.fa-folder-open-o
           span {{ dcp.title }}
           a.btn.btn-default.pull-right(title="Nova", (click)="create(dcp.id, list_course.user.id)", data-toggle="modal", data-target="#edit-media", *ngIf="dcp.user_id == list_course.user.id") Nova
@@ -95,5 +95,5 @@
                   ul.dropdown-menu(aria-labelledby="item-actions")
                     li
                       a(title="Editar", (click)="edit(dcp.id, md, list_course.user.id)", data-toggle="modal", data-target="#edit-media")
-                        i.fa.fa-edit 
+                        i.fa.fa-edit
                         span Editar
