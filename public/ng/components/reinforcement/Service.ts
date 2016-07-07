@@ -14,22 +14,22 @@ export class ReinforcementService {
 
 	find(query_search : string){
 
-		return this.http.get('reinforcement/search/' + query_search);
+		return this.http.get('api/reinforcement/search/' + query_search);
 	}
 
 	bind(reinforcement_id : number, user_id: number) {
 
-		return this.http.get('reinforcement/bind?id=' + reinforcement_id + '&user_id=' + user_id);
+		return this.http.get('api/bind/reinforcement?id=' + reinforcement_id + '&user_id=' + user_id);
 	}
 
 	unlink(reinforcement_id: number, user_id: number) {
 
-		return this.http.get('reinforcement/unlink?id=' + reinforcement_id + '&user_id=' + user_id);
+		return this.http.get('api/unlink/reinforcement?id=' + reinforcement_id + '&user_id=' + user_id);
 	}
 
 	getList(course_id : number) {
 
-		return this.http.get('reinforcement/bycourse/' + course_id);
+		return this.http.get('api/course/reinforcements?course_id=' + course_id);
 
 	}
 

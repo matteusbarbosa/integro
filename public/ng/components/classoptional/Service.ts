@@ -14,22 +14,22 @@ export class ClassOptionalService {
 
 	find(query_search : string){
 
-		return this.http.get('classoptional/search/' + query_search);
+		return this.http.get('api/classoptional/search/' + query_search);
 	}
 
 	bind(classoptional_id : number, user_id: number) {
 
-		return this.http.get('classoptional/bind?id=' + classoptional_id + '&user_id=' + user_id);
+		return this.http.get('api/bind/classoptional/?id=' + classoptional_id + '&user_id=' + user_id);
 	}
 
 	unlink(classoptional_id: number, user_id: number) {
 
-		return this.http.get('classoptional/unlink?id=' + classoptional_id + '&user_id=' + user_id);
+		return this.http.get('api/unlink/classoptional?id=' + classoptional_id + '&user_id=' + user_id);
 	}
 
 	getList(course_id : number) {
 
-		return this.http.get('classoptional/bycourse/' + course_id);
+		return this.http.get('api/course/classoptionals?course_id=' + course_id);
 
 	}
 

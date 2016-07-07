@@ -1,3 +1,52 @@
+#edit-media.modal.fade(role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+      .modal-content
+        form((ngSubmit)="save(media, media.user_id)", enctype="multipart/form-data")
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+            h4#myModalLabel.modal-title Mídia {{ media.id ? '#'+media.id : '' }}
+          .modal-body
+            .row
+                .form-group.col-sm-6
+                    label Título
+                    input.form-control(type="text", name="title", [(ngModel)] = "media.title", ngControl="title")
+                .form-group.col-sm-6
+                    label Categorizar
+                    select.form-control(name="categorize", [(ngModel)] = "media.categorize", ngControl="categorize")
+                      option(value="") Selecione...
+                      option(*ngFor="#ctg of categories_available", value="{{ ctg.id }}") {{ ctg.title }}
+            .row
+              .form-group.col-sm-6(*ngIf="media.id != null")
+                strong
+                  a.btn.btn-success.btn-sm(href="{{ media.url }}", target="_blank", style="margin-top: 18px;")
+                    i.fa.fa-download
+                    span  Download de "{{ media.title }}"
+              .form-group.col-sm-6
+                  label
+                    span(*ngIf="media.id != null") Modificar
+                    span Arquivo
+                  input#fileupload(type="file", (change)="fileChange($event)", name="file_up", accept="image/*, .doc, .docx, .odf, odp, .ods, .xls")
+            .row.col-sm-12
+              .form-group.col-sm-6
+                  label
+                    span Arquivo
+                  uploader
+            .row.col-sm-12
+              .form-group
+                  label Detalhes
+                  textarea.form-control(name="details",  [(ngModel)] = "media.details", ngControl="details", rows="8")
+          .modal-footer
+            .col-sm-4
+              .btn-group(*ngIf="media.id != null")
+                button.btn.btn-danger.pull-left(type='button', data-dismiss='modal', (click)="delete()")
+                  i.fa.fa-trash
+                  span  Excluir Mídia {{ media.id }}
+            .col-sm-4
+            .col-sm-4
+              button.btn.btn-primary.pull-left(type='submit')
+                i.fa.fa-check-circle-o
+                span  Salvar alterações
 .container
   .row
    .col-sm-4
@@ -10,7 +59,7 @@
     section(*ngIf='result_search != null && result_search.length > 0')
      i.text-muted {{ result_search.length }} Resultados para {{ query_search_last }}
      ul
-      li(*ngFor="#item of result_search") 
+      li(*ngFor="#item of result_search")
         span {{ item.title }}
         a.text-primary(href="{{ item.url }}", target="_blank") (...)
     section(*ngIf='result_search != null && result_search.length == 0')
@@ -22,28 +71,29 @@
     .col-sm-4(*ngFor="#dcp of list_course.disciplines")
       .panel.panel-info.box-discipline
        .panel-heading
-        h4 
+        h4
           i.fa.fa-folder-open-o
           span {{ dcp.title }}
+          a.btn.btn-default.pull-right(title="Nova", (click)="create(dcp.id, list_course.user.id)", data-toggle="modal", data-target="#edit-media", *ngIf="dcp.user_id == list_course.user.id") Nova
        .panel-body
-        small {{ dcp.details }}
+          small {{ dcp.details }}
        .panel-footer
-        table.table
-         tr(*ngFor="#md of dcp.media")
-          th
-           i.fa.fa-floppy-o
-          td
-            ul
-              li
-                strong {{ md.title }}
-              li
-                small {{ md.timecreated }}
-          td
-            .dropdown
-              button.btn.btn-sm.btn-link.dropdown-toggle(type="button", id="item-{{ md.id }}-actions", data-toggle="dropdown", aria-haspopup="true", aria-expanded="true", title="Ações relacionadas")
-                i.fa.fa-ellipsis-v
-              ul.dropdown-menu(aria-labelledby="item-{{ md.id }}-actions")
-                li
-                  a(href="/media/edit/{{ md.id }}", title="Editar")
-                    i.fa.fa-edit 
-                    span Editar
+          table.table
+            tr(*ngFor="#md of dcp.media")
+              th
+                i.fa.fa-floppy-o
+              td
+                ul
+                  li
+                    strong {{ md.title }}
+                  li
+                    small {{ md.timecreated }}
+              td
+                .dropdown
+                  button.btn.btn-sm.btn-link.dropdown-toggle(type="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="true", title="Ações relacionadas")
+                    i.fa.fa-ellipsis-v
+                  ul.dropdown-menu(aria-labelledby="item-actions")
+                    li
+                      a(title="Editar", (click)="edit(dcp.id, md, list_course.user.id)", data-toggle="modal", data-target="#edit-media")
+                        i.fa.fa-edit
+                        span Editar

@@ -170,21 +170,6 @@ main{
     margin-right: 12px;
 }
 
-.modal {    
-    background-color: #fff;
-    bottom: 0;
-    height: 0vh;
-    overflow-y: auto;
-    position: fixed;
-    transition: height .25s;
-    width: 100vw;
-    z-index: 4;
-
-    &.is-visible {
-        height: 100vh;
-    }
-}
-
 .c-wt{
     color: #fff !important;
 }
@@ -195,8 +180,6 @@ main{
         border: 0px;
     }
 }
-
-
 
 #page-404{
     h1{
@@ -248,7 +231,7 @@ main{
                 vertical-align: middle;
                 i.fa{
                     font-size: 1.8em;
-                    
+
                 }
             }
 
@@ -262,3 +245,7 @@ main{
         }
     }
 }
+
+.my-drop-zone { border: dotted 3px lightgray; }
+.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+.another-file-over-class { border: dotted 3px green; }
